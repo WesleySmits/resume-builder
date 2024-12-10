@@ -1,86 +1,101 @@
+@import './typography.css';
+@import './form.css';
+@import './buttons.css';
+@import './lists.css';
+
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+    /* Light Theme */
+    --background-color: #ffffff;
+    --background-secondary: #f4f4f4;
+    --text-color: #333333;
+    --text-muted: #7d7d7d;
+    --highlight-color: #dcb83a;
+    --highlight-color-selected: #b3942e;
+    --primary-color: #4a90e2;
+    --border-color: #e0e0e0;
+    --color-state-error: #dc3545;
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+    /* Dark Theme */
+    --background-color-dark: #000000;
+    --background-secondary-dark: #121212;
+    --text-color-dark: #e0e0e0;
+    --text-muted-dark: #a0a0a0;
+    --primary-color-dark: #1e90ff;
+    --border-color-dark: #2c2c2c;
 
-  --vt-c-indigo: #2c3e50;
+    /* Shared */
+    --font-family: 'Inter', sans-serif;
+    --font-family-heading: 'Merriweather', serif;
+    --font-size-base: 16px;
+    --line-height-base: 1.5;
 
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+    --transition-duration: 0.4s;
 }
 
-/* semantic color variables for this project */
+/* Semantic Variables */
 :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
+    --color-background: var(--background-color);
+    --color-background-secondary: var(--background-secondary-color);
+    --color-text: var(--text-color);
+    --color-text-muted: var(--text-muted);
+    --color-highlight: var(--highlight-color);
+    --color-border: var(--border-color);
+    --color-button-background: var(--primary-color);
+    --color-button-text: var(--background-color);
 
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
-
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
-
-  --section-gap: 160px;
+    /* Shared */
+    --section-gap: 10rem;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
+    /* Override Semantic Variables for Dark Theme */
+    :root {
+        --color-background: var(--background-color-dark);
+        --color-background-secondary: var(--background-secondary-color-dark);
+        --color-text: var(--text-color-dark);
+        --color-text-muted: var(--text-muted-dark);
+        --color-border: var(--border-color-dark);
+        --color-button-background: var(--primary-color-dark);
+        --color-button-text: var(--background-color-dark);
+    }
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
+    box-sizing: border-box;
 }
 
 body {
-  min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
-  line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    color: var(--color-text);
+    background: var(--color-background);
+    transition:
+        color 0.5s,
+        background-color 0.5s;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-family-heading);
+    margin: 0;
+}
+
+a {
+    color: var(--color-highlight);
+    text-decoration: none;
+    transition:
+        filter var(--transition-duration) ease,
+        border-color var(--transition-duration) ease;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+        border-color: var(--color-highlight);
+        filter: brightness(90%);
+    }
 }
