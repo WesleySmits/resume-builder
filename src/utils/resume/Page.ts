@@ -3,7 +3,7 @@ import { rgb, StandardFonts } from 'pdf-lib';
 
 import * as en from '@/locales/en.json';
 import * as nl from '@/locales/nl.json';
-import { base64ToUint8Array } from '../base64';
+import { base64ToUint8Array } from '../image';
 
 const locales: Record<Locales, Record<string, string>> = {
     en: en,
@@ -109,7 +109,7 @@ export default class Page {
         return this.#document.addPage([595.28, 841.89]);
     }
 
-    protected async drawImage(src: string, width: number = 140, height: number = 140): Promise<void> {
+    protected async drawImage(src: string, width: number = 140, height: number = 140): Promise<number> {
         if (this.#document === null) {
             throw new Error('Document not initialized');
         }
@@ -126,13 +126,15 @@ export default class Page {
         }
 
         const actualY = this.page.getHeight() - this.currentY - height;
-        console.log('location', this.currentY, actualY, width, height);
+
         this.page.drawImage(image, {
             x: this.currentX,
             y: actualY,
             width,
             height,
         });
+
+        return Promise.resolve(height + SPACING * 2);
     }
 
     protected drawText(props: DrawFieldProps): number {

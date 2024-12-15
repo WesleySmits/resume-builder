@@ -1,6 +1,6 @@
 import { getFormattedName, type General } from '@/stores/resume';
 import type { PDFDocument } from 'pdf-lib';
-import Page from './Page';
+import Page, { getLocalizedString } from './Page';
 
 export default class IntroductionPage extends Page {
     static #instance: IntroductionPage | null = null;
@@ -31,8 +31,46 @@ export default class IntroductionPage extends Page {
     public async drawLeftColumn() {
         super.drawLeftColumn();
 
+        const DEFINITION_COLUMN_X = 172;
+
         if (this.#generalData.profilePhoto) {
-            await this.drawImage(this.#generalData.profilePhoto);
+            this.currentY += await this.drawImage(this.#generalData.profilePhoto, 140, 140);
+        }
+
+        if (this.#generalData.name?.firstName) {
+            this.drawText({
+                text: getLocalizedString('firstName'),
+                size: this.textSize,
+                font: this.titleFont,
+                y: this.currentY,
+                x: this.currentX,
+            });
+
+            this.currentY += this.drawText({
+                text: this.#generalData.name.firstName,
+                size: this.textSize,
+                font: this.textFont,
+                y: this.currentY,
+                x: DEFINITION_COLUMN_X,
+            });
+        }
+
+        if (this.#generalData.drivingLicense) {
+            this.drawText({
+                text: getLocalizedString('drivingLicense'),
+                size: this.textSize,
+                font: this.titleFont,
+                y: this.currentY,
+                x: this.currentX,
+            });
+
+            this.currentY += this.drawText({
+                text: this.#generalData.drivingLicense,
+                size: this.textSize,
+                font: this.textFont,
+                y: this.currentY,
+                x: DEFINITION_COLUMN_X,
+            });
         }
     }
 
@@ -64,7 +102,7 @@ export default class IntroductionPage extends Page {
 
         if (this.#generalData.achievements) {
             this.drawField({
-                title: 'Achievements',
+                title: getLocalizedString('achievements'),
                 bulletList: this.#generalData.achievements,
                 needsSpacing: true,
             });
@@ -72,7 +110,7 @@ export default class IntroductionPage extends Page {
 
         if (this.#generalData.colleaguesDescribe) {
             this.drawField({
-                title: 'How would colleagues describe you?',
+                title: getLocalizedString('colleaguesDescribe'),
                 text: this.#generalData.colleaguesDescribe,
                 needsSpacing: true,
             });
@@ -80,7 +118,7 @@ export default class IntroductionPage extends Page {
 
         if (this.#generalData.colleaguesKnow) {
             this.drawField({
-                title: 'What should colleagues know about you?',
+                title: getLocalizedString('colleaguesKnow'),
                 text: this.#generalData.colleaguesKnow,
                 needsSpacing: true,
             });

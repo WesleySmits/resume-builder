@@ -33,3 +33,11 @@ interface DrawBulletedListProps {
     x?: number;
     y?: number;
 }
+
+type RoundImageProps = {
+    image: PDFImage;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+};

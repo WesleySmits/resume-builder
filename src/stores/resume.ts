@@ -1,3 +1,4 @@
+import { roundImage } from '@/utils/image';
 import { reactive, watch } from 'vue';
 
 export interface Name {
@@ -77,8 +78,10 @@ export function updateProfilePhoto(profilePhoto: File) {
     // convert File to base64
     const reader = new FileReader();
     reader.readAsDataURL(profilePhoto);
-    reader.onload = () => {
-        resumeData.general.profilePhoto = reader.result as string;
+    reader.onload = async () => {
+        const base64 = reader.result as string;
+        const roundedBase64 = await roundImage(base64, 140, 140);
+        resumeData.general.profilePhoto = roundedBase64;
     };
 }
 
