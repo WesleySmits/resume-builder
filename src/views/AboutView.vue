@@ -114,6 +114,36 @@
                     </tbody>
                 </table>
             </section>
+
+            <section>
+                <h2>Tabbed Content</h2>
+                <TabBar :tabs="tabs" v-model:activeTab="activeTab" />
+
+                <TabContent :activeTab="activeTab">
+                    <template #default="{ activeTab }">
+                        <div v-if="activeTab === 'general'">
+                            <h1>General Information</h1>
+                            <p>Enter general details here.</p>
+                        </div>
+                        <div v-else-if="activeTab === 'skills'">
+                            <h1>Skills</h1>
+                            <p>Showcase your skills here.</p>
+                        </div>
+                        <div v-else-if="activeTab === 'education'">
+                            <h1>Education</h1>
+                            <p>Provide your educational background here.</p>
+                        </div>
+                        <div v-else-if="activeTab === 'work'">
+                            <h1>Work Experience</h1>
+                            <p>Describe your work experience here.</p>
+                        </div>
+                        <div v-else-if="activeTab === 'additional'">
+                            <h1>Additional Information</h1>
+                            <p>Provide any additional information here.</p>
+                        </div>
+                    </template>
+                </TabContent>
+            </section>
         </main>
 
         <footer>
@@ -124,6 +154,19 @@
 
 <script lang="ts" setup>
 import FormField from '@/components/FormField.vue'
+import TabBar from '@/components/TabBar.vue'
+import TabContent from '@/components/TabContent.vue'
+import { ref } from 'vue'
+
+const tabs = [
+    { id: 'general', name: 'General Information' },
+    { id: 'skills', name: 'Skills' },
+    { id: 'education', name: 'Education' },
+    { id: 'work', name: 'Work Experience' },
+    { id: 'additional', name: 'Additional Information' },
+]
+
+const activeTab = ref('general')
 </script>
 
 <style lang="postcss" scoped>

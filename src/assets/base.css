@@ -1,3 +1,4 @@
+@import './reset.css';
 @import './typography.css';
 @import './form.css';
 @import './buttons.css';
@@ -98,4 +99,10 @@ a {
         border-color: var(--color-highlight);
         filter: brightness(90%);
     }
+}
+
+img,
+video,
+canvas {
+    max-width: 100%;
 }

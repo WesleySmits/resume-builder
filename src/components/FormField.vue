@@ -1,7 +1,7 @@
 <template>
     <div class="form-field">
-        <input
-            :type="type"
+        <component
+            :is="inputType"
             :id="id"
             :placeholder="placeholder"
             :required="required"
@@ -10,7 +10,14 @@
             @input="handleInput"
             @blur="validate"
             ref="inputRef"
-        />
+            v-bind="inputAttrs"
+        >
+            <template v-if="inputType === 'select'">
+                <option v-for="option in options" :key="option.value" :value="option.value">
+                    {{ option.text }}
+                </option>
+            </template>
+        </component>
 
         <label :for="id">{{ label }}</label>
 
@@ -27,56 +34,79 @@
 </template>
 
 <script setup lang="ts">
-import { debounce } from '@/utils/debounce'
-import { reactive, computed, ref } from 'vue'
+import { debounce } from '@/utils/debounce';
+import { reactive, computed, ref } from 'vue';
 
 // Props
 const props = defineProps<{
-    id: string
-    label: string
-    placeholder?: string
-    type?: string
-    required?: boolean
-    helperText?: string
-    errorText?: string
-    modelValue: string
-}>()
+    id: string;
+    label: string;
+    placeholder?: string;
+    type?: string;
+    required?: boolean;
+    helperText?: string;
+    errorText?: string;
+    modelValue?: string | File;
+    options?: { value: string; text: string }[];
+}>();
 
 const emit = defineEmits<{
-    (e: 'update:modelValue', value: string): void
-}>()
+    (e: 'update:modelValue', value: string): void;
+    (e: 'valid', value: string | File): void;
+}>();
 
-const inputRef = ref<HTMLInputElement | null>(null)
+const inputRef = ref<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null>(null);
 const formState = reactive({
-    value: '',
+    value: props.modelValue,
     error: false,
-})
+});
+
+const inputType = computed(() => {
+    if (props.type === 'textarea') return 'textarea';
+    if (props.type === 'select') return 'select';
+    return 'input';
+});
+
+const inputAttrs = computed(() => {
+    if (inputType.value === 'select') {
+        return {};
+    }
+    return {
+        type: props.type,
+    };
+});
 
 const ariaDescribedBy = computed(() =>
     formState.error ? `${props.id}-helper ${props.id}-error` : `${props.id}-helper`,
-)
+);
 
 function validate() {
     if (inputRef.value && !inputRef.value.checkValidity()) {
-        formState.error = true
-        console.log('invalid', inputRef.value.validity)
+        formState.error = true;
     } else {
-        console.log('valid', inputRef.value, inputRef.value?.validity)
-        formState.error = false
+        formState.error = false;
+        if (formState.value) {
+            emit('valid', formState.value);
+        }
     }
 }
 
-function handleInput(e: Event) {
-    const event = e as InputEvent
-    const target = event.target as HTMLInputElement
-    formState.value = target.value
-    emit('update:modelValue', formState.value)
-    debouncedValidate()
+function handleInput(event: Event) {
+    const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+
+    if (props.type === 'file' && target instanceof HTMLInputElement && target.files) {
+        formState.value = target.files[0];
+        emit('valid', target.files[0]);
+    } else {
+        formState.value = target.value;
+        emit('update:modelValue', target.value);
+        debouncedValidate();
+    }
 }
 
 const debouncedValidate = debounce(() => {
-    validate()
-})
+    validate();
+});
 </script>
 
 <style scoped>
