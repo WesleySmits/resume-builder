@@ -39,7 +39,7 @@ async function renderPDF() {
 
 async function renderPage(num: number) {
     if (!pdf) {
-        console.log('No PDF document to render');
+        console.error('No PDF document to render');
         return;
     }
 

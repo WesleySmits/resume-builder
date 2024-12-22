@@ -90,10 +90,6 @@ export default class SkillsPage extends Page {
     #renderUnderlinedTitle(title: string, width = 60): number {
         let totalAddedHeight = 0;
 
-        console.log('Page width', this.page.getWidth());
-        console.log('Width', width);
-        console.log('End', this.page.getWidth() - width);
-
         totalAddedHeight += this.drawField({
             title: title,
             needsSpacing: false,

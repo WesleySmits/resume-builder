@@ -20,7 +20,6 @@ export function getLocalizedString(
     if (variables) {
         return (
             translationString?.replace(/{(.*?)}/g, (_, match) => {
-                console.log(translationString, variables, match);
                 return variables[match] as string;
             }) || key
         );
