@@ -1,16 +1,19 @@
 <template>
     <div class="form-field">
         <component
-            :is="inputType"
+            :is="inputType === 'skills' ? SkillsTagInput : inputType"
             :id="id"
+            class="form-field__input"
             :placeholder="placeholder"
             :required="required"
             :value="formState.value"
             :aria-describedby="ariaDescribedBy"
+            :modelValue="formState.value"
             @input="handleInput"
             @blur="validate"
-            ref="inputRef"
+            @update:modelValue="handleInput"
             v-bind="inputAttrs"
+            ref="inputRef"
         >
             <template v-if="inputType === 'select'">
                 <option v-for="option in options" :key="option.value" :value="option.value">
@@ -36,6 +39,7 @@
 <script setup lang="ts">
 import { debounce } from '@/utils/debounce';
 import { reactive, computed, ref } from 'vue';
+import SkillsTagInput from './SkillsTagInput.vue';
 
 // Props
 const props = defineProps<{
@@ -46,13 +50,13 @@ const props = defineProps<{
     required?: boolean;
     helperText?: string;
     errorText?: string;
-    modelValue?: string | File;
+    modelValue?: string | string[] | File;
     options?: { value: string; text: string }[];
 }>();
 
 const emit = defineEmits<{
-    (e: 'update:modelValue', value: string): void;
-    (e: 'valid', value: string | File): void;
+    (e: 'update:modelValue', value: string | string[]): void;
+    (e: 'valid', value: string | string[] | File): void;
 }>();
 
 const inputRef = ref<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null>(null);
@@ -64,6 +68,7 @@ const formState = reactive({
 const inputType = computed(() => {
     if (props.type === 'textarea') return 'textarea';
     if (props.type === 'select') return 'select';
+    if (props.type === 'skills') return 'skills';
     return 'input';
 });
 
@@ -97,6 +102,10 @@ function handleInput(event: Event) {
     if (props.type === 'file' && target instanceof HTMLInputElement && target.files) {
         formState.value = target.files[0];
         emit('valid', target.files[0]);
+    } else if (props.type === 'skills') {
+        const value = event as unknown as string[];
+        formState.value = value;
+        emit('update:modelValue', value);
     } else {
         formState.value = target.value;
         emit('update:modelValue', target.value);
@@ -121,7 +130,8 @@ const debouncedValidate = debounce(() => {
 
     input,
     textarea,
-    select {
+    select,
+    .form-field__input {
         order: 2;
     }
 

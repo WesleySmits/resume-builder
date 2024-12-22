@@ -1,5 +1,6 @@
 <template>
     <div class="resume-preview">
+        <h2>{{ headerText }}</h2>
         <div id="pdf-container"></div>
         <div class="navigation-controls">
             <button @click="prevPage" :disabled="pageNum <= 1">Previous</button>
@@ -15,27 +16,40 @@ import * as pdfjsLib from 'pdfjs-dist/';
 import { type PDFDocumentProxy } from 'pdfjs-dist';
 import { resumeData } from '@/stores/resume';
 import { generateResume } from '@/utils/resume/resume';
+import { getLocalizedString } from '@/utils/resume/Page';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 
+const headerText = ref(getLocalizedString('resumePreview'));
+
 const pageNum = ref(1);
 const pageCount = ref(0);
+
+let pdf: PDFDocumentProxy;
 
 async function renderPDF() {
     const pdfData = await generateResume(resumeData);
     const loadingTask = pdfjsLib.getDocument({ data: pdfData });
 
-    const pdf = await loadingTask.promise;
+    pdf = await loadingTask.promise;
     pageCount.value = pdf.numPages;
 
-    renderPage(pageNum.value, pdf);
+    renderPage(pageNum.value);
 }
 
-async function renderPage(num: number, doc?: PDFDocumentProxy) {
-    const pdfDocument = doc ?? null;
-    if (!pdfDocument) return;
+async function renderPage(num: number) {
+    if (!pdf) {
+        console.log('No PDF document to render');
+        return;
+    }
 
-    const page = await pdfDocument.getPage(num);
+    const debug = false;
+
+    if (debug) {
+        num = 3;
+    }
+
+    const page = await pdf.getPage(num);
 
     const viewport = page.getViewport({ scale: 1.5 });
     const canvas = document.createElement('canvas');
@@ -66,6 +80,7 @@ const prevPage = () => {
 
 const nextPage = () => {
     if (pageNum.value >= pageCount.value) return;
+
     pageNum.value++;
     renderPage(pageNum.value);
 };
@@ -81,6 +96,7 @@ onMounted(renderPDF);
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
 }
 #pdf-container {
     width: 100%;
@@ -88,6 +104,8 @@ onMounted(renderPDF);
     overflow: auto;
 }
 .navigation-controls {
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 </style>

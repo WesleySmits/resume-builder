@@ -55,6 +55,24 @@ export default class IntroductionPage extends Page {
             });
         }
 
+        if (this.#generalData.region) {
+            this.drawText({
+                text: getLocalizedString('region'),
+                size: this.textSize,
+                font: this.titleFont,
+                y: this.currentY,
+                x: this.currentX,
+            });
+
+            this.currentY += this.drawText({
+                text: this.#generalData.region,
+                size: this.textSize,
+                font: this.textFont,
+                y: this.currentY,
+                x: DEFINITION_COLUMN_X,
+            });
+        }
+
         if (this.#generalData.drivingLicense) {
             this.drawText({
                 text: getLocalizedString('drivingLicense'),
@@ -110,7 +128,7 @@ export default class IntroductionPage extends Page {
 
         if (this.#generalData.colleaguesDescribe) {
             this.drawField({
-                title: getLocalizedString('colleaguesDescribe'),
+                title: getLocalizedString('colleaguesDescribeTitle'),
                 text: this.#generalData.colleaguesDescribe,
                 needsSpacing: true,
             });
@@ -118,7 +136,7 @@ export default class IntroductionPage extends Page {
 
         if (this.#generalData.colleaguesKnow) {
             this.drawField({
-                title: getLocalizedString('colleaguesKnow'),
+                title: getLocalizedString('colleaguesKnowTitle'),
                 text: this.#generalData.colleaguesKnow,
                 needsSpacing: true,
             });

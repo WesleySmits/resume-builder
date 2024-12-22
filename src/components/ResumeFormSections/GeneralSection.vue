@@ -1,105 +1,108 @@
 <template>
     <div class="form">
         <fieldset>
-            <legend>Name</legend>
+            <legend>{{ getLocalizedString('name') }}</legend>
 
             <FormField
                 id="firstName"
-                label="First name"
-                placeholder="Enter your first name"
-                required
-                helperText="Enter your first name here."
-                errorText="This field is required."
+                :label="getLocalizedString('firstName')"
+                :placeholder="getLocalizedString('firstNamePlaceholder')"
+                :helperText="getLocalizedString('firstNameHelperText')"
+                :errorText="getLocalizedString('requiredFieldError')"
                 @valid="(value) => handleNameChange(value as string, 'firstName')"
                 :modelValue="general.name?.firstName ?? ''"
+                required
             />
 
             <FormField
                 id="middleName"
-                label="Middle name"
-                placeholder="Enter your middle name"
-                helperText="Enter your middle name here."
-                errorText="This field is required."
+                :label="getLocalizedString('middleName')"
+                :placeholder="getLocalizedString('middleNamePlaceholder')"
+                :helperText="getLocalizedString('middleNameHelperText')"
                 @valid="(value) => handleNameChange(value as string, 'middleName')"
                 :modelValue="general.name?.middleName ?? ''"
             />
 
             <FormField
                 id="lastName"
-                label="Last name"
-                placeholder="Enter your last name"
-                helperText="Enter your last name here."
-                errorText="This field is required."
+                :label="getLocalizedString('lastName')"
+                :placeholder="getLocalizedString('lastNamePlaceholder')"
+                :helperText="getLocalizedString('lastNameHelperText')"
+                :errorText="getLocalizedString('requiredFieldError')"
                 @valid="(value) => handleNameChange(value as string, 'lastName')"
                 :modelValue="general.name?.lastName ?? ''"
+                required
             />
 
             <FormField
                 id="displayName"
-                label="Display name"
-                placeholder="Enter your display name"
-                helperText="Enter your display name here."
-                errorText="This field is required."
+                :label="getLocalizedString('displayName')"
+                :placeholder="getLocalizedString('displayNamePlaceholder')"
+                :helperText="getLocalizedString('displayNameHelperText')"
                 @valid="(value) => handleNameChange(value as string, 'displayName')"
                 :modelValue="general.name?.displayName ?? ''"
             />
         </fieldset>
 
         <fieldset>
-            <legend>Personal data</legend>
+            <legend>{{ getLocalizedString('personalInformation') }}</legend>
 
             <div>
-                <img :src="profilePhotoUrl" alt="Profile photo" width="100" height="100" v-if="profilePhotoUrl" />
+                <img
+                    :src="profilePhotoUrl"
+                    :alt="getLocalizedString('profilePhoto')"
+                    width="100"
+                    height="100"
+                    v-if="profilePhotoUrl"
+                />
             </div>
 
             <FormField
                 id="profile-photo"
-                label="Profile photo"
                 type="file"
                 accept="image/*"
-                helperText="Upload your profile photo here."
-                errorText="This field is required."
+                :label="getLocalizedString('profilePhoto')"
+                :helperText="getLocalizedString('profilePhotoHelperText')"
+                :errorText="getLocalizedString('requiredFieldError')"
                 @valid="(value) => handleProfilePhotoChange(value as File)"
+                required
             />
 
             <FormField
                 id="phone"
                 label="Phone"
                 type="tel"
-                placeholder="Enter your phone number"
-                helperText="Enter your phone number here."
-                errorText="This field is required."
+                :placeholder="getLocalizedString('phoneNumberPlaceholder')"
+                :helperText="getLocalizedString('phoneNumberHelperText')"
                 @valid="(value) => handleContactChange(value as string, 'phone')"
                 :modelValue="general.contact?.phone ?? ''"
             />
 
             <FormField
                 id="email"
-                label="Email"
                 type="email"
-                placeholder="Enter your email address"
-                helperText="Enter your email address here."
-                errorText="This field is required."
+                :label="getLocalizedString('emailAddress')"
+                :placeholder="getLocalizedString('emailAddressPlaceholder')"
+                :helperText="getLocalizedString('emailAddressHelperText')"
                 @valid="(value) => handleContactChange(value as string, 'email')"
                 :modelValue="general.contact?.email ?? ''"
+                required
             />
 
             <FormField
                 id="region"
-                label="Region"
-                placeholder="Enter your region"
-                helperText="Enter your region here."
-                errorText="This field is required."
+                :label="getLocalizedString('region')"
+                :placeholder="getLocalizedString('regionPlaceholder')"
+                :helperText="getLocalizedString('regionHelperText')"
                 @valid="(value) => handleRegionChange(value as string)"
                 :modelValue="general.region ?? ''"
             />
 
             <FormField
                 id="drivingLicense"
-                label="Driving license"
-                placeholder="Enter your driving license"
-                helperText="Enter your driving license here."
-                errorText="This field is required."
+                :label="getLocalizedString('drivingLicense')"
+                :placeholder="getLocalizedString('drivingLicensePlaceholder')"
+                :helperText="getLocalizedString('drivingLicenseHelperText')"
                 @valid="(value) => handleDrivingLicenseChange(value as string)"
                 :modelValue="general.drivingLicense ?? ''"
                 type="select"
@@ -125,35 +128,37 @@
 
             <FormField
                 id="functionTitle"
-                label="Function title"
-                placeholder="Enter your function title"
-                helperText="Enter your function title here."
-                errorText="This field is required."
+                :label="getLocalizedString('functionTitle')"
+                :placeholder="getLocalizedString('functionTitlePlaceholder')"
+                :helperText="getLocalizedString('functionTitleHelperText')"
+                :errorText="getLocalizedString('requiredFieldError')"
                 @valid="(value) => handleFunctionTitleChange(value as string)"
                 :modelValue="general.functionTitle ?? ''"
             />
         </fieldset>
 
         <fieldset>
-            <legend>About</legend>
+            <legend>{{ getLocalizedString('about') }}</legend>
 
             <FormField
                 id="introduction"
-                label="Introduction"
-                placeholder="Enter your introduction"
-                helperText="Enter your introduction here."
-                errorText="This field is required."
+                :label="getLocalizedString('introduction')"
+                :placeholder="getLocalizedString('introductionPlaceholder')"
+                :helperText="getLocalizedString('introductionHelperText')"
+                :errorText="getLocalizedString('requiredFieldError')"
                 @valid="(value) => handleIntroductionChange(value as string)"
                 :modelValue="general.introduction ?? ''"
                 type="textarea"
+                required
             />
 
             <FormField
                 id="achievement1"
-                label="Achievement 1"
-                placeholder="Enter your first achievement"
-                helperText="Enter your first achievement here."
-                errorText="This field is required."
+                :label="getLocalizedString('achievement', { number: 1 })"
+                :placeholder="getLocalizedString('achievementPlaceholder')"
+                :helperText="
+                    getLocalizedString('achievementHelperText', { amount: getLocalizedString('first').toLowerCase() })
+                "
                 @valid="(value) => handleAchievementChange(0, value as string)"
                 :modelValue="general.achievements?.[0] ?? ''"
                 type="textarea"
@@ -161,10 +166,11 @@
 
             <FormField
                 id="achievement2"
-                label="Achievement 2"
-                placeholder="Enter your second achievement"
-                helperText="Enter your second achievement here."
-                errorText="This field is required."
+                :label="getLocalizedString('achievement', { number: 2 })"
+                :placeholder="getLocalizedString('achievementPlaceholder')"
+                :helperText="
+                    getLocalizedString('achievementHelperText', { amount: getLocalizedString('second').toLowerCase() })
+                "
                 @valid="(value) => handleAchievementChange(1, value as string)"
                 :modelValue="general.achievements?.[1] ?? ''"
                 type="textarea"
@@ -172,10 +178,11 @@
 
             <FormField
                 id="achievement3"
-                label="Achievement 3"
-                placeholder="Enter your third achievement"
-                helperText="Enter your third achievement here."
-                errorText="This field is required."
+                :label="getLocalizedString('achievement', { number: 3 })"
+                :placeholder="getLocalizedString('achievementPlaceholder')"
+                :helperText="
+                    getLocalizedString('achievementHelperText', { amount: getLocalizedString('third').toLowerCase() })
+                "
                 @valid="(value) => handleAchievementChange(2, value as string)"
                 :modelValue="general.achievements?.[2] ?? ''"
                 type="textarea"
@@ -183,24 +190,26 @@
 
             <FormField
                 id="colleaguesDescribe"
-                label="Colleagues Describe"
-                placeholder="Enter how your colleagues describe you"
-                helperText="Enter how your colleagues describe you here."
-                errorText="This field is required."
+                :label="getLocalizedString('colleaguesDescribe')"
+                :placeholder="getLocalizedString('colleaguesDescribePlaceholder')"
+                :helperText="getLocalizedString('colleaguesDescribeHelperText')"
+                :errorText="getLocalizedString('requiredFieldError')"
                 @valid="(value) => handleColleaguesDescribeChange(value as string)"
                 :modelValue="general.colleaguesDescribe ?? ''"
                 type="textarea"
+                required
             />
 
             <FormField
                 id="colleaguesKnow"
-                label="Colleagues Know"
-                placeholder="Enter what your colleagues know about you"
-                helperText="Enter what your colleagues know about you here."
-                errorText="This field is required."
+                :label="getLocalizedString('colleaguesKnow')"
+                :placeholder="getLocalizedString('colleaguesKnowPlaceholder')"
+                :helperText="getLocalizedString('colleaguesKnowHelperText')"
+                :errorText="getLocalizedString('requiredFieldError')"
                 @valid="(value) => handleColleaguesKnowChange(value as string)"
                 :modelValue="general.colleaguesKnow ?? ''"
                 type="textarea"
+                required
             />
         </fieldset>
     </div>
@@ -225,6 +234,7 @@ import {
 
 import FormField from '@/components/FormField.vue';
 import { computed, reactive } from 'vue';
+import { getLocalizedString } from '@/utils/resume/Page';
 
 const general = reactive(resumeData.general);
 const profilePhotoUrl = computed(() => {

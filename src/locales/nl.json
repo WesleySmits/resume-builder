@@ -2,6 +2,20 @@
     "achievements": "Prestaties",
     "colleaguesDescribe": "Hoe omschrijven collega's jou?",
     "colleaguesKnow": "Wat moeten collega's over jou weten?",
+    "name": "Naam",
     "firstName": "Voornaam",
-    "drivingLicense": "Rijbewijs"
+    "enterYourFirstName": "Voer je voornaam in",
+    "lastName": "Achternaam",
+    "enterYourLastName": "Voer je achternaam in",
+    "drivingLicense": "Rijbewijs",
+    "region": "Regio",
+    "technicalSkills": "Technische Vaardigheden",
+    "programmingLanguagesTitle": "Programmeertalen, scripttalen en opmaaktalen",
+    "frameworksTitle": "(Web) frameworks",
+    "platformsTitle": "Platforms",
+    "operatingSystemsTitle": "Besturingssystemen",
+    "methodologiesTitle": "Methodologieën en technieken",
+    "databasesTitle": "Databases",
+    "toolsTitle": "Tools and libraries",
+    "resumePreview": "CV Voorbeeld"
 }

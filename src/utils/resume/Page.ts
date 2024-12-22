@@ -10,14 +10,29 @@ const locales: Record<Locales, Record<string, string>> = {
     nl: nl,
 };
 
-export function getLocalizedString(key: string, lang: Locales = 'en'): string {
-    return locales[lang][key] || key;
+export function getLocalizedString(
+    key: string,
+    variables?: Record<string, string | number>,
+    lang: Locales = 'en',
+): string {
+    const translationString = locales[lang][key];
+
+    if (variables) {
+        return (
+            translationString?.replace(/{(.*?)}/g, (_, match) => {
+                console.log(translationString, variables, match);
+                return variables[match] as string;
+            }) || key
+        );
+    }
+
+    return translationString || key;
 }
 
-const SPACING = 10;
-const VERTICAL_EDGE_SPACING = 100;
-const HORIZONTAL_EDGE_SPACING = 60;
-const RIGHT_COLUMN_START = 295;
+export const SPACING = 10;
+export const VERTICAL_EDGE_SPACING = 100;
+export const HORIZONTAL_EDGE_SPACING = 60;
+export const RIGHT_COLUMN_START = 295;
 
 export default class Page {
     #document: PDFDocument | null = null;
@@ -51,7 +66,27 @@ export default class Page {
         this.page = this.addPage();
     }
 
-    protected drawField(props: FieldData): void {
+    protected drawLine(props: LineProps): number {
+        const actualY = {
+            start: this.page.getHeight() - props.vertical.start + 10,
+            end: this.page.getHeight() - props.vertical.end + 10,
+        };
+
+        this.page.drawLine({
+            start: { x: props.horizontal.start, y: actualY.start },
+            end: { x: props.horizontal.end, y: actualY.end },
+            thickness: props.thickness,
+            color: props.color,
+        });
+
+        this.currentY += props.thickness + SPACING;
+
+        return props.thickness + SPACING;
+    }
+
+    protected drawField(props: FieldData): number {
+        let totalAddedHeight = 0;
+
         if (this.page === null) {
             throw new Error('Page not initialized');
         }
@@ -62,33 +97,49 @@ export default class Page {
 
         if (props.needsSpacing) {
             this.currentY += SPACING;
+            totalAddedHeight += SPACING;
         }
 
         if (props.title) {
-            this.currentY += this.drawText({
+            const addedHeight = this.drawText({
                 text: props.title,
                 size: this.titleSize,
                 font: this.titleFont,
                 centerText: props.centerText,
             });
+
+            this.currentY += addedHeight;
+            totalAddedHeight += addedHeight;
         }
 
         if (props.text) {
-            this.currentY += this.drawText({
+            const addedHeight = this.drawText({
                 text: props.text,
                 size: this.textSize,
                 font: this.textFont,
                 centerText: props.centerText,
             });
+
+            this.currentY += addedHeight;
+            totalAddedHeight += addedHeight;
         }
 
         if (props.bulletList) {
-            this.currentY += this.drawBulletedList({
+            const addedHeight = this.drawBulletedList({
                 items: props.bulletList,
                 size: this.textSize,
                 font: this.textFont,
             });
+
+            this.currentY += addedHeight;
+            totalAddedHeight += addedHeight;
         }
+
+        return totalAddedHeight;
+    }
+
+    protected drawFullWidth(): void {
+        this.currentX = HORIZONTAL_EDGE_SPACING;
     }
 
     protected drawLeftColumn() {

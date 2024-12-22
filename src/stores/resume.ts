@@ -28,8 +28,19 @@ export interface General {
     contact?: Contact;
 }
 
+export interface Skills {
+    languages: string[];
+    frameworks: string[];
+    platforms: string[];
+    methodologies: string[];
+    operatingSystems: string[];
+    databases: string[];
+    tools: string[];
+}
+
 export interface ResumeData {
     general: General;
+    skills: Skills;
 }
 
 const storedResumeData = localStorage.getItem('resumeData');
@@ -50,6 +61,15 @@ export const resumeData = reactive<ResumeData>({
             email: parsedResumeData?.general?.contact?.email ?? undefined,
             phone: parsedResumeData?.general?.contact?.phone ?? undefined,
         },
+    },
+    skills: {
+        languages: parsedResumeData?.skills?.languages ?? [],
+        frameworks: parsedResumeData?.skills?.frameworks ?? [],
+        platforms: parsedResumeData?.skills?.platforms ?? [],
+        methodologies: parsedResumeData?.skills?.methodologies ?? [],
+        operatingSystems: parsedResumeData?.skills?.operatingSystems ?? [],
+        databases: parsedResumeData?.skills?.databases ?? [],
+        tools: parsedResumeData?.skills?.tools ?? [],
     },
 });
 
@@ -119,4 +139,32 @@ export function updateColleaguesKnow(colleaguesKnow: string) {
 
 export function updateContact(contact: Contact) {
     resumeData.general.contact = contact;
+}
+
+export function updateSkillsLanguages(languages: string[]) {
+    resumeData.skills.languages = languages;
+}
+
+export function updateSkillsFrameworks(frameworks: string[]) {
+    resumeData.skills.frameworks = frameworks;
+}
+
+export function updateSkillsPlatforms(platforms: string[]) {
+    resumeData.skills.platforms = platforms;
+}
+
+export function updateSkillsMethodologies(methodologies: string[]) {
+    resumeData.skills.methodologies = methodologies;
+}
+
+export function updateSkillsOperatingSystems(operatingSystems: string[]) {
+    resumeData.skills.operatingSystems = operatingSystems;
+}
+
+export function updateSkillsDatabases(databases: string[]) {
+    resumeData.skills.databases = databases;
+}
+
+export function updateSkillsTools(tools: string[]) {
+    resumeData.skills.tools = tools;
 }

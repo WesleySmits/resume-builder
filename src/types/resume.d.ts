@@ -41,3 +41,16 @@ type RoundImageProps = {
     width: number;
     height: number;
 };
+
+type LineProps = {
+    horizontal: {
+        start: number;
+        end: number;
+    };
+    vertical: {
+        start: number;
+        end: number;
+    };
+    thickness: number;
+    color: RGB;
+};

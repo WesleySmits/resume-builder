@@ -11,8 +11,7 @@
                         <GeneralSection />
                     </div>
                     <div v-else-if="activeTab === 'skills'">
-                        <h1>Skills</h1>
-                        <p>Showcase your skills here.</p>
+                        <SkillsSection />
                     </div>
                     <div v-else-if="activeTab === 'education'">
                         <h1>Education</h1>
@@ -31,7 +30,6 @@
         </main>
 
         <aside>
-            <h2>Resume Preview</h2>
             <ResumePreview />
         </aside>
     </div>
@@ -43,6 +41,7 @@ import TabBar from '@/components/TabBar.vue';
 import TabContent from '@/components/TabContent.vue';
 import GeneralSection from '@/components/ResumeFormSections/GeneralSection.vue';
 import ResumePreview from '@/components/ResumePreview.vue';
+import SkillsSection from '@/components/ResumeFormSections/SkillsSection.vue';
 
 const tabs = [
     { id: 'general', name: 'General Information' },
