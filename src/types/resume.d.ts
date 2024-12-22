@@ -54,3 +54,38 @@ type LineProps = {
     thickness: number;
     color: RGB;
 };
+
+/**
+ * options: [
+                {
+                    value: DrivingLicenseFields.CAR,
+                    text: getLocalizedString(DrivingLicenseFields.CAR),
+                },
+                {
+                    value: DrivingLicenseFields.MOTORCYCLE,
+                    text: getLocalizedString(DrivingLicenseFields.MOTORCYCLE),
+                },
+                {
+                    value: DrivingLicenseFields.TRUCK,
+                    text: getLocalizedString(DrivingLicenseFields.TRUCK),
+                },
+                {
+                    value: DrivingLicenseFields.BUS,
+                    text: getLocalizedString(DrivingLicenseFields.BUS),
+                },
+            ],
+ */
+interface FormField extends Partial<HTMLInputElement> {
+    id: string;
+    label: string;
+    placeholder: string;
+    helperText: string;
+    required: boolean;
+    modelValue?: string;
+    handleChange: (e: string | File, id?: string) => void;
+    options?: { value: string; text: string }[];
+}
+
+interface FormFields {
+    [key: string]: FormField;
+}

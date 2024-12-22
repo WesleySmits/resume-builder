@@ -4,43 +4,17 @@
             <legend>{{ getLocalizedString('name') }}</legend>
 
             <FormField
-                id="firstName"
-                :label="getLocalizedString('firstName')"
-                :placeholder="getLocalizedString('firstNamePlaceholder')"
-                :helperText="getLocalizedString('firstNameHelperText')"
-                :errorText="getLocalizedString('requiredFieldError')"
-                @valid="(value) => handleNameChange(value as string, 'firstName')"
-                :modelValue="general.name?.firstName ?? ''"
-                required
-            />
-
-            <FormField
-                id="middleName"
-                :label="getLocalizedString('middleName')"
-                :placeholder="getLocalizedString('middleNamePlaceholder')"
-                :helperText="getLocalizedString('middleNameHelperText')"
-                @valid="(value) => handleNameChange(value as string, 'middleName')"
-                :modelValue="general.name?.middleName ?? ''"
-            />
-
-            <FormField
-                id="lastName"
-                :label="getLocalizedString('lastName')"
-                :placeholder="getLocalizedString('lastNamePlaceholder')"
-                :helperText="getLocalizedString('lastNameHelperText')"
-                :errorText="getLocalizedString('requiredFieldError')"
-                @valid="(value) => handleNameChange(value as string, 'lastName')"
-                :modelValue="general.name?.lastName ?? ''"
-                required
-            />
-
-            <FormField
-                id="displayName"
-                :label="getLocalizedString('displayName')"
-                :placeholder="getLocalizedString('displayNamePlaceholder')"
-                :helperText="getLocalizedString('displayNameHelperText')"
-                @valid="(value) => handleNameChange(value as string, 'displayName')"
-                :modelValue="general.name?.displayName ?? ''"
+                v-for="field in getNameFieldData()"
+                :type="field.type ?? 'text'"
+                :key="field.id"
+                :id="field.id"
+                :label="field.label"
+                :placeholder="field.placeholder"
+                :helperText="field.helperText"
+                :errorText="field.required ? getLocalizedString('requiredFieldError') : undefined"
+                @valid="(value) => field.handleChange(value as string)"
+                :modelValue="general.name?.[field.id as keyof Name] ?? ''"
+                :required="field.required"
             />
         </fieldset>
 
@@ -58,82 +32,18 @@
             </div>
 
             <FormField
-                id="profile-photo"
-                type="file"
-                accept="image/*"
-                :label="getLocalizedString('profilePhoto')"
-                :helperText="getLocalizedString('profilePhotoHelperText')"
-                :errorText="getLocalizedString('requiredFieldError')"
-                @valid="(value) => handleProfilePhotoChange(value as File)"
-                required
-            />
-
-            <FormField
-                id="phone"
-                label="Phone"
-                type="tel"
-                :placeholder="getLocalizedString('phoneNumberPlaceholder')"
-                :helperText="getLocalizedString('phoneNumberHelperText')"
-                @valid="(value) => handleContactChange(value as string, 'phone')"
-                :modelValue="general.contact?.phone ?? ''"
-            />
-
-            <FormField
-                id="email"
-                type="email"
-                :label="getLocalizedString('emailAddress')"
-                :placeholder="getLocalizedString('emailAddressPlaceholder')"
-                :helperText="getLocalizedString('emailAddressHelperText')"
-                @valid="(value) => handleContactChange(value as string, 'email')"
-                :modelValue="general.contact?.email ?? ''"
-                required
-            />
-
-            <FormField
-                id="region"
-                :label="getLocalizedString('region')"
-                :placeholder="getLocalizedString('regionPlaceholder')"
-                :helperText="getLocalizedString('regionHelperText')"
-                @valid="(value) => handleRegionChange(value as string)"
-                :modelValue="general.region ?? ''"
-            />
-
-            <FormField
-                id="drivingLicense"
-                :label="getLocalizedString('drivingLicense')"
-                :placeholder="getLocalizedString('drivingLicensePlaceholder')"
-                :helperText="getLocalizedString('drivingLicenseHelperText')"
-                @valid="(value) => handleDrivingLicenseChange(value as string)"
-                :modelValue="general.drivingLicense ?? ''"
-                type="select"
-                :options="[
-                    {
-                        value: 'car',
-                        text: 'Car',
-                    },
-                    {
-                        value: 'motorcycle',
-                        text: 'Motorcycle',
-                    },
-                    {
-                        value: 'truck',
-                        text: 'Truck',
-                    },
-                    {
-                        value: 'bus',
-                        text: 'Bus',
-                    },
-                ]"
-            />
-
-            <FormField
-                id="functionTitle"
-                :label="getLocalizedString('functionTitle')"
-                :placeholder="getLocalizedString('functionTitlePlaceholder')"
-                :helperText="getLocalizedString('functionTitleHelperText')"
-                :errorText="getLocalizedString('requiredFieldError')"
-                @valid="(value) => handleFunctionTitleChange(value as string)"
-                :modelValue="general.functionTitle ?? ''"
+                v-for="field in getPersonalInformationData()"
+                :key="field.id"
+                :id="field.id"
+                :type="field.type ?? 'text'"
+                :accept="field.accept"
+                :label="field.label"
+                :placeholder="field.placeholder"
+                :helperText="field.helperText"
+                :errorText="field.required ? getLocalizedString('requiredFieldError') : undefined"
+                :required="field.required"
+                @valid="(value) => field.handleChange(value as string)"
+                :modelValue="field.modelValue ?? ''"
             />
         </fieldset>
 
@@ -235,6 +145,7 @@ import {
 import FormField from '@/components/FormField.vue';
 import { computed, reactive } from 'vue';
 import { getLocalizedString } from '@/utils/resume/Page';
+import { DrivingLicenseFields, NameFields, PersonalInfoFields } from '@/enums/data';
 
 const general = reactive(resumeData.general);
 const profilePhotoUrl = computed(() => {
@@ -250,6 +161,122 @@ const profilePhotoUrl = computed(() => {
     return general.profilePhoto ? URL.createObjectURL(general.profilePhoto) : undefined;
 });
 
+function getNameFieldData(): FormFields {
+    return {
+        firstName: {
+            id: NameFields.FIRST_NAME,
+            label: getLocalizedString(`${NameFields.FIRST_NAME}`),
+            placeholder: getLocalizedString(`${NameFields.FIRST_NAME}Placeholder`),
+            helperText: getLocalizedString(`${NameFields.FIRST_NAME}HelperText`),
+            required: true,
+            handleChange: (value) => handleNameChange(value as string, NameFields.FIRST_NAME),
+        },
+        middleName: {
+            id: NameFields.MIDDLE_NAME,
+            label: getLocalizedString(`${NameFields.MIDDLE_NAME}`),
+            placeholder: getLocalizedString(`${NameFields.MIDDLE_NAME}Placeholder`),
+            helperText: getLocalizedString(`${NameFields.MIDDLE_NAME}HelperText`),
+            required: false,
+            handleChange: (value) => handleNameChange(value as string, NameFields.FIRST_NAME),
+        },
+        lastName: {
+            id: NameFields.LAST_NAME,
+            label: getLocalizedString(`${NameFields.LAST_NAME}`),
+            placeholder: getLocalizedString(`${NameFields.LAST_NAME}Placeholder`),
+            helperText: getLocalizedString(`${NameFields.LAST_NAME}HelperText`),
+            required: true,
+            handleChange: (value) => handleNameChange(value as string, NameFields.FIRST_NAME),
+        },
+        displayName: {
+            id: NameFields.DISPLAY_NAME,
+            label: getLocalizedString(`${NameFields.DISPLAY_NAME}`),
+            placeholder: getLocalizedString(`${NameFields.DISPLAY_NAME}Placeholder`),
+            helperText: getLocalizedString(`${NameFields.DISPLAY_NAME}HelperText`),
+            required: false,
+            handleChange: (value) => handleNameChange(value as string, NameFields.FIRST_NAME),
+        },
+    };
+}
+
+function getPersonalInformationData(): FormFields {
+    return {
+        profilePhoto: {
+            id: PersonalInfoFields.PROFILE_PHOTO,
+            type: 'file',
+            label: getLocalizedString(`${PersonalInfoFields.PROFILE_PHOTO}`),
+            placeholder: getLocalizedString(`${PersonalInfoFields.PROFILE_PHOTO}Placeholder`),
+            helperText: getLocalizedString(`${PersonalInfoFields.PROFILE_PHOTO}HelperText`),
+            required: true,
+            handleChange: (value) => handleProfilePhotoChange(value as File),
+        },
+        phone: {
+            id: PersonalInfoFields.PHONE_NUMBER,
+            type: 'tel',
+            label: getLocalizedString(`${PersonalInfoFields.PHONE_NUMBER}`),
+            placeholder: getLocalizedString(`${PersonalInfoFields.PHONE_NUMBER}Placeholder`),
+            helperText: getLocalizedString(`${PersonalInfoFields.PHONE_NUMBER}HelperText`),
+            required: false,
+            modelValue: general.contact?.phone,
+            handleChange: (value) => handleContactChange(value as string, PersonalInfoFields.PHONE_NUMBER),
+        },
+        email: {
+            id: PersonalInfoFields.EMAIL_ADDRESS,
+            type: 'email',
+            label: getLocalizedString(`${PersonalInfoFields.EMAIL_ADDRESS}`),
+            placeholder: getLocalizedString(`${PersonalInfoFields.EMAIL_ADDRESS}Placeholder`),
+            helperText: getLocalizedString(`${PersonalInfoFields.EMAIL_ADDRESS}HelperText`),
+            required: true,
+            modelValue: general.contact?.email,
+            handleChange: (value) => handleContactChange(value as string, PersonalInfoFields.EMAIL_ADDRESS),
+        },
+        region: {
+            id: PersonalInfoFields.REGION,
+            label: getLocalizedString(`${PersonalInfoFields.REGION}`),
+            placeholder: getLocalizedString(`${PersonalInfoFields.REGION}Placeholder`),
+            helperText: getLocalizedString(`${PersonalInfoFields.REGION}HelperText`),
+            required: false,
+            modelValue: general.region,
+            handleChange: (value) => handleRegionChange(value as string),
+        },
+        drivingLicense: {
+            id: PersonalInfoFields.DRIVING_LICENSE,
+            label: getLocalizedString(`${PersonalInfoFields.DRIVING_LICENSE}`),
+            placeholder: getLocalizedString(`${PersonalInfoFields.DRIVING_LICENSE}Placeholder`),
+            helperText: getLocalizedString(`${PersonalInfoFields.DRIVING_LICENSE}HelperText`),
+            required: false,
+            modelValue: general.drivingLicense,
+            handleChange: (value) => handleDrivingLicenseChange(value as string),
+            options: [
+                {
+                    value: DrivingLicenseFields.CAR,
+                    text: getLocalizedString(DrivingLicenseFields.CAR),
+                },
+                {
+                    value: DrivingLicenseFields.MOTORCYCLE,
+                    text: getLocalizedString(DrivingLicenseFields.MOTORCYCLE),
+                },
+                {
+                    value: DrivingLicenseFields.TRUCK,
+                    text: getLocalizedString(DrivingLicenseFields.TRUCK),
+                },
+                {
+                    value: DrivingLicenseFields.BUS,
+                    text: getLocalizedString(DrivingLicenseFields.BUS),
+                },
+            ],
+        },
+        functionTitle: {
+            id: PersonalInfoFields.FUNCTION_TITLE,
+            label: getLocalizedString(`${PersonalInfoFields.FUNCTION_TITLE}`),
+            placeholder: getLocalizedString(`${PersonalInfoFields.FUNCTION_TITLE}Placeholder`),
+            helperText: getLocalizedString(`${PersonalInfoFields.FUNCTION_TITLE}HelperText`),
+            required: true,
+            modelValue: general.functionTitle,
+            handleChange: (value) => handleFunctionTitleChange(value as string),
+        },
+    };
+}
+
 function handleNameChange(value: string, id: string) {
     const nameData: Name = {
         firstName: general.name?.firstName ?? '',
@@ -259,16 +286,16 @@ function handleNameChange(value: string, id: string) {
     };
 
     switch (id) {
-        case 'firstName':
+        case NameFields.FIRST_NAME:
             nameData.firstName = value;
             break;
-        case 'middleName':
+        case NameFields.MIDDLE_NAME:
             nameData.middleName = value;
             break;
-        case 'lastName':
+        case NameFields.LAST_NAME:
             nameData.lastName = value;
             break;
-        case 'displayName':
+        case NameFields.DISPLAY_NAME:
             nameData.displayName = value;
             break;
     }
