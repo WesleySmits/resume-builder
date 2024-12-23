@@ -14,9 +14,11 @@
 import { ref, watch, onMounted } from 'vue';
 import * as pdfjsLib from 'pdfjs-dist/';
 import { type PDFDocumentProxy } from 'pdfjs-dist';
-import { resumeData } from '@/stores/resume';
+import { useResumeStore } from '@/stores/resume';
 import { generateResume } from '@/utils/resume/resume';
 import { getLocalizedString } from '@/utils/resume/Page';
+
+const resumeStore = useResumeStore();
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 
@@ -28,7 +30,7 @@ const pageCount = ref(0);
 let pdf: PDFDocumentProxy;
 
 async function renderPDF() {
-    const pdfData = await generateResume(resumeData);
+    const pdfData = await generateResume();
     const loadingTask = pdfjsLib.getDocument({ data: pdfData });
 
     pdf = await loadingTask.promise;
@@ -85,7 +87,7 @@ const nextPage = () => {
     renderPage(pageNum.value);
 };
 
-watch(resumeData, async () => {
+watch(resumeStore.$state, async () => {
     await renderPDF();
 });
 onMounted(renderPDF);

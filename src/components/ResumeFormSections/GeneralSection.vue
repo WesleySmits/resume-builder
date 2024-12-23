@@ -23,11 +23,11 @@
 
             <div>
                 <img
-                    :src="profilePhotoUrl"
+                    :src="resumeStore.profilePhotoUrl"
                     :alt="getLocalizedString('profilePhoto')"
                     width="100"
                     height="100"
-                    v-if="profilePhotoUrl"
+                    v-if="resumeStore.profilePhotoUrl"
                 />
             </div>
 
@@ -69,44 +69,17 @@
 </template>
 
 <script lang="ts" setup>
-import {
-    resumeData,
-    updateName,
-    updateRegion,
-    updateDrivingLicense,
-    updateContact,
-    type Name,
-    type DrivingLicense,
-    updateFunctionTitle,
-    updateIntroduction,
-    updateColleaguesDescribe,
-    updateColleaguesKnow,
-    updateAchievement,
-    updateProfilePhoto,
-} from '@/stores/resume';
+import { type Name, type DrivingLicense, useResumeStore } from '@/stores/resume';
 
 import FormField from '@/components/FormField.vue';
-import { computed, reactive } from 'vue';
 import { getLocalizedString } from '@/utils/resume/Page';
 import { NameFields } from '@/enums/name';
 import { PersonalInfoFields } from '@/enums/personalInfo';
 import { DrivingLicenseFields } from '@/enums/drivingLicense';
 import { AboutFields } from '@/enums/about';
 
-const general = reactive(resumeData.general);
-
-const profilePhotoUrl = computed(() => {
-    if (typeof general.profilePhoto === 'string') {
-        return general.profilePhoto;
-    }
-
-    if (typeof general.profilePhoto === 'object' && Object.keys(general.profilePhoto).length === 0) {
-        console.error('Profile photo is an empty object');
-        return '';
-    }
-
-    return general.profilePhoto ? URL.createObjectURL(general.profilePhoto) : undefined;
-});
+const resumeStore = useResumeStore();
+const general = resumeStore.general;
 
 function getNameFieldData(): FormFields {
     return {
@@ -154,7 +127,7 @@ function getPersonalInformationData(): FormFields {
             placeholder: getLocalizedString(`${PersonalInfoFields.PROFILE_PHOTO}Placeholder`),
             helperText: getLocalizedString(`${PersonalInfoFields.PROFILE_PHOTO}HelperText`),
             required: true,
-            handleChange: (value) => handleProfilePhotoChange(value as File),
+            handleChange: (value) => resumeStore.updateProfilePhoto(value as File),
         },
         phone: {
             id: PersonalInfoFields.PHONE_NUMBER,
@@ -183,7 +156,7 @@ function getPersonalInformationData(): FormFields {
             helperText: getLocalizedString(`${PersonalInfoFields.REGION}HelperText`),
             required: false,
             modelValue: general.region,
-            handleChange: (value) => handleRegionChange(value as string),
+            handleChange: (value) => resumeStore.updateRegion(value as string),
         },
         drivingLicense: {
             id: PersonalInfoFields.DRIVING_LICENSE,
@@ -192,7 +165,7 @@ function getPersonalInformationData(): FormFields {
             helperText: getLocalizedString(`${PersonalInfoFields.DRIVING_LICENSE}HelperText`),
             required: false,
             modelValue: general.drivingLicense,
-            handleChange: (value) => handleDrivingLicenseChange(value as string),
+            handleChange: (value) => resumeStore.updateDrivingLicense(value as DrivingLicense),
             options: [
                 {
                     value: DrivingLicenseFields.CAR,
@@ -219,7 +192,7 @@ function getPersonalInformationData(): FormFields {
             helperText: getLocalizedString(`${PersonalInfoFields.FUNCTION_TITLE}HelperText`),
             required: true,
             modelValue: general.functionTitle,
-            handleChange: (value) => handleFunctionTitleChange(value as string),
+            handleChange: (value) => resumeStore.updateFunctionTitle(value as string),
         },
     };
 }
@@ -234,7 +207,7 @@ function getAboutData(): FormFields {
             placeholder: getLocalizedString('introductionPlaceholder'),
             helperText: getLocalizedString('introductionHelperText'),
             required: true,
-            handleChange: (value) => handleIntroductionChange(value as string),
+            handleChange: (value) => resumeStore.updateIntroduction(value as string),
             modelValue: general.introduction,
         },
         achievement1: {
@@ -246,7 +219,7 @@ function getAboutData(): FormFields {
             helperText: getLocalizedString(`${AboutFields.ACHIEVEMENT}HelperText`, {
                 amount: getLocalizedString('first').toLowerCase(),
             }),
-            handleChange: (value) => handleAchievementChange(0, value as string),
+            handleChange: (value) => resumeStore.updateAchievement(0, value as string),
             required: false,
             modelValue: general.achievements?.[0],
         },
@@ -259,7 +232,7 @@ function getAboutData(): FormFields {
             helperText: getLocalizedString(`${AboutFields.ACHIEVEMENT}HelperText`, {
                 amount: getLocalizedString('second').toLowerCase(),
             }),
-            handleChange: (value) => handleAchievementChange(1, value as string),
+            handleChange: (value) => resumeStore.updateAchievement(1, value as string),
             required: false,
             modelValue: general.achievements?.[1],
         },
@@ -272,7 +245,7 @@ function getAboutData(): FormFields {
             helperText: getLocalizedString(`${AboutFields.ACHIEVEMENT}HelperText`, {
                 amount: getLocalizedString('third').toLowerCase(),
             }),
-            handleChange: (value) => handleAchievementChange(2, value as string),
+            handleChange: (value) => resumeStore.updateAchievement(2, value as string),
             required: false,
             modelValue: general.achievements?.[2],
         },
@@ -284,7 +257,7 @@ function getAboutData(): FormFields {
             placeholder: getLocalizedString(`${AboutFields.COLLEAGUES_DESCRIPTION}Placeholder`),
             helperText: getLocalizedString(`${AboutFields.COLLEAGUES_DESCRIPTION}HelperText`),
             required: true,
-            handleChange: (value) => handleColleaguesDescribeChange(value as string),
+            handleChange: (value) => resumeStore.updateColleaguesDescribe(value as string),
             modelValue: general.colleaguesDescribe,
         },
         colleaguesKnow: {
@@ -295,7 +268,7 @@ function getAboutData(): FormFields {
             placeholder: getLocalizedString(`${AboutFields.COLLEAGUES_SHOULD_KNOW}Placeholder`),
             helperText: getLocalizedString(`${AboutFields.COLLEAGUES_SHOULD_KNOW}HelperText`),
             required: true,
-            handleChange: (value) => handleColleaguesKnowChange(value as string),
+            handleChange: (value) => resumeStore.updateColleaguesKnow(value as string),
             modelValue: general.colleaguesKnow,
         },
     };
@@ -324,11 +297,7 @@ function handleNameChange(value: string, id: string) {
             break;
     }
 
-    updateName(nameData);
-}
-
-function handleProfilePhotoChange(value: File) {
-    updateProfilePhoto(value);
+    resumeStore.updateName(nameData);
 }
 
 function handleContactChange(value: string, id: string) {
@@ -346,35 +315,6 @@ function handleContactChange(value: string, id: string) {
             break;
     }
 
-    updateContact(contactData);
-}
-
-function handleRegionChange(value: string) {
-    updateRegion(value);
-}
-
-function handleDrivingLicenseChange(value: string) {
-    const drivingLicense = value as DrivingLicense;
-    updateDrivingLicense(drivingLicense);
-}
-
-function handleFunctionTitleChange(value: string) {
-    updateFunctionTitle(value);
-}
-
-function handleIntroductionChange(value: string) {
-    updateIntroduction(value);
-}
-
-function handleAchievementChange(index: number, value: string) {
-    updateAchievement(index, value);
-}
-
-function handleColleaguesDescribeChange(value: string) {
-    updateColleaguesDescribe(value);
-}
-
-function handleColleaguesKnowChange(value: string) {
-    updateColleaguesKnow(value);
+    resumeStore.updateContact(contactData);
 }
 </script>

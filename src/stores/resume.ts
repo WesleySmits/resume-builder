@@ -74,6 +74,30 @@ export const useResumeStore = defineStore('resume', {
             tools: parsedResumeData?.skills?.tools ?? [],
         }),
     }),
+    getters: {
+        formattedName: (state) => {
+            if (state.general.name?.displayName) {
+                return state.general.name.displayName;
+            }
+
+            const { firstName = '', middleName = '', lastName = '' } = state.general.name || {};
+            return [firstName, middleName, lastName].filter(Boolean).join(' ').trim();
+        },
+        profilePhotoUrl: (state) => {
+            const profilePhoto = state.general.profilePhoto;
+
+            if (typeof profilePhoto === 'string') {
+                return profilePhoto;
+            }
+
+            if (typeof profilePhoto === 'object' && Object.keys(profilePhoto).length === 0) {
+                console.error('Profile photo is an empty object');
+                return '';
+            }
+
+            return profilePhoto ? URL.createObjectURL(profilePhoto) : undefined;
+        },
+    },
     actions: {
         async updateProfilePhoto(profilePhoto: File) {
             // convert File to base64
@@ -100,8 +124,12 @@ export const useResumeStore = defineStore('resume', {
         updateIntroduction(introduction: string) {
             this.general.introduction = introduction;
         },
-        updateAchievements(achievements: string[]) {
-            this.general.achievements = achievements;
+        updateAchievement(index: number, achievement: string) {
+            if (!this.general.achievements) {
+                this.general.achievements = [];
+            }
+
+            this.general.achievements[index] = achievement;
         },
         updateColleaguesDescribe(description: string) {
             this.general.colleaguesDescribe = description;
@@ -115,9 +143,33 @@ export const useResumeStore = defineStore('resume', {
         updateSkills(skills: Skills) {
             this.skills = skills;
         },
+        updateSkillsLanguages(languages: string[]) {
+            this.skills.languages = languages;
+        },
+        updateSkillsFrameworks(frameworks: string[]) {
+            this.skills.frameworks = frameworks;
+        },
+        updateSkillsPlatforms(platforms: string[]) {
+            this.skills.platforms = platforms;
+        },
+        updateSkillsMethodologies(methodologies: string[]) {
+            this.skills.methodologies = methodologies;
+        },
+        updateSkillsOperatingSystems(operatingSystems: string[]) {
+            this.skills.operatingSystems = operatingSystems;
+        },
+        updateSkillsDatabases(databases: string[]) {
+            this.skills.databases = databases;
+        },
+        updateSkillsTools(tools: string[]) {
+            this.skills.tools = tools;
+        },
     },
 });
 
+/**
+ * @deprecated
+ */
 export const resumeData = reactive<ResumeData>({
     general: {
         profilePhoto: parsedResumeData?.general?.profilePhoto ?? undefined,
@@ -145,98 +197,13 @@ export const resumeData = reactive<ResumeData>({
     },
 });
 
-watch(
-    resumeData,
-    (newValue) => {
-        localStorage.setItem('resumeData', JSON.stringify(newValue));
-    },
-    { deep: true },
-);
-
-export function getFormattedName(): string {
-    if (resumeData.general.name?.displayName) {
-        return resumeData.general.name.displayName;
-    }
-
-    const { firstName = '', middleName = '', lastName = '' } = resumeData.general.name || {};
-    return [firstName, middleName, lastName].filter(Boolean).join(' ').trim();
-}
-
-export function updateName(name: Name) {
-    resumeData.general.name = name;
-}
-
-export function updateProfilePhoto(profilePhoto: File) {
-    // convert File to base64
-    const reader = new FileReader();
-    reader.readAsDataURL(profilePhoto);
-    reader.onload = async () => {
-        const base64 = reader.result as string;
-        const roundedBase64 = await roundImage(base64, 140, 140);
-        resumeData.general.profilePhoto = roundedBase64;
-    };
-}
-
-export function updateRegion(region: string) {
-    resumeData.general.region = region;
-}
-
-export function updateDrivingLicense(drivingLicense: DrivingLicense) {
-    resumeData.general.drivingLicense = drivingLicense;
-}
-
-export function updateFunctionTitle(functionTitle: string) {
-    resumeData.general.functionTitle = functionTitle;
-}
-
-export function updateIntroduction(introduction: string) {
-    resumeData.general.introduction = introduction;
-}
-
-export function updateAchievement(index: number, achievement: string) {
-    if (!resumeData.general.achievements) {
-        resumeData.general.achievements = [];
-    }
-
-    resumeData.general.achievements[index] = achievement;
-}
-
-export function updateColleaguesDescribe(colleaguesDescribe: string) {
-    resumeData.general.colleaguesDescribe = colleaguesDescribe;
-}
-
-export function updateColleaguesKnow(colleaguesKnow: string) {
-    resumeData.general.colleaguesKnow = colleaguesKnow;
-}
-
-export function updateContact(contact: Contact) {
-    resumeData.general.contact = contact;
-}
-
-export function updateSkillsLanguages(languages: string[]) {
-    resumeData.skills.languages = languages;
-}
-
-export function updateSkillsFrameworks(frameworks: string[]) {
-    resumeData.skills.frameworks = frameworks;
-}
-
-export function updateSkillsPlatforms(platforms: string[]) {
-    resumeData.skills.platforms = platforms;
-}
-
-export function updateSkillsMethodologies(methodologies: string[]) {
-    resumeData.skills.methodologies = methodologies;
-}
-
-export function updateSkillsOperatingSystems(operatingSystems: string[]) {
-    resumeData.skills.operatingSystems = operatingSystems;
-}
-
-export function updateSkillsDatabases(databases: string[]) {
-    resumeData.skills.databases = databases;
-}
-
-export function updateSkillsTools(tools: string[]) {
-    resumeData.skills.tools = tools;
+export function initializeStore() {
+    const resumeStore = useResumeStore();
+    watch(
+        () => resumeStore.$state,
+        (newValue) => {
+            localStorage.setItem('resumeData', JSON.stringify(newValue));
+        },
+        { deep: true },
+    );
 }

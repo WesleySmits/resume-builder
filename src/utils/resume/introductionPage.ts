@@ -1,4 +1,4 @@
-import { getFormattedName, type General } from '@/stores/resume';
+import { type General } from '@/stores/resume';
 import type { PDFDocument } from 'pdf-lib';
 import Page, { getLocalizedString } from './Page';
 
@@ -7,18 +7,18 @@ export default class IntroductionPage extends Page {
 
     #generalData: General;
 
-    public static getInstance(data: General): IntroductionPage {
+    public static getInstance(): IntroductionPage {
         if (this.#instance === null) {
-            this.#instance = new IntroductionPage(data);
+            this.#instance = new IntroductionPage();
         }
 
         return this.#instance;
     }
 
-    private constructor(data: General) {
+    private constructor() {
         super();
 
-        this.#generalData = data;
+        this.#generalData = this.resumeStore.general;
     }
 
     public async initialize(pdfDoc: PDFDocument): Promise<void> {
@@ -97,7 +97,7 @@ export default class IntroductionPage extends Page {
 
         if (this.#generalData.name) {
             this.drawField({
-                title: getFormattedName(),
+                title: this.resumeStore.formattedName,
                 text: '',
                 needsSpacing: false,
                 centerText: true,

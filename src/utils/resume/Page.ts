@@ -4,6 +4,8 @@ import { rgb, StandardFonts } from 'pdf-lib';
 import * as en from '@/locales/en.json';
 import * as nl from '@/locales/nl.json';
 import { base64ToUint8Array } from '../image';
+import { useResumeStore } from '@/stores/resume';
+import { createPinia, setActivePinia } from 'pinia';
 
 const locales: Record<Locales, Record<string, string>> = {
     en: en,
@@ -36,6 +38,8 @@ export const RIGHT_COLUMN_START = 295;
 export default class Page {
     #document: PDFDocument | null = null;
     protected page: PDFPage = null as unknown as PDFPage;
+
+    protected resumeStore = useResumeStore();
 
     public currentX = 0;
     public currentY = 0;

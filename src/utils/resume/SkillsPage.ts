@@ -13,18 +13,18 @@ export default class SkillsPage extends Page {
 
     #data: Skills;
 
-    public static getInstance(data: Skills): SkillsPage {
+    public static getInstance(): SkillsPage {
         if (this.#instance === null) {
-            this.#instance = new SkillsPage(data);
+            this.#instance = new SkillsPage();
         }
 
         return this.#instance;
     }
 
-    private constructor(data: Skills) {
+    private constructor() {
         super();
 
-        this.#data = data;
+        this.#data = this.resumeStore.skills;
     }
 
     public async initialize(pdfDoc: PDFDocument): Promise<void> {

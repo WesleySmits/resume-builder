@@ -1,17 +1,16 @@
-import { type ResumeData } from '@/stores/resume';
 import { PDFDocument } from 'pdf-lib';
 import IntroductionPage from './IntroductionPage';
-import SkillsPage from './skillsPage';
+import SkillsPage from './SkillsPage';
 
-export async function generateResume(resumeData: ResumeData): Promise<Uint8Array> {
+export async function generateResume(): Promise<Uint8Array> {
     const pdfDoc = await PDFDocument.create();
 
     // Generate each page
-    const introductionPage = IntroductionPage.getInstance(resumeData.general);
+    const introductionPage = IntroductionPage.getInstance();
     await introductionPage.initialize(pdfDoc);
 
     // Generate the skills page
-    const skillsPage = SkillsPage.getInstance(resumeData.skills);
+    const skillsPage = SkillsPage.getInstance();
     await skillsPage.initialize(pdfDoc);
 
     // Additional pages (placeholder for future logic)
