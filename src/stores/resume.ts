@@ -3,30 +3,30 @@ import { defineStore } from 'pinia';
 import { reactive, watch } from 'vue';
 
 export interface Name {
-    firstName?: string;
-    middleName?: string;
-    lastName?: string;
-    displayName?: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    displayName: string;
 }
 
 export interface Contact {
-    email?: string;
-    phone?: string;
+    email: string;
+    phone: string;
 }
 
 export type DrivingLicense = 'Car' | 'Motorcycle' | 'Truck' | 'Bus';
 
 export interface General {
     profilePhoto?: string;
-    name?: Name;
+    name: Name;
     region?: string;
     drivingLicense?: DrivingLicense;
     functionTitle?: string;
     introduction?: string;
-    achievements?: string[];
+    achievements: string[];
     colleaguesDescribe?: string;
     colleaguesKnow?: string;
-    contact?: Contact;
+    contact: Contact;
 }
 
 export interface Skills {
@@ -51,17 +51,22 @@ export const useResumeStore = defineStore('resume', {
     state: () => ({
         general: reactive<General>({
             profilePhoto: parsedResumeData?.general?.profilePhoto ?? undefined,
-            name: parsedResumeData?.general?.name ?? undefined,
+            name: parsedResumeData?.general?.name ?? {
+                firstName: '',
+                middleName: '',
+                lastName: '',
+                displayName: '',
+            },
             region: parsedResumeData?.general?.region ?? undefined,
             drivingLicense: parsedResumeData?.general?.drivingLicense ?? undefined,
             functionTitle: parsedResumeData?.general?.functionTitle ?? undefined,
             introduction: parsedResumeData?.general?.introduction ?? undefined,
-            achievements: parsedResumeData?.general?.achievements ?? undefined,
+            achievements: parsedResumeData?.general?.achievements ?? new Array(3).fill(''),
             colleaguesDescribe: parsedResumeData?.general?.colleaguesDescribe ?? undefined,
             colleaguesKnow: parsedResumeData?.general?.colleaguesKnow ?? undefined,
             contact: {
-                email: parsedResumeData?.general?.contact?.email ?? undefined,
-                phone: parsedResumeData?.general?.contact?.phone ?? undefined,
+                email: parsedResumeData?.general?.contact?.email ?? '',
+                phone: parsedResumeData?.general?.contact?.phone ?? '',
             },
         }),
         skills: reactive<Skills>({

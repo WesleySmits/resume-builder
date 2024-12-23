@@ -13,7 +13,7 @@
                 :helperText="field.helperText"
                 :errorText="field.required ? getLocalizedString('requiredFieldError') : undefined"
                 @valid="(value) => field.handleChange(value as string)"
-                :modelValue="general.name?.[field.id as keyof Name] ?? ''"
+                :modelValue="general.name?.[field.id as keyof Name]"
                 :required="field.required"
             />
         </fieldset>
@@ -55,7 +55,7 @@
                 :key="field.id"
                 :id="field.id"
                 :rows="field.rows"
-                :type="field.type ?? 'text'"
+                :type="field.type"
                 :label="field.label"
                 :placeholder="field.placeholder"
                 :helperText="field.helperText"
@@ -97,7 +97,7 @@ function getNameFieldData(): FormFields {
             placeholder: getLocalizedString(`${NameFields.MIDDLE_NAME}Placeholder`),
             helperText: getLocalizedString(`${NameFields.MIDDLE_NAME}HelperText`),
             required: false,
-            handleChange: (value) => handleNameChange(value as string, NameFields.FIRST_NAME),
+            handleChange: (value) => handleNameChange(value as string, NameFields.MIDDLE_NAME),
         },
         lastName: {
             id: NameFields.LAST_NAME,
@@ -105,7 +105,7 @@ function getNameFieldData(): FormFields {
             placeholder: getLocalizedString(`${NameFields.LAST_NAME}Placeholder`),
             helperText: getLocalizedString(`${NameFields.LAST_NAME}HelperText`),
             required: true,
-            handleChange: (value) => handleNameChange(value as string, NameFields.FIRST_NAME),
+            handleChange: (value) => handleNameChange(value as string, NameFields.LAST_NAME),
         },
         displayName: {
             id: NameFields.DISPLAY_NAME,
@@ -113,7 +113,7 @@ function getNameFieldData(): FormFields {
             placeholder: getLocalizedString(`${NameFields.DISPLAY_NAME}Placeholder`),
             helperText: getLocalizedString(`${NameFields.DISPLAY_NAME}HelperText`),
             required: false,
-            handleChange: (value) => handleNameChange(value as string, NameFields.FIRST_NAME),
+            handleChange: (value) => handleNameChange(value as string, NameFields.DISPLAY_NAME),
         },
     };
 }
@@ -276,10 +276,10 @@ function getAboutData(): FormFields {
 
 function handleNameChange(value: string, id: string) {
     const nameData: Name = {
-        firstName: general.name?.firstName ?? '',
-        middleName: general.name?.middleName ?? '',
-        lastName: general.name?.lastName ?? '',
-        displayName: general.name?.displayName ?? '',
+        firstName: general.name.firstName,
+        middleName: general.name.middleName,
+        lastName: general.name.lastName,
+        displayName: general.name.displayName,
     };
 
     switch (id) {
@@ -302,15 +302,15 @@ function handleNameChange(value: string, id: string) {
 
 function handleContactChange(value: string, id: string) {
     const contactData = {
-        email: general.contact?.email ?? '',
-        phone: general.contact?.phone ?? '',
+        email: general.contact.email,
+        phone: general.contact.phone,
     };
 
     switch (id) {
-        case 'email':
+        case PersonalInfoFields.EMAIL_ADDRESS:
             contactData.email = value;
             break;
-        case 'phone':
+        case PersonalInfoFields.PHONE_NUMBER:
             contactData.phone = value;
             break;
     }

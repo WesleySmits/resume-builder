@@ -94,7 +94,7 @@ function validate() {
         formState.error = true;
     } else {
         formState.error = false;
-        if (formState.value) {
+        if (formState.value || formState.value === '') {
             emit('valid', formState.value);
         }
     }

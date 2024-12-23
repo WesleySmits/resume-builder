@@ -5,7 +5,6 @@ import * as en from '@/locales/en.json';
 import * as nl from '@/locales/nl.json';
 import { base64ToUint8Array } from '../image';
 import { useResumeStore } from '@/stores/resume';
-import { createPinia, setActivePinia } from 'pinia';
 
 const locales: Record<Locales, Record<string, string>> = {
     en: en,
