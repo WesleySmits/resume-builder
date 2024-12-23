@@ -9,6 +9,8 @@
             :value="formState.value"
             :aria-describedby="ariaDescribedBy"
             :modelValue="formState.value"
+            :cols="cols"
+            :rows="rows"
             @input="handleInput"
             @blur="validate"
             @update:modelValue="handleInput"
@@ -52,6 +54,8 @@ const props = defineProps<{
     errorText?: string;
     modelValue?: string | string[] | File;
     options?: { value: string; text: string }[];
+    cols?: number;
+    rows?: number;
 }>();
 
 const emit = defineEmits<{
