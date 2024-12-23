@@ -51,75 +51,18 @@
             <legend>{{ getLocalizedString('about') }}</legend>
 
             <FormField
-                id="introduction"
-                :label="getLocalizedString('introduction')"
-                :placeholder="getLocalizedString('introductionPlaceholder')"
-                :helperText="getLocalizedString('introductionHelperText')"
-                :errorText="getLocalizedString('requiredFieldError')"
-                @valid="(value) => handleIntroductionChange(value as string)"
-                :modelValue="general.introduction ?? ''"
-                type="textarea"
-                required
-            />
-
-            <FormField
-                id="achievement1"
-                :label="getLocalizedString('achievement', { number: 1 })"
-                :placeholder="getLocalizedString('achievementPlaceholder')"
-                :helperText="
-                    getLocalizedString('achievementHelperText', { amount: getLocalizedString('first').toLowerCase() })
-                "
-                @valid="(value) => handleAchievementChange(0, value as string)"
-                :modelValue="general.achievements?.[0] ?? ''"
-                type="textarea"
-            />
-
-            <FormField
-                id="achievement2"
-                :label="getLocalizedString('achievement', { number: 2 })"
-                :placeholder="getLocalizedString('achievementPlaceholder')"
-                :helperText="
-                    getLocalizedString('achievementHelperText', { amount: getLocalizedString('second').toLowerCase() })
-                "
-                @valid="(value) => handleAchievementChange(1, value as string)"
-                :modelValue="general.achievements?.[1] ?? ''"
-                type="textarea"
-            />
-
-            <FormField
-                id="achievement3"
-                :label="getLocalizedString('achievement', { number: 3 })"
-                :placeholder="getLocalizedString('achievementPlaceholder')"
-                :helperText="
-                    getLocalizedString('achievementHelperText', { amount: getLocalizedString('third').toLowerCase() })
-                "
-                @valid="(value) => handleAchievementChange(2, value as string)"
-                :modelValue="general.achievements?.[2] ?? ''"
-                type="textarea"
-            />
-
-            <FormField
-                id="colleaguesDescribe"
-                :label="getLocalizedString('colleaguesDescribe')"
-                :placeholder="getLocalizedString('colleaguesDescribePlaceholder')"
-                :helperText="getLocalizedString('colleaguesDescribeHelperText')"
-                :errorText="getLocalizedString('requiredFieldError')"
-                @valid="(value) => handleColleaguesDescribeChange(value as string)"
-                :modelValue="general.colleaguesDescribe ?? ''"
-                type="textarea"
-                required
-            />
-
-            <FormField
-                id="colleaguesKnow"
-                :label="getLocalizedString('colleaguesKnow')"
-                :placeholder="getLocalizedString('colleaguesKnowPlaceholder')"
-                :helperText="getLocalizedString('colleaguesKnowHelperText')"
-                :errorText="getLocalizedString('requiredFieldError')"
-                @valid="(value) => handleColleaguesKnowChange(value as string)"
-                :modelValue="general.colleaguesKnow ?? ''"
-                type="textarea"
-                required
+                v-for="field in getAboutData()"
+                :key="field.id"
+                :id="field.id"
+                :rows="field.rows"
+                :type="field.type ?? 'text'"
+                :label="field.label"
+                :placeholder="field.placeholder"
+                :helperText="field.helperText"
+                :errorText="field.required ? getLocalizedString('requiredFieldError') : undefined"
+                @valid="(value) => field.handleChange(value as string)"
+                :modelValue="field.modelValue ?? ''"
+                :required="field.required"
             />
         </fieldset>
     </div>
@@ -145,9 +88,13 @@ import {
 import FormField from '@/components/FormField.vue';
 import { computed, reactive } from 'vue';
 import { getLocalizedString } from '@/utils/resume/Page';
-import { DrivingLicenseFields, NameFields, PersonalInfoFields } from '@/enums/data';
+import { NameFields } from '@/enums/name';
+import { PersonalInfoFields } from '@/enums/personalInfo';
+import { DrivingLicenseFields } from '@/enums/drivingLicense';
+import { AboutFields } from '@/enums/about';
 
 const general = reactive(resumeData.general);
+
 const profilePhotoUrl = computed(() => {
     if (typeof general.profilePhoto === 'string') {
         return general.profilePhoto;
@@ -273,6 +220,83 @@ function getPersonalInformationData(): FormFields {
             required: true,
             modelValue: general.functionTitle,
             handleChange: (value) => handleFunctionTitleChange(value as string),
+        },
+    };
+}
+
+function getAboutData(): FormFields {
+    return {
+        introduction: {
+            id: AboutFields.INTRODUCTION,
+            type: 'textarea',
+            rows: 8,
+            label: getLocalizedString('introduction'),
+            placeholder: getLocalizedString('introductionPlaceholder'),
+            helperText: getLocalizedString('introductionHelperText'),
+            required: true,
+            handleChange: (value) => handleIntroductionChange(value as string),
+            modelValue: general.introduction,
+        },
+        achievement1: {
+            id: `${AboutFields.ACHIEVEMENT}1`,
+            type: 'textarea',
+            rows: 8,
+            label: getLocalizedString(AboutFields.ACHIEVEMENT, { number: 1 }),
+            placeholder: getLocalizedString(`${AboutFields.ACHIEVEMENT}Placeholder`),
+            helperText: getLocalizedString(`${AboutFields.ACHIEVEMENT}HelperText`, {
+                amount: getLocalizedString('first').toLowerCase(),
+            }),
+            handleChange: (value) => handleAchievementChange(0, value as string),
+            required: false,
+            modelValue: general.achievements?.[0],
+        },
+        achievement2: {
+            id: `${AboutFields.ACHIEVEMENT}2`,
+            type: 'textarea',
+            rows: 8,
+            label: getLocalizedString(AboutFields.ACHIEVEMENT, { number: 2 }),
+            placeholder: getLocalizedString(`${AboutFields.ACHIEVEMENT}Placeholder`),
+            helperText: getLocalizedString(`${AboutFields.ACHIEVEMENT}HelperText`, {
+                amount: getLocalizedString('second').toLowerCase(),
+            }),
+            handleChange: (value) => handleAchievementChange(1, value as string),
+            required: false,
+            modelValue: general.achievements?.[1],
+        },
+        achievement3: {
+            id: `${AboutFields.ACHIEVEMENT}3`,
+            type: 'textarea',
+            rows: 8,
+            label: getLocalizedString(AboutFields.ACHIEVEMENT, { number: 3 }),
+            placeholder: getLocalizedString(`${AboutFields.ACHIEVEMENT}Placeholder`),
+            helperText: getLocalizedString(`${AboutFields.ACHIEVEMENT}HelperText`, {
+                amount: getLocalizedString('third').toLowerCase(),
+            }),
+            handleChange: (value) => handleAchievementChange(2, value as string),
+            required: false,
+            modelValue: general.achievements?.[2],
+        },
+        colleaguesDescribe: {
+            id: AboutFields.COLLEAGUES_DESCRIPTION,
+            type: 'textarea',
+            rows: 8,
+            label: getLocalizedString(AboutFields.COLLEAGUES_DESCRIPTION),
+            placeholder: getLocalizedString(`${AboutFields.COLLEAGUES_DESCRIPTION}Placeholder`),
+            helperText: getLocalizedString(`${AboutFields.COLLEAGUES_DESCRIPTION}HelperText`),
+            required: true,
+            handleChange: (value) => handleColleaguesDescribeChange(value as string),
+            modelValue: general.colleaguesDescribe,
+        },
+        colleaguesKnow: {
+            id: AboutFields.COLLEAGUES_SHOULD_KNOW,
+            type: 'textarea',
+            rows: 8,
+            label: getLocalizedString(AboutFields.COLLEAGUES_SHOULD_KNOW),
+            placeholder: getLocalizedString(`${AboutFields.COLLEAGUES_SHOULD_KNOW}Placeholder`),
+            helperText: getLocalizedString(`${AboutFields.COLLEAGUES_SHOULD_KNOW}HelperText`),
+            required: true,
+            handleChange: (value) => handleColleaguesKnowChange(value as string),
+            modelValue: general.colleaguesKnow,
         },
     };
 }
