@@ -2,11 +2,12 @@
     <div class="form-field">
         <component
             :is="inputType === 'skills' ? SkillsTagInput : inputType"
-            :id="id"
+            :id="inputType === 'skills' ? '' : id"
+            :id-prop="inputType === 'skills' ? id : ''"
             class="form-field__input"
             :placeholder="placeholder"
             :required="required"
-            :value="formState.value"
+            :value="inputType === 'skills' ? (formState.value as string[]).join(',') : formState.value"
             :aria-describedby="ariaDescribedBy"
             :modelValue="formState.value"
             :cols="cols"

@@ -45,19 +45,19 @@ export default class SkillsPage extends Page {
         this.currentX = HORIZONTAL_EDGE_SPACING;
         this.currentY = VERTICAL_EDGE_SPACING + 25.4;
 
-        this.#renderSkillsTable(getLocalizedString('programmingLanguagesTitle'), this.#data.languages);
-        this.#renderSkillsTable(getLocalizedString('platformsTitle'), this.#data.platforms);
-        this.#renderSkillsTable(getLocalizedString('toolsTitle'), this.#data.tools);
+        this.#renderSkillsTable(getLocalizedString('programmingLanguages'), this.#data.languages);
+        this.#renderSkillsTable(getLocalizedString('platforms'), this.#data.platforms);
+        this.#renderSkillsTable(getLocalizedString('tools'), this.#data.tools);
     }
 
     protected drawRightColumn(): void {
         this.currentX = RIGHT_COLUMN_START;
         this.currentY = VERTICAL_EDGE_SPACING + 25.4;
 
-        this.#renderSkillsTable(getLocalizedString('frameworksTitle'), this.#data.frameworks, 60);
-        this.#renderSkillsTable(getLocalizedString('methodologiesTitle'), this.#data.methodologies, 60);
-        this.#renderSkillsTable(getLocalizedString('databasesTitle'), this.#data.databases, 60);
-        this.#renderSkillsTable(getLocalizedString('operatingSystemsTitle'), this.#data.operatingSystems, 60);
+        this.#renderSkillsTable(getLocalizedString('frameworks'), this.#data.frameworks, 60);
+        this.#renderSkillsTable(getLocalizedString('methodologies'), this.#data.methodologies, 60);
+        this.#renderSkillsTable(getLocalizedString('databases'), this.#data.databases, 60);
+        this.#renderSkillsTable(getLocalizedString('operatingSystems'), this.#data.operatingSystems, 60);
     }
 
     #renderSkillsTable(title: string, skills: string[], lineEnd = 315.28): void {

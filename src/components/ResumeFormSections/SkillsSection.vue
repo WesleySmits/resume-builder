@@ -1,81 +1,19 @@
 <template>
-    <h1>Skills</h1>
     <div class="form">
         <fieldset>
-            <legend>Skills</legend>
+            <legend>{{ getLocalizedString('skills') }}</legend>
 
             <FormField
-                id="skillLanguages"
-                :label="getLocalizedString('programmingLanguagesTitle')"
-                placeholder="Add languages (e.g., JavaScript, Python)"
-                type="skills"
-                helperText="Enter all languages you are familiar with."
-                errorText="An error occurred."
-                :modelValue="skills.languages"
-                @update:modelValue="(value) => resumeStore.updateSkillsLanguages(value as string[])"
-            />
-
-            <FormField
-                id="skillFrameworks"
-                :label="getLocalizedString('frameworksTitle')"
-                placeholder="Add frameworks (e.g., Angular, Symfony, Laravel)"
-                type="skills"
-                helperText="Enter all frameworks you are familiar with."
-                errorText="An error occurred."
-                :modelValue="skills.frameworks"
-                @update:modelValue="(value) => resumeStore.updateSkillsFrameworks(value as string[])"
-            />
-            <FormField
-                id="skillPlatforms"
-                :label="getLocalizedString('platformsTitle')"
-                placeholder="Add platforms (e.g., AWS, Azure, Docker)"
-                type="skills"
-                helperText="Enter all platforms you are familiar with."
-                errorText="An error occurred."
-                :modelValue="skills.platforms"
-                @update:modelValue="(value) => resumeStore.updateSkillsPlatforms(value as string[])"
-            />
-            <FormField
-                id="skillMethodologies"
-                :label="getLocalizedString('methodologiesTitle')"
-                placeholder="Add methodologies (e.g., Agile, Scrum, Kanban)"
-                type="skills"
-                helperText="Enter all methodologies you are familiar with."
-                errorText="An error occurred."
-                :modelValue="skills.methodologies"
-                @update:modelValue="(value) => resumeStore.updateSkillsMethodologies(value as string[])"
-            />
-            <FormField
-                id="skillOperatingSystems"
-                :label="getLocalizedString('operatingSystemsTitle')"
-                placeholder="Add operating systems (e.g., Windows, macOS, Linux)"
-                type="skills"
-                helperText="Enter all operating systems you are familiar with."
-                errorText="An error occurred."
-                :modelValue="skills.operatingSystems"
-                @update:modelValue="(value) => resumeStore.updateSkillsOperatingSystems(value as string[])"
-            />
-
-            <FormField
-                id="skillDatabases"
-                :label="getLocalizedString('databaseTitle')"
-                placeholder="Add databases (e.g., MySQL, PostgreSQL, MongoDB)"
-                type="skills"
-                helperText="Enter all databases you are familiar with."
-                errorText="An error occurred."
-                :modelValue="skills.databases"
-                @update:modelValue="(value) => resumeStore.updateSkillsDatabases(value as string[])"
-            />
-
-            <FormField
-                id="skillTools"
-                :label="getLocalizedString('toolsTitle')"
-                placeholder="Add tools (e.g., Git, Docker, Jenkins)"
-                type="skills"
-                helperText="Enter all tools you are familiar with."
-                errorText="An error occurred."
-                :modelValue="skills.tools"
-                @update:modelValue="(value) => resumeStore.updateSkillsTools(value as string[])"
+                v-for="field in getSkillsData()"
+                :type="field.type"
+                :key="field.id"
+                :id="field.id"
+                :label="field.label"
+                :placeholder="field.placeholder"
+                :helperText="field.helperText"
+                @valid="(value) => field.handleChange(value as string)"
+                :modelValue="field.modelValue"
+                :required="field.required"
             />
         </fieldset>
     </div>
@@ -85,9 +23,85 @@
 import { useResumeStore } from '@/stores/resume';
 import FormField from '@/components/FormField.vue';
 import { getLocalizedString } from '@/utils/resume/Page';
+import { SkillFields } from '@/enums/skills';
 
 const resumeStore = useResumeStore();
 const skills = resumeStore.skills;
+
+function getSkillsData(): FormFields {
+    return {
+        programmingLanguages: {
+            id: SkillFields.PROGRAMMING_LANGUAGES,
+            type: 'skills',
+            label: getLocalizedString(`${SkillFields.PROGRAMMING_LANGUAGES}`),
+            placeholder: getLocalizedString(`${SkillFields.PROGRAMMING_LANGUAGES}Placeholder`),
+            helperText: getLocalizedString(`${SkillFields.PROGRAMMING_LANGUAGES}HelperText`),
+            required: false,
+            handleChange: (value) => resumeStore.updateSkillsLanguages(value as string[]),
+            modelValue: skills.languages,
+        },
+        frameworks: {
+            id: SkillFields.FRAMEWORKS,
+            type: 'skills',
+            label: getLocalizedString(`${SkillFields.FRAMEWORKS}`),
+            placeholder: getLocalizedString(`${SkillFields.FRAMEWORKS}Placeholder`),
+            helperText: getLocalizedString(`${SkillFields.FRAMEWORKS}HelperText`),
+            required: false,
+            handleChange: (value) => resumeStore.updateSkillsFrameworks(value as string[]),
+            modelValue: skills.frameworks,
+        },
+        platforms: {
+            id: SkillFields.PLATFORMS,
+            type: 'skills',
+            label: getLocalizedString(`${SkillFields.PLATFORMS}`),
+            placeholder: getLocalizedString(`${SkillFields.PLATFORMS}Placeholder`),
+            helperText: getLocalizedString(`${SkillFields.PLATFORMS}HelperText`),
+            required: false,
+            handleChange: (value) => resumeStore.updateSkillsPlatforms(value as string[]),
+            modelValue: skills.platforms,
+        },
+        methodologies: {
+            id: SkillFields.METHODOLOGIES,
+            type: 'skills',
+            label: getLocalizedString(`${SkillFields.METHODOLOGIES}`),
+            placeholder: getLocalizedString(`${SkillFields.METHODOLOGIES}Placeholder`),
+            helperText: getLocalizedString(`${SkillFields.METHODOLOGIES}HelperText`),
+            required: false,
+            handleChange: (value) => resumeStore.updateSkillsMethodologies(value as string[]),
+            modelValue: skills.methodologies,
+        },
+        operatingSystems: {
+            id: SkillFields.OPERATING_SYSTEMS,
+            type: 'skills',
+            label: getLocalizedString(`${SkillFields.OPERATING_SYSTEMS}`),
+            placeholder: getLocalizedString(`${SkillFields.OPERATING_SYSTEMS}Placeholder`),
+            helperText: getLocalizedString(`${SkillFields.OPERATING_SYSTEMS}HelperText`),
+            required: false,
+            handleChange: (value) => resumeStore.updateSkillsOperatingSystems(value as string[]),
+            modelValue: skills.operatingSystems,
+        },
+        databases: {
+            id: SkillFields.DATABASES,
+            type: 'skills',
+            label: getLocalizedString(`${SkillFields.DATABASES}`),
+            placeholder: getLocalizedString(`${SkillFields.DATABASES}Placeholder`),
+            helperText: getLocalizedString(`${SkillFields.DATABASES}HelperText`),
+            required: false,
+            handleChange: (value) => resumeStore.updateSkillsDatabases(value as string[]),
+            modelValue: skills.databases,
+        },
+        tools: {
+            id: SkillFields.TOOLS,
+            type: 'skills',
+            label: getLocalizedString(`${SkillFields.TOOLS}`),
+            placeholder: getLocalizedString(`${SkillFields.TOOLS}Placeholder`),
+            helperText: getLocalizedString(`${SkillFields.TOOLS}HelperText`),
+            required: false,
+            handleChange: (value) => resumeStore.updateSkillsTools(value as string[]),
+            modelValue: skills.tools,
+        },
+    };
+}
 </script>
 
 <style scoped></style>

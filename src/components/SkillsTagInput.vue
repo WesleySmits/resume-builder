@@ -7,7 +7,7 @@
             </span>
         </div>
 
-        <input v-model="inputValue" :placeholder="placeholder" @keydown="onKeydown" @blur="addTag" />
+        <input v-model="inputValue" :placeholder="placeholder" @keydown="onKeydown" @blur="addTag" :id="props.idProp" />
     </div>
 </template>
 
@@ -17,12 +17,15 @@ import { ref } from 'vue';
 interface Props {
     modelValue: string[];
     placeholder?: string;
+    id: string;
+    idProp: string;
+    value: string;
 }
 
 const props = defineProps<Props>();
 const emit = defineEmits(['update:modelValue', 'input', 'blur']);
 
-const inputValue = ref('');
+const inputValue = ref(props.value ?? '');
 const tags = ref<string[]>([...(props.modelValue ?? [])]);
 
 const addTag = () => {

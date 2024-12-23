@@ -1,13 +1,13 @@
 import { describe, it, expect, vi } from 'vitest';
-import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import GeneralSection from '@/components/ResumeFormSections/GeneralSection.vue';
 import { NameFields } from '@/enums/name';
 import { createTestingPinia } from '@pinia/testing';
 import { useResumeStore, type ResumeData } from '@/stores/resume';
-import { getLocalizedString } from '@/utils/resume/Page';
 import { PersonalInfoFields } from '@/enums/personalInfo';
 import FormField from '@/components/FormField.vue';
 import { AboutFields } from '@/enums/about';
+import { testFormField } from './utils';
 
 describe('GeneralSection.vue', () => {
     const resumeInitialState: ResumeData = {
@@ -52,28 +52,6 @@ describe('GeneralSection.vue', () => {
                 ],
             },
         });
-    }
-
-    function testFormField(
-        input: HTMLInputElement,
-        label: DOMWrapper<HTMLLabelElement>,
-        helperText: DOMWrapper<HTMLElement>,
-        fieldName: string,
-        placeholder: string,
-        expectedValue = '',
-        required = false,
-        labelText = '',
-        helperTextText = '',
-    ) {
-        const labelTextToUse = labelText || getLocalizedString(fieldName);
-        const helperTextToUse = helperTextText || getLocalizedString(`${fieldName}HelperText`);
-
-        expect(input.id).toBe(fieldName);
-        expect(input.value).toBe(expectedValue);
-        expect(label.text()).toBe(labelTextToUse);
-        if (placeholder) expect(input.placeholder).toBe(placeholder);
-        expect(helperText.text()).toBe(helperTextToUse);
-        expect(input.required).toBe(required);
     }
 
     describe('Test name fields', () => {
@@ -221,7 +199,11 @@ describe('GeneralSection.vue', () => {
                 .filter((field) => fieldsToTest.includes(field.vm.$props.id));
             expect(fields.length).toBe(6);
 
-            expect(store.updateName).toHaveBeenCalledTimes(0);
+            expect(store.updateProfilePhoto).toHaveBeenCalledTimes(0);
+            expect(store.updateContact).toHaveBeenCalledTimes(0);
+            expect(store.updateRegion).toHaveBeenCalledTimes(0);
+            expect(store.updateDrivingLicense).toHaveBeenCalledTimes(0);
+            expect(store.updateFunctionTitle).toHaveBeenCalledTimes(0);
 
             const data = [
                 'https://www.resume-maker.io/profile-photo.jpg',
@@ -270,7 +252,7 @@ describe('GeneralSection.vue', () => {
                 labels[1],
                 helpTexts[1],
                 AboutFields.ACHIEVEMENT + '1',
-                '',
+                null,
                 resumeInitialState.general.achievements[0],
                 false,
                 'Achievement 1',
@@ -281,7 +263,7 @@ describe('GeneralSection.vue', () => {
                 labels[2],
                 helpTexts[2],
                 AboutFields.ACHIEVEMENT + '2',
-                '',
+                null,
                 resumeInitialState.general.achievements[1],
                 false,
                 'Achievement 2',
@@ -293,7 +275,7 @@ describe('GeneralSection.vue', () => {
                 labels[3],
                 helpTexts[3],
                 AboutFields.ACHIEVEMENT + '3',
-                '',
+                null,
                 resumeInitialState.general.achievements[2],
                 false,
                 'Achievement 3',
@@ -338,7 +320,10 @@ describe('GeneralSection.vue', () => {
                 .filter((field) => fieldsToTest.includes(field.vm.$props.id));
             expect(fields.length).toBe(6);
 
-            expect(store.updateName).toHaveBeenCalledTimes(0);
+            expect(store.updateIntroduction).toHaveBeenCalledTimes(0);
+            expect(store.updateAchievement).toHaveBeenCalledTimes(0);
+            expect(store.updateColleaguesDescribe).toHaveBeenCalledTimes(0);
+            expect(store.updateColleaguesKnow).toHaveBeenCalledTimes(0);
 
             const data = [
                 'I am Jon Snow, the King in the North.',

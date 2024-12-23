@@ -60,8 +60,8 @@ interface FormField extends Partial<HTMLInputElement>, Partial<HTMLTextAreaEleme
     placeholder: string;
     helperText: string;
     required: boolean;
-    modelValue?: string;
-    handleChange: (e: string | File, id?: string) => void;
+    modelValue?: string | string[];
+    handleChange: (e: string | string[] | File, id?: string) => void;
     options?: { value: string; text: string }[];
 }
 
