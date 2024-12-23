@@ -1,4 +1,5 @@
 import { roundImage } from '@/utils/image';
+import { defineStore } from 'pinia';
 import { reactive, watch } from 'vue';
 
 export interface Name {
@@ -45,6 +46,77 @@ export interface ResumeData {
 
 const storedResumeData = localStorage.getItem('resumeData');
 const parsedResumeData = storedResumeData ? JSON.parse(storedResumeData) : undefined;
+
+export const useResumeStore = defineStore('resume', {
+    state: () => ({
+        general: reactive<General>({
+            profilePhoto: parsedResumeData?.general?.profilePhoto ?? undefined,
+            name: parsedResumeData?.general?.name ?? undefined,
+            region: parsedResumeData?.general?.region ?? undefined,
+            drivingLicense: parsedResumeData?.general?.drivingLicense ?? undefined,
+            functionTitle: parsedResumeData?.general?.functionTitle ?? undefined,
+            introduction: parsedResumeData?.general?.introduction ?? undefined,
+            achievements: parsedResumeData?.general?.achievements ?? undefined,
+            colleaguesDescribe: parsedResumeData?.general?.colleaguesDescribe ?? undefined,
+            colleaguesKnow: parsedResumeData?.general?.colleaguesKnow ?? undefined,
+            contact: {
+                email: parsedResumeData?.general?.contact?.email ?? undefined,
+                phone: parsedResumeData?.general?.contact?.phone ?? undefined,
+            },
+        }),
+        skills: reactive<Skills>({
+            languages: parsedResumeData?.skills?.languages ?? [],
+            frameworks: parsedResumeData?.skills?.frameworks ?? [],
+            platforms: parsedResumeData?.skills?.platforms ?? [],
+            methodologies: parsedResumeData?.skills?.methodologies ?? [],
+            operatingSystems: parsedResumeData?.skills?.operatingSystems ?? [],
+            databases: parsedResumeData?.skills?.databases ?? [],
+            tools: parsedResumeData?.skills?.tools ?? [],
+        }),
+    }),
+    actions: {
+        async updateProfilePhoto(profilePhoto: File) {
+            // convert File to base64
+            const reader = new FileReader();
+            reader.readAsDataURL(profilePhoto);
+            reader.onload = async () => {
+                const base64 = reader.result as string;
+                const roundedBase64 = await roundImage(base64, 140, 140);
+                this.general.profilePhoto = roundedBase64;
+            };
+        },
+        updateName(name: Name) {
+            this.general.name = name;
+        },
+        updateRegion(region: string) {
+            this.general.region = region;
+        },
+        updateDrivingLicense(license: DrivingLicense) {
+            this.general.drivingLicense = license;
+        },
+        updateFunctionTitle(title: string) {
+            this.general.functionTitle = title;
+        },
+        updateIntroduction(introduction: string) {
+            this.general.introduction = introduction;
+        },
+        updateAchievements(achievements: string[]) {
+            this.general.achievements = achievements;
+        },
+        updateColleaguesDescribe(description: string) {
+            this.general.colleaguesDescribe = description;
+        },
+        updateColleaguesKnow(know: string) {
+            this.general.colleaguesKnow = know;
+        },
+        updateContact(contact: Contact) {
+            this.general.contact = contact;
+        },
+        updateSkills(skills: Skills) {
+            this.skills = skills;
+        },
+    },
+});
 
 export const resumeData = reactive<ResumeData>({
     general: {

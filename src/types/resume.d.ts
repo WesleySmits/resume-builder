@@ -54,28 +54,7 @@ type LineProps = {
     thickness: number;
     color: RGB;
 };
-
-/**
- * options: [
-                {
-                    value: DrivingLicenseFields.CAR,
-                    text: getLocalizedString(DrivingLicenseFields.CAR),
-                },
-                {
-                    value: DrivingLicenseFields.MOTORCYCLE,
-                    text: getLocalizedString(DrivingLicenseFields.MOTORCYCLE),
-                },
-                {
-                    value: DrivingLicenseFields.TRUCK,
-                    text: getLocalizedString(DrivingLicenseFields.TRUCK),
-                },
-                {
-                    value: DrivingLicenseFields.BUS,
-                    text: getLocalizedString(DrivingLicenseFields.BUS),
-                },
-            ],
- */
-interface FormField extends Partial<HTMLInputElement> {
+interface FormField extends Partial<HTMLInputElement>, Partial<HTMLTextAreaElement>, Partial<HTMLSelectElement> {
     id: string;
     label: string;
     placeholder: string;
