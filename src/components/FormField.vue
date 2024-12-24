@@ -1,5 +1,5 @@
 <template>
-    <div class="form-field">
+    <div :class="{ 'form-field': true, 'form-field--error': formState.error }">
         <component
             :is="inputType === 'skills' ? SkillsTagInput : inputType"
             :id="inputType === 'skills' ? '' : id"
@@ -8,6 +8,7 @@
             :placeholder="placeholder"
             :required="required"
             :value="inputType === 'skills' ? (formState.value as string[]).join(',') : formState.value"
+            :aria-labelledby="props.id"
             :aria-describedby="ariaDescribedBy"
             :modelValue="formState.value"
             :cols="cols"
@@ -91,7 +92,7 @@ const ariaDescribedBy = computed(() =>
 );
 
 function validate() {
-    if (inputRef.value && !inputRef.value.checkValidity()) {
+    if (inputRef.value && inputRef.value instanceof HTMLInputElement && !inputRef.value.checkValidity()) {
         formState.error = true;
     } else {
         formState.error = false;
@@ -111,6 +112,7 @@ function handleInput(event: Event) {
         const value = event as unknown as string[];
         formState.value = value;
         emit('update:modelValue', value);
+        debouncedValidate();
     } else {
         formState.value = target.value;
         emit('update:modelValue', target.value);
@@ -146,6 +148,15 @@ const debouncedValidate = debounce(() => {
 
     .error-text {
         order: 4;
+    }
+}
+
+.form-field--error {
+    input,
+    select,
+    textarea,
+    .form-field__input {
+        --border-color: var(--color-state-error);
     }
 }
 </style>

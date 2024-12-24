@@ -7,7 +7,14 @@
             </span>
         </div>
 
-        <input v-model="inputValue" :placeholder="placeholder" @keydown="onKeydown" @blur="addTag" :id="props.idProp" />
+        <input
+            v-model="inputValue"
+            :placeholder="placeholder"
+            @keydown="onKeydown"
+            @blur="addTag"
+            @input="onInput"
+            :id="props.idProp"
+        />
     </div>
 </template>
 
@@ -48,6 +55,10 @@ const onKeydown = (event: KeyboardEvent) => {
         event.preventDefault();
         addTag();
     }
+};
+
+const onInput = () => {
+    emit('input', tags.value);
 };
 </script>
 
