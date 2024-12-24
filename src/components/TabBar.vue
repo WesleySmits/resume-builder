@@ -18,7 +18,7 @@ const emit = defineEmits<{
     (e: 'update:activeTab', activeTab: string): void;
 }>();
 
-const activeTab = ref(props.initialTab || props.tabs[0]?.id || '');
+const activeTab = ref(props.initialTab || props.tabs[0]?.id);
 
 const selectTab = (tabId: string) => {
     activeTab.value = tabId;

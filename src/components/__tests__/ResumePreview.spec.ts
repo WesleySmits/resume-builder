@@ -215,8 +215,6 @@ describe('ResumePreview.vue', () => {
         const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
         expect(consoleError).toHaveBeenCalledTimes(0);
 
-        console.log('consoleError', consoleError);
-
         const resumeStore = useResumeStore();
         resumeStore.general.name.firstName = 'Arya';
         await wrapper.vm.$nextTick();
