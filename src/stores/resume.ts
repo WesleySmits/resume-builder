@@ -5,6 +5,38 @@ import { loadResumeData } from '@/utils/resume/resume';
 
 const parsedResumeData = loadResumeData();
 
+const defaultResumeState: ResumeData = {
+    general: {
+        profilePhoto: '',
+        name: {
+            firstName: '',
+            middleName: '',
+            lastName: '',
+            displayName: '',
+        },
+        region: '',
+        drivingLicense: undefined,
+        functionTitle: '',
+        introduction: '',
+        achievements: ['', '', ''],
+        colleaguesDescribe: '',
+        colleaguesKnow: '',
+        contact: {
+            email: '',
+            phone: '',
+        },
+    },
+    skills: {
+        languages: [],
+        frameworks: [],
+        platforms: [],
+        methodologies: [],
+        operatingSystems: [],
+        databases: [],
+        tools: [],
+    },
+};
+
 export const useResumeStore = defineStore('resume', {
     state: () => ({
         general: reactive<General>({
@@ -62,6 +94,9 @@ export const useResumeStore = defineStore('resume', {
         },
     },
     actions: {
+        reset() {
+            Object.assign(this, defaultResumeState);
+        },
         async updateProfilePhoto(profilePhoto: File) {
             try {
                 const base64 = await convertImageToBase64(profilePhoto);
@@ -87,10 +122,6 @@ export const useResumeStore = defineStore('resume', {
             this.general.introduction = introduction;
         },
         updateAchievement(index: number, achievement: string) {
-            if (!this.general.achievements) {
-                this.general.achievements = [];
-            }
-
             this.general.achievements[index] = achievement;
         },
         updateColleaguesDescribe(description: string) {
