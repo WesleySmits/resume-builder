@@ -7,23 +7,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, defineEmits } from 'vue'
+import { ref, defineEmits } from 'vue';
 
 const props = defineProps<{
-    tabs: Array<{ id: string; name: string }>
-    initialTab?: string
-}>()
+    tabs: Array<{ id: string; name: string }>;
+    initialTab?: string;
+}>();
 
 const emit = defineEmits<{
-    (e: 'update:activeTab', activeTab: string): void
-}>()
+    (e: 'update:activeTab', activeTab: string): void;
+}>();
 
-const activeTab = ref(props.initialTab || props.tabs[0]?.id || '')
+const activeTab = ref(props.initialTab || props.tabs[0]?.id || '');
 
 const selectTab = (tabId: string) => {
-    activeTab.value = tabId
-    emit('update:activeTab', tabId)
-}
+    activeTab.value = tabId;
+    emit('update:activeTab', tabId);
+};
 </script>
 
 <style scoped>
