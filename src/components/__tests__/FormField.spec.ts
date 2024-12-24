@@ -1,4 +1,3 @@
-/* eslint-disable vitest/no-commented-out-tests */
 import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 import FormField from '../FormField.vue';
@@ -252,9 +251,4 @@ describe('FormField.vue', () => {
         input.element.dispatchEvent(inputEvent);
         expect(wrapper.emitted('valid')).toBeTruthy();
     });
-
-    // it('does not apply the error class when error prop is false', () => {
-    //     const wrapper = getMountedComponent({ error: false });
-    //     expect(wrapper.classes()).not.toContain('error');
-    // });
 });
