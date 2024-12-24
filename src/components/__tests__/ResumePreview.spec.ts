@@ -33,6 +33,7 @@ vi.mock('@/utils/resume/Page', () => ({
 
 vi.mock('@/utils/resume/resume', () => ({
     generateResume: vi.fn().mockResolvedValue(new Uint8Array()),
+    loadResumeData: vi.fn().mockReturnValue({}),
 }));
 
 interface ResumePreviewInstance {

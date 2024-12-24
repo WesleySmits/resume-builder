@@ -5,18 +5,25 @@ import SkillsPage from './SkillsPage';
 export async function generateResume(): Promise<Uint8Array> {
     const pdfDoc = await PDFDocument.create();
 
-    // Generate each page
     const introductionPage = IntroductionPage.getInstance();
     await introductionPage.initialize(pdfDoc);
 
-    // Generate the skills page
     const skillsPage = SkillsPage.getInstance();
     await skillsPage.initialize(pdfDoc);
 
-    // Additional pages (placeholder for future logic)
-    // await generatePageTwo(pdfDoc, data);
-    // await generatePageThree(pdfDoc, data);
-
-    // Save and return the PDF
     return pdfDoc.save();
+}
+
+export function loadResumeData(): ResumeData | undefined {
+    const storedResumeData = localStorage.getItem('resumeData');
+    if (!storedResumeData) {
+        return undefined;
+    }
+
+    try {
+        return JSON.parse(storedResumeData) as ResumeData;
+    } catch (error) {
+        console.error('Failed to parse resume data from localStorage:', error);
+        return undefined;
+    }
 }

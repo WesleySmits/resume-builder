@@ -68,3 +68,45 @@ interface FormField extends Partial<HTMLInputElement>, Partial<HTMLTextAreaEleme
 interface FormFields {
     [key: string]: FormField;
 }
+
+interface Name {
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    displayName: string;
+}
+
+interface Contact {
+    email: string;
+    phone: string;
+}
+
+type DrivingLicense = 'Car' | 'Motorcycle' | 'Truck' | 'Bus';
+
+interface General {
+    profilePhoto?: string;
+    name: Name;
+    region?: string;
+    drivingLicense?: DrivingLicense;
+    functionTitle?: string;
+    introduction?: string;
+    achievements: string[];
+    colleaguesDescribe?: string;
+    colleaguesKnow?: string;
+    contact: Contact;
+}
+
+interface Skills {
+    languages: string[];
+    frameworks: string[];
+    platforms: string[];
+    methodologies: string[];
+    operatingSystems: string[];
+    databases: string[];
+    tools: string[];
+}
+
+interface ResumeData {
+    general: General;
+    skills: Skills;
+}

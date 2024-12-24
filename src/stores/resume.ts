@@ -1,51 +1,9 @@
-import { roundImage } from '@/utils/image';
+import { convertImageToBase64, roundImage } from '@/utils/image';
 import { defineStore } from 'pinia';
-import { reactive, watch } from 'vue';
+import { reactive } from 'vue';
+import { loadResumeData } from '@/utils/resume/resume';
 
-export interface Name {
-    firstName: string;
-    middleName: string;
-    lastName: string;
-    displayName: string;
-}
-
-export interface Contact {
-    email: string;
-    phone: string;
-}
-
-export type DrivingLicense = 'Car' | 'Motorcycle' | 'Truck' | 'Bus';
-
-export interface General {
-    profilePhoto?: string;
-    name: Name;
-    region?: string;
-    drivingLicense?: DrivingLicense;
-    functionTitle?: string;
-    introduction?: string;
-    achievements: string[];
-    colleaguesDescribe?: string;
-    colleaguesKnow?: string;
-    contact: Contact;
-}
-
-export interface Skills {
-    languages: string[];
-    frameworks: string[];
-    platforms: string[];
-    methodologies: string[];
-    operatingSystems: string[];
-    databases: string[];
-    tools: string[];
-}
-
-export interface ResumeData {
-    general: General;
-    skills: Skills;
-}
-
-const storedResumeData = localStorage.getItem('resumeData');
-const parsedResumeData = storedResumeData ? JSON.parse(storedResumeData) : undefined;
+const parsedResumeData = loadResumeData();
 
 export const useResumeStore = defineStore('resume', {
     state: () => ({
@@ -105,14 +63,13 @@ export const useResumeStore = defineStore('resume', {
     },
     actions: {
         async updateProfilePhoto(profilePhoto: File) {
-            // convert File to base64
-            const reader = new FileReader();
-            reader.readAsDataURL(profilePhoto);
-            reader.onload = async () => {
-                const base64 = reader.result as string;
-                const roundedBase64 = await roundImage(base64, 140, 140);
+            try {
+                const base64 = await convertImageToBase64(profilePhoto);
+                const roundedBase64 = await roundImage(base64, 200, 200);
                 this.general.profilePhoto = roundedBase64;
-            };
+            } catch (error) {
+                console.error('Error processing profile photo:', error);
+            }
         },
         updateName(name: Name) {
             this.general.name = name;
@@ -171,44 +128,3 @@ export const useResumeStore = defineStore('resume', {
         },
     },
 });
-
-/**
- * @deprecated
- */
-export const resumeData = reactive<ResumeData>({
-    general: {
-        profilePhoto: parsedResumeData?.general?.profilePhoto ?? undefined,
-        name: parsedResumeData?.general?.name ?? undefined,
-        region: parsedResumeData?.general?.region ?? undefined,
-        drivingLicense: parsedResumeData?.general?.drivingLicense ?? undefined,
-        functionTitle: parsedResumeData?.general?.functionTitle ?? undefined,
-        introduction: parsedResumeData?.general?.introduction ?? undefined,
-        achievements: parsedResumeData?.general?.achievements ?? undefined,
-        colleaguesDescribe: parsedResumeData?.general?.colleaguesDescribe ?? undefined,
-        colleaguesKnow: parsedResumeData?.general?.colleaguesKnow ?? undefined,
-        contact: {
-            email: parsedResumeData?.general?.contact?.email ?? undefined,
-            phone: parsedResumeData?.general?.contact?.phone ?? undefined,
-        },
-    },
-    skills: {
-        languages: parsedResumeData?.skills?.languages ?? [],
-        frameworks: parsedResumeData?.skills?.frameworks ?? [],
-        platforms: parsedResumeData?.skills?.platforms ?? [],
-        methodologies: parsedResumeData?.skills?.methodologies ?? [],
-        operatingSystems: parsedResumeData?.skills?.operatingSystems ?? [],
-        databases: parsedResumeData?.skills?.databases ?? [],
-        tools: parsedResumeData?.skills?.tools ?? [],
-    },
-});
-
-export function initializeStore() {
-    const resumeStore = useResumeStore();
-    watch(
-        () => resumeStore.$state,
-        (newValue) => {
-            localStorage.setItem('resumeData', JSON.stringify(newValue));
-        },
-        { deep: true },
-    );
-}

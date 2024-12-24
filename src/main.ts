@@ -5,13 +5,16 @@ import { createPinia } from 'pinia';
 
 import App from './App.vue';
 import router from './router';
-import { initializeStore } from './stores/resume';
+import { useResumeStore } from './stores/resume';
 
 const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
 
-initializeStore();
+const resumeStore = useResumeStore();
+resumeStore.$subscribe((mutation, state) => {
+    localStorage.setItem('resumeData', JSON.stringify(state));
+});
 
 app.mount('#app');
