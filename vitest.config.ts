@@ -12,7 +12,7 @@ export default mergeConfig(
             root: fileURLToPath(new URL('./', import.meta.url)),
             coverage: {
                 reporter: ['text', 'json', 'html'],
-                exclude: ['node_modules/', 'src/**/__tests__/', 'src/**/enums/', 'src/**/types/'],
+                exclude: ['node_modules/', 'src/**/__tests__/', 'src/**/enums/', 'src/**/router/', 'src/**/types/'],
                 include: ['src/**/*.ts', 'src/**/*.vue'],
             },
         },
