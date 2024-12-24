@@ -32,3 +32,16 @@ export function roundImage(base64: string, width: number, height: number): Promi
         };
     });
 }
+
+export async function convertImageToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+        try {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = () => reject(new Error('Failed to convert file to Base64'));
+            reader.readAsDataURL(file); // This is where we can inject an error
+        } catch (error) {
+            reject(new Error(error as string));
+        }
+    });
+}
