@@ -1,7 +1,7 @@
 <template>
     <div class="resume-preview">
         <h2>{{ headerText }}</h2>
-        <div id="pdf-container"></div>
+        <div id="pdf-container" ref="pdfContainer"></div>
         <div class="navigation-controls">
             <button @click="prevPage" :disabled="pageNum <= 1">Previous</button>
             <span>Page {{ pageNum }} of {{ pageCount }}</span>
@@ -18,6 +18,7 @@ import { useResumeStore } from '@/stores/resume';
 import { generateResume } from '@/utils/resume/resume';
 import { getLocalizedString } from '@/utils/resume/Page';
 
+const pdfContainer = ref<HTMLElement | null>(null);
 const resumeStore = useResumeStore();
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
@@ -34,23 +35,17 @@ async function renderPDF() {
     const loadingTask = pdfjsLib.getDocument({ data: pdfData });
 
     pdf = await loadingTask.promise;
+
+    if (!pdf) {
+        throw new Error('No PDF document to render');
+    }
+
     pageCount.value = pdf.numPages;
 
     renderPage(pageNum.value);
 }
 
 async function renderPage(num: number) {
-    if (!pdf) {
-        console.error('No PDF document to render');
-        return;
-    }
-
-    const debug = false;
-
-    if (debug) {
-        num = 3;
-    }
-
     const page = await pdf.getPage(num);
 
     const viewport = page.getViewport({ scale: 1.5 });
@@ -60,10 +55,9 @@ async function renderPage(num: number) {
     canvas.height = viewport.height;
     canvas.width = viewport.width;
 
-    const pdfContainer = document.getElementById('pdf-container');
-    if (pdfContainer) {
-        pdfContainer.innerHTML = '';
-        pdfContainer.appendChild(canvas);
+    if (pdfContainer.value) {
+        pdfContainer.value.innerHTML = '';
+        pdfContainer.value.appendChild(canvas);
     }
 
     const renderContext = {
@@ -87,10 +81,16 @@ const nextPage = () => {
     renderPage(pageNum.value);
 };
 
-watch(resumeStore.$state, async () => {
-    await renderPDF();
-});
-onMounted(renderPDF);
+watch(resumeStore.$state, handleRenderPDF);
+onMounted(handleRenderPDF);
+
+async function handleRenderPDF(): Promise<void> {
+    try {
+        await renderPDF();
+    } catch (error) {
+        console.error(error);
+    }
+}
 </script>
 
 <style scoped>
