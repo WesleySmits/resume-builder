@@ -60,19 +60,25 @@ const activeTab = ref('general');
 <style lang="postcss" scoped>
 .resume-container {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     margin: auto;
     gap: 2rem;
 
     width: 100%;
     max-width: 94vw;
 
-    main {
-        flex: 0 0 60%;
-    }
+    @media (min-width: 1280px) {
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        gap: 0;
 
-    aside {
-        flex: 0 0 40%;
+        main {
+            flex: 0 0 50%;
+        }
+
+        aside {
+            flex: 0 0 40%;
+        }
     }
 }
 </style>
