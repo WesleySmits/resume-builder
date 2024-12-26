@@ -1,7 +1,7 @@
 import { convertImageToBase64, roundImage } from '@/utils/image';
+import { loadResumeData } from '@/utils/resume/storage';
 import { defineStore } from 'pinia';
 import { reactive } from 'vue';
-import { loadResumeData } from '@/utils/resume/resume';
 
 const parsedResumeData = loadResumeData();
 

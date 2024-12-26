@@ -1,6 +1,6 @@
-import { type General } from '@/stores/resume';
 import type { PDFDocument } from 'pdf-lib';
-import Page, { getLocalizedString } from './Page';
+import Page from './Page';
+import { getLocalizedString } from '../translation';
 
 export default class IntroductionPage extends Page {
     static #instance: IntroductionPage | null = null;
@@ -22,6 +22,10 @@ export default class IntroductionPage extends Page {
     }
 
     public async initialize(pdfDoc: PDFDocument): Promise<void> {
+        if (!pdfDoc) {
+            throw new Error('PDFDocument is not set');
+        }
+
         await super.initialize(pdfDoc);
 
         await this.drawLeftColumn();

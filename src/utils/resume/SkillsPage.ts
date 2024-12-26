@@ -1,11 +1,5 @@
-import type { Skills } from '@/stores/resume';
-import Page, {
-    getLocalizedString,
-    HORIZONTAL_EDGE_SPACING,
-    RIGHT_COLUMN_START,
-    SPACING,
-    VERTICAL_EDGE_SPACING,
-} from './Page';
+import { getLocalizedString } from '../translation';
+import Page, { HORIZONTAL_EDGE_SPACING, RIGHT_COLUMN_START, SPACING, VERTICAL_EDGE_SPACING } from './Page';
 import { rgb, type PDFDocument } from 'pdf-lib';
 
 export default class SkillsPage extends Page {

@@ -69,14 +69,14 @@
 </template>
 
 <script lang="ts" setup>
-import { type Name, type DrivingLicense, useResumeStore } from '@/stores/resume';
+import { useResumeStore } from '@/stores/resume';
 
 import FormField from '@/components/FormField.vue';
-import { getLocalizedString } from '@/utils/resume/Page';
 import { NameFields } from '@/enums/name';
 import { PersonalInfoFields } from '@/enums/personalInfo';
 import { DrivingLicenseFields } from '@/enums/drivingLicense';
 import { AboutFields } from '@/enums/about';
+import { getLocalizedString } from '@/utils/translation';
 
 const resumeStore = useResumeStore();
 const general = resumeStore.general;

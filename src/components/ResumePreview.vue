@@ -16,7 +16,7 @@ import * as pdfjsLib from 'pdfjs-dist/';
 import { type PDFDocumentProxy } from 'pdfjs-dist';
 import { useResumeStore } from '@/stores/resume';
 import { generateResume } from '@/utils/resume/resume';
-import { getLocalizedString } from '@/utils/resume/Page';
+import { getLocalizedString } from '@/utils/translation';
 
 const pdfContainer = ref<HTMLElement | null>(null);
 const resumeStore = useResumeStore();

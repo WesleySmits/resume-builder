@@ -1,38 +1,16 @@
 import type { PDFDocument, PDFFont, PDFPage } from 'pdf-lib';
 import { rgb, StandardFonts } from 'pdf-lib';
 
-import * as en from '@/locales/en.json';
-import * as nl from '@/locales/nl.json';
 import { base64ToUint8Array } from '../image';
 import { useResumeStore } from '@/stores/resume';
-
-const locales: Record<Locales, Record<string, string>> = {
-    en: en,
-    nl: nl,
-};
-
-export function getLocalizedString(
-    key: string,
-    variables?: Record<string, string | number>,
-    lang: Locales = 'en',
-): string {
-    const translationString = locales[lang][key];
-
-    if (variables) {
-        return (
-            translationString?.replace(/{(.*?)}/g, (_, match) => {
-                return variables[match] as string;
-            }) || key
-        );
-    }
-
-    return translationString || key;
-}
 
 export const SPACING = 10;
 export const VERTICAL_EDGE_SPACING = 100;
 export const HORIZONTAL_EDGE_SPACING = 60;
 export const RIGHT_COLUMN_START = 295;
+
+export const PAGE_WIDTH = 595.28;
+export const PAGE_HEIGHT = 841.89;
 
 export default class Page {
     #document: PDFDocument | null = null;
@@ -55,6 +33,9 @@ export default class Page {
     };
 
     public async initialize(pdfDoc: PDFDocument): Promise<void> {
+        this.#document = pdfDoc;
+        this.page = this.addPage();
+
         this.fontData.regular = await pdfDoc.embedFont(StandardFonts.Helvetica);
         this.fontData.bold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
@@ -63,9 +44,6 @@ export default class Page {
 
         this.currentX = HORIZONTAL_EDGE_SPACING;
         this.currentY = VERTICAL_EDGE_SPACING;
-
-        this.#document = pdfDoc;
-        this.page = this.addPage();
     }
 
     protected drawLine(props: LineProps): number {
@@ -159,7 +137,7 @@ export default class Page {
             throw new Error('Document not initialized');
         }
 
-        return this.#document.addPage([595.28, 841.89]);
+        return this.#document.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
     }
 
     protected async drawImage(src: string, width: number = 140, height: number = 140): Promise<number> {

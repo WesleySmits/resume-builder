@@ -22,8 +22,8 @@
 <script setup lang="ts">
 import { useResumeStore } from '@/stores/resume';
 import FormField from '@/components/FormField.vue';
-import { getLocalizedString } from '@/utils/resume/Page';
 import { SkillFields } from '@/enums/skills';
+import { getLocalizedString } from '@/utils/translation';
 
 const resumeStore = useResumeStore();
 const skills = resumeStore.skills;

@@ -1,4 +1,4 @@
-import { getLocalizedString } from '@/utils/resume/Page';
+import { getLocalizedString } from '@/utils/translation';
 import type { DOMWrapper } from '@vue/test-utils';
 import { expect } from 'vitest';
 
