@@ -1,6 +1,55 @@
-# resume-builder
+# Resume Builder
+
+![Project Badge (Optional)](https://img.shields.io/github/license/WesleySmits/resume-builder)
+![Project Status](https://img.shields.io/badge/status-active-brightgreen)
+![License](https://img.shields.io/github/license/WesleySmits/resume-builder)
+
+This project is a modern, web-based resume builder designed specifically for software developers, built using Vue 3 and TypeScript. It originated from the need for a tailored solution to create professional resumes that reflect the unique demands of the software development field. Featuring real-time resume building with a live preview, the application allows users to seamlessly craft resumes across multiple structured sections, including an introduction, skills, education, professional experiences (one page per experience), and a miscellaneous page for additional information.
+
+Primarily developed as a personal tool, this project also serves as a showcase of my expertise with the Vue tech stack, emphasizing dynamic form handling, component-driven architecture, and modern development practices. The application will be deployed publicly to help others craft their resumes and as a testament to continuous improvement in my software engineering journey.
+
+![Screenshot of the Project](./screenshot.png)
+
+## Features
+
+- ✏️ **Real-Time Resume Building**: Update and preview your resume live.
+- 👀 **Live PDF Preview**: See how your resume will look while editing.
+- 🗂️ **Structured Sections**:
+  - General information (name, contact details, profile photo).
+  - Skills (languages, frameworks, tools).
+  - Education, work experience, and miscellaneous sections.
+- ⚙️ **Dynamic Page Allocation**: Automatically allocate pages for work experience and other content.
+- 🔖 **Skill Tagging System**: Add skills dynamically with a modern tagging system.
+- 🖨️ **PDF Generation**: Generate professional, high-quality PDFs.
+- 📱 **Responsive Design**: Fully optimized for all device sizes.
+
+---
+
+## Future Features (Planned)
+
+- 🎨 **Template Support**: Choose from multiple professionally designed resume templates.
+
+---
+
+## **Tech Stack**
+
+- **Framework**: [Vue 3](https://vuejs.org/) with Composition API and TypeScript
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [PostCSS / CSS]
+- **State Management**: [Pinia] (if applicable)
+- **Other Tools**: [ESLint, Prettier]
+
+---
+
+## **Contributing**
+
+Contributions are welcome! If you’d like to contribute, please fork the repository and submit a pull request.
+
+----
 
 This template should help get you started developing with Vue 3 in Vite.
+
+---
 
 ## Recommended IDE Setup
 
