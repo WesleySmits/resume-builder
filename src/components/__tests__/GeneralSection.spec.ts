@@ -3,7 +3,7 @@ import { mount, VueWrapper } from '@vue/test-utils';
 import GeneralSection from '@/components/ResumeFormSections/GeneralSection.vue';
 import { NameFields } from '@/enums/name';
 import { createTestingPinia } from '@pinia/testing';
-import { useResumeStore, type ResumeData } from '@/stores/resume';
+import { useResumeStore } from '@/stores/resume';
 import { PersonalInfoFields } from '@/enums/personalInfo';
 import FormField from '@/components/FormField.vue';
 import { AboutFields } from '@/enums/about';

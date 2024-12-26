@@ -1,4 +1,4 @@
-import { useResumeStore, type ResumeData } from '@/stores/resume';
+import { useResumeStore } from '@/stores/resume';
 import { describe, it, expect, vi } from 'vitest';
 import SkillsSection from '../ResumeFormSections/SkillsSection.vue';
 import { createTestingPinia } from '@pinia/testing';

@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue';
-import * as pdfjsLib from 'pdfjs-dist/';
+import * as pdfjsLib from 'pdfjs-dist/build/pdf.min.mjs';
 import { type PDFDocumentProxy } from 'pdfjs-dist';
 import { useResumeStore } from '@/stores/resume';
 import { generateResume } from '@/utils/resume/resume';
@@ -21,7 +21,7 @@ import { getLocalizedString } from '@/utils/translation';
 const pdfContainer = ref<HTMLElement | null>(null);
 const resumeStore = useResumeStore();
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.9.155/pdf.worker.min.mjs';
 
 const headerText = ref(getLocalizedString('resumePreview'));
 

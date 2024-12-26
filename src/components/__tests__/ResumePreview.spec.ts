@@ -2,7 +2,6 @@ import { describe, it, expect, vi } from 'vitest';
 import { flushPromises, mount } from '@vue/test-utils';
 import ResumePreview from '@/components/ResumePreview.vue';
 import { createTestingPinia } from '@pinia/testing';
-import type { ResumeData } from '@/stores/resume';
 import { useResumeStore } from '@/stores/resume';
 import { generateResume } from '@/utils/resume/resume';
 import * as pdfjsLib from 'pdfjs-dist';

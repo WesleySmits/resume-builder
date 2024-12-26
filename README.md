@@ -1,8 +1,7 @@
-# Resume Builder
+# CVue -- Resume Builder
 
-![Project Badge (Optional)](https://img.shields.io/github/license/WesleySmits/resume-builder)
-![Project Status](https://img.shields.io/badge/status-active-brightgreen)
 ![License](https://img.shields.io/github/license/WesleySmits/resume-builder)
+![Project Status](https://img.shields.io/badge/status-active-brightgreen)
 
 This project is a modern, web-based resume builder designed specifically for software developers, built using Vue 3 and TypeScript. It originated from the need for a tailored solution to create professional resumes that reflect the unique demands of the software development field. Featuring real-time resume building with a live preview, the application allows users to seamlessly craft resumes across multiple structured sections, including an introduction, skills, education, professional experiences (one page per experience), and a miscellaneous page for additional information.
 

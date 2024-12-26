@@ -10,20 +10,19 @@ export default defineConfig({
         target: 'esnext', // Use ESNext to support private fields
     },
     plugins: [vue(), vueDevTools()],
+    base: './',
     optimizeDeps: {
         exclude: ['pdfjs-dist'],
-    },
-    build: {
-        rollupOptions: {
-            external: ['pdfjs-dist'], // Ensure pdfjs-dist isn't bundled or transpiled
-            output: {
-                format: 'esm', // Ensure ESM compatibility for pdfjs-dist
-            },
-        },
     },
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
         },
+    },
+    server: {
+        port: 7777,
+    },
+    preview: {
+        port: 7776,
     },
 });
