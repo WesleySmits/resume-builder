@@ -31,6 +31,7 @@ describe('SkillsSection.vue', () => {
             tools: ['Git'],
             operatingSystems: ['MacOS'],
         },
+        topSkills: [],
     };
 
     function getMountedComponent(): VueWrapper {

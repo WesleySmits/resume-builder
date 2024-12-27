@@ -105,7 +105,13 @@ interface Skills {
     tools: string[];
 }
 
+interface TopSkill {
+    name: string;
+    yearsOfExperience: number;
+}
+
 interface ResumeData {
     general: General;
     skills: Skills;
+    topSkills: TopSkill[];
 }

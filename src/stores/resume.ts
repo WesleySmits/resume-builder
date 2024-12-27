@@ -1,7 +1,7 @@
 import { convertImageToBase64, roundImage } from '@/utils/image';
 import { loadResumeData } from '@/utils/resume/storage';
 import { defineStore } from 'pinia';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 const parsedResumeData = loadResumeData();
 
@@ -35,6 +35,7 @@ const defaultResumeState: ResumeData = {
         databases: [],
         tools: [],
     },
+    topSkills: [],
 };
 
 export const useResumeStore = defineStore('resume', {
@@ -68,6 +69,7 @@ export const useResumeStore = defineStore('resume', {
             databases: parsedResumeData?.skills?.databases ?? [],
             tools: parsedResumeData?.skills?.tools ?? [],
         }),
+        topSkills: ref<TopSkill[]>(parsedResumeData?.topSkills ?? []),
     }),
     getters: {
         formattedName: (state) => {
@@ -156,6 +158,18 @@ export const useResumeStore = defineStore('resume', {
         },
         updateSkillsTools(tools: string[]) {
             this.skills.tools = tools;
+        },
+        addTopSkill(skill: TopSkill) {
+            this.topSkills.push(skill);
+        },
+        updateTopSkill(index: number, skill: TopSkill) {
+            this.topSkills[index] = skill;
+        },
+        removeTopSkill(index: number) {
+            this.topSkills.splice(index, 1);
+        },
+        sortTopSkills() {
+            this.topSkills.sort((a, b) => b.yearsOfExperience - a.yearsOfExperience);
         },
     },
 });

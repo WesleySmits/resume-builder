@@ -74,5 +74,12 @@
     "second": "Second",
     "third": "Third",
     "skills": "Skills",
-    "addLanguages": "Add languages (e.g., JavaScript, Python)"
+    "addLanguages": "Add languages (e.g., JavaScript, Python)",
+    "topSkills": "Top Skills",
+    "yearsOfExperience": "Years of Experience",
+    "yearsOfExperiencePlaceholder": "3 f.e.",
+    "yearsOfExperienceHelperText": "Enter the years of experience you have with this skill.",
+    "selectTopSkill": "Select a top skill",
+    "selectTopSkillPlaceholder": "Select a top skill",
+    "selectTopSkillHelperText": "Select a top skill from the list."
 }

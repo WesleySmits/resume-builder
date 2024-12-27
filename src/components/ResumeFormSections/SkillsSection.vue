@@ -16,6 +16,8 @@
                 :required="field.required"
             />
         </fieldset>
+
+        <TopSkills />
     </div>
 </template>
 
@@ -24,6 +26,7 @@ import { useResumeStore } from '@/stores/resume';
 import FormField from '@/components/FormField.vue';
 import { SkillFields } from '@/enums/skills';
 import { getLocalizedString } from '@/utils/translation';
+import TopSkills from '@/components/TopSkills.vue';
 
 const resumeStore = useResumeStore();
 const skills = resumeStore.skills;

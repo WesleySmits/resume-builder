@@ -20,7 +20,16 @@
             ref="inputRef"
         >
             <template v-if="inputType === 'select'">
-                <option v-for="option in options" :key="option.value" :value="option.value">
+                <option v-if="props.placeholder" value="" :selected="!formState.value" :data-test="formState.value">
+                    {{ props.placeholder }}
+                </option>
+
+                <option
+                    v-for="option in options"
+                    :key="option.value"
+                    :value="option.value"
+                    :selected="option.value === formState.value"
+                >
                     {{ option.text }}
                 </option>
             </template>
@@ -45,7 +54,6 @@ import { debounce } from '@/utils/debounce';
 import { reactive, computed, ref } from 'vue';
 import SkillsTagInput from './SkillsTagInput.vue';
 
-// Props
 const props = defineProps<{
     id: string;
     label: string;
@@ -54,7 +62,7 @@ const props = defineProps<{
     required?: boolean;
     helperText?: string;
     errorText?: string;
-    modelValue?: string | string[] | File;
+    modelValue?: string | string[] | number | File;
     options?: { value: string; text: string }[];
     cols?: number;
     rows?: number;
@@ -62,7 +70,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: string | string[]): void;
-    (e: 'valid', value: string | string[] | File): void;
+    (e: 'valid', value: string | string[] | number | File): void;
 }>();
 
 const inputRef = ref<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null>(null);
