@@ -1,9 +1,16 @@
+import './setupTests';
 import { mount, VueWrapper } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import TopSkills from '@/components/TopSkills.vue';
 import { useResumeStore } from '@/stores/resume';
 import { createTestingPinia } from '@pinia/testing';
 import FormField from '../FormField.vue';
+import { createPinia } from 'pinia';
+import { nextTick } from 'vue';
+
+interface TopSkillsInstance {
+    allSkills: string[];
+}
 
 describe('TopSkills.vue', () => {
     const resumeInitialState: ResumeData = {
@@ -60,6 +67,15 @@ describe('TopSkills.vue', () => {
         });
     }
 
+    function getMountedComponentWithActualStore(): VueWrapper {
+        localStorage.setItem('resumeData', JSON.stringify(resumeInitialState));
+        return mount(TopSkills, {
+            global: {
+                plugins: [createPinia()],
+            },
+        });
+    }
+
     it('should add a skill', async () => {
         const wrapper = getMountedComponent();
         const resumeStore = useResumeStore();
@@ -112,5 +128,31 @@ describe('TopSkills.vue', () => {
         expect(resumeStore.sortTopSkills).toHaveBeenCalledTimes(0);
         button.trigger('click');
         expect(resumeStore.sortTopSkills).toHaveBeenCalledTimes(1);
+    });
+
+    it('should update allSkills when the store changes', async () => {
+        const wrapper = getMountedComponentWithActualStore();
+        const resumeStore = useResumeStore();
+
+        const instance = wrapper.vm as unknown as TopSkillsInstance;
+
+        expect(instance.allSkills.length).toBe(9);
+
+        resumeStore.updateSkillsDatabases(['MySQL', 'PostgreSQL']);
+
+        await nextTick();
+        const testAllSkills = [
+            ...resumeStore.skills.languages,
+            ...resumeStore.skills.frameworks,
+            ...resumeStore.skills.platforms,
+            ...resumeStore.skills.methodologies,
+            ...resumeStore.skills.operatingSystems,
+            ...resumeStore.skills.databases,
+            ...resumeStore.skills.tools,
+        ];
+        expect(testAllSkills.length).toEqual(10);
+        expect(instance.allSkills.length).toBe(10);
+
+        expect(1).toBe(1);
     });
 });
