@@ -174,7 +174,6 @@ export default class Page {
         const { x, y, width, height, color } = props;
 
         const actualY = this.page.getHeight() - y;
-        console.log('props', x, y, width, height, color, actualY);
 
         this.page.drawRectangle({
             x,

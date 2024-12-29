@@ -48,6 +48,7 @@ async function renderPDF() {
         renderPage(pageNum.value);
     } catch (error) {
         console.error('Failed to load or render PDF:', error);
+        return Promise.reject(error);
     }
 }
 
@@ -61,7 +62,6 @@ async function renderPage(num: number) {
     canvas.height = viewport.height;
     canvas.width = viewport.width;
 
-    console.log('PDF Container', pdfContainer.value);
     if (pdfContainer.value) {
         pdfContainer.value.innerHTML = '';
         pdfContainer.value.appendChild(canvas);

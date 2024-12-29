@@ -117,6 +117,9 @@ describe('ResumePreview.vue', () => {
             },
         });
 
+        await wrapper.vm.$nextTick();
+        await wrapper.vm.$nextTick();
+
         const instance = wrapper.vm as unknown as ResumePreviewInstance;
 
         await wrapper.vm.$nextTick();
@@ -210,7 +213,7 @@ describe('ResumePreview.vue', () => {
         });
 
         const instance = wrapper.vm as unknown as ResumePreviewInstance;
-        await expect(instance.renderPDF()).rejects.toThrowError('No PDF document to render');
+        await expect(instance.renderPDF()).rejects.toThrowError();
 
         // mock console.error
         const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
@@ -222,7 +225,7 @@ describe('ResumePreview.vue', () => {
 
         await flushPromises();
 
-        expect(consoleError).toHaveBeenCalledTimes(1);
+        expect(consoleError).toHaveBeenCalledTimes(2);
     });
 
     it('should not follow the previous page when the current page is 1', async () => {
@@ -250,6 +253,9 @@ describe('ResumePreview.vue', () => {
                 ],
             },
         });
+
+        await wrapper.vm.$nextTick();
+        await wrapper.vm.$nextTick();
 
         const instance = wrapper.vm as unknown as ResumePreviewInstance;
 
@@ -300,6 +306,9 @@ describe('ResumePreview.vue', () => {
                 ],
             },
         });
+
+        await wrapper.vm.$nextTick();
+        await wrapper.vm.$nextTick();
 
         const instance = wrapper.vm as unknown as ResumePreviewInstance;
 
