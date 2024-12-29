@@ -32,17 +32,24 @@ let pdf: PDFDocumentProxy;
 
 async function renderPDF() {
     const pdfData = await generateResume();
-    const loadingTask = pdfjsLib.getDocument({ data: pdfData });
+    try {
+        const loadingTask = pdfjsLib.getDocument({ data: pdfData });
+        pdf = await Promise.race([
+            loadingTask.promise,
+            new Promise<null>((_, reject) => setTimeout(() => reject(new Error('PDF loading timeout')), 10000)),
+        ]);
 
-    pdf = await loadingTask.promise;
+        if (!pdf) {
+            throw new Error('No PDF document to render');
+        }
 
-    if (!pdf) {
-        throw new Error('No PDF document to render');
+        pageCount.value = pdf.numPages;
+
+        renderPage(pageNum.value);
+    } catch (error) {
+        console.error('Failed to load or render PDF:', error);
+        return Promise.reject(error);
     }
-
-    pageCount.value = pdf.numPages;
-
-    renderPage(pageNum.value);
 }
 
 async function renderPage(num: number) {

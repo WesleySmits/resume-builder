@@ -37,6 +37,7 @@ describe('GeneralSection.vue', () => {
             tools: [],
             operatingSystems: [],
         },
+        topSkills: [],
     };
 
     function getMountedComponent(): VueWrapper {

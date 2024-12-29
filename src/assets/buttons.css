@@ -50,4 +50,21 @@ button {
             cursor: not-allowed;
         }
     }
+
+    &.icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        aspect-ratio: 1;
+        flex: 0 0 auto;
+
+        svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
 }

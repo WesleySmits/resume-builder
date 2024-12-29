@@ -1,11 +1,14 @@
 import type { PDFDocument } from 'pdf-lib';
 import Page from './Page';
 import { getLocalizedString } from '../translation';
+import { SPACING } from './constants';
 
 export default class IntroductionPage extends Page {
     static #instance: IntroductionPage | null = null;
 
-    #generalData: General;
+    #generalData: General = this.resumeStore.general;
+
+    #topSkillsData: TopSkill[] = this.resumeStore.topSkills;
 
     public static getInstance(): IntroductionPage {
         if (this.#instance === null) {
@@ -17,8 +20,6 @@ export default class IntroductionPage extends Page {
 
     private constructor() {
         super();
-
-        this.#generalData = this.resumeStore.general;
     }
 
     public async initialize(pdfDoc: PDFDocument): Promise<void> {
@@ -93,6 +94,21 @@ export default class IntroductionPage extends Page {
                 y: this.currentY,
                 x: DEFINITION_COLUMN_X,
             });
+        }
+
+        if (this.#topSkillsData.length) {
+            this.currentY += SPACING;
+
+            this.currentY += this.drawText({
+                text: getLocalizedString('topSkillsTitle'),
+                size: this.textSize,
+                font: this.titleFont,
+                y: this.currentY,
+                x: this.currentX,
+                centerText: true,
+            });
+
+            this.drawSkillsChart(this.#topSkillsData, this.textSize);
         }
     }
 

@@ -35,6 +35,8 @@
             <ResumePreview />
         </aside>
     </div>
+
+    <footer></footer>
 </template>
 
 <script setup lang="ts">
@@ -63,6 +65,7 @@ const activeTab = ref('general');
     flex-flow: column nowrap;
     margin: auto;
     gap: 2rem;
+    padding: 2rem 0;
 
     width: 100%;
     max-width: 94vw;
@@ -80,5 +83,9 @@ const activeTab = ref('general');
             flex: 0 0 40%;
         }
     }
+}
+
+footer {
+    padding: 10rem;
 }
 </style>

@@ -3,14 +3,16 @@ import { rgb, StandardFonts } from 'pdf-lib';
 
 import { base64ToUint8Array } from '../image';
 import { useResumeStore } from '@/stores/resume';
-
-export const SPACING = 10;
-export const VERTICAL_EDGE_SPACING = 100;
-export const HORIZONTAL_EDGE_SPACING = 60;
-export const RIGHT_COLUMN_START = 295;
-
-export const PAGE_WIDTH = 595.28;
-export const PAGE_HEIGHT = 841.89;
+import {
+    COLUMN_WIDTH,
+    HORIZONTAL_EDGE_SPACING,
+    MAX_TOP_SKILLS,
+    PAGE_HEIGHT,
+    PAGE_WIDTH,
+    RIGHT_COLUMN_START,
+    SPACING,
+    VERTICAL_EDGE_SPACING,
+} from './constants';
 
 export default class Page {
     #document: PDFDocument | null = null;
@@ -168,6 +170,22 @@ export default class Page {
         return Promise.resolve(height + SPACING * 2);
     }
 
+    protected drawRectangle(props: DrawRectangleProps): number {
+        const { x, y, width, height, color } = props;
+
+        const actualY = this.page.getHeight() - y;
+
+        this.page.drawRectangle({
+            x,
+            y: actualY,
+            width,
+            height,
+            color,
+        });
+
+        return height;
+    }
+
     protected drawText(props: DrawFieldProps): number {
         const { text, x = this.currentX, y = this.currentY, size, font, maxWidth = 240, centerText = false } = props;
 
@@ -243,6 +261,57 @@ export default class Page {
         });
 
         return totalHeight;
+    }
+
+    protected drawSkillsChart(skills: TopSkill[], textSize: number): void {
+        const barWidth = COLUMN_WIDTH;
+        const barHeight = 10;
+        const barGap = 5;
+        const maxYears = 10;
+
+        let counter = 0;
+
+        for (let index = 0; index < skills.length; index++) {
+            if (counter >= MAX_TOP_SKILLS) {
+                return;
+            }
+
+            const skill = skills[index];
+            if (!skill.yearsOfExperience || !skill.name) {
+                continue;
+            }
+
+            this.currentY += barGap;
+
+            this.drawRectangle({
+                x: this.currentX,
+                y: this.currentY,
+                width: barWidth,
+                height: barHeight,
+                color: rgb(0.9, 0.9, 0.9),
+            });
+
+            const filledWidth = Math.min((skill.yearsOfExperience / maxYears) * barWidth, barWidth);
+            this.currentY += this.drawRectangle({
+                x: this.currentX,
+                y: this.currentY,
+                width: filledWidth,
+                height: barHeight,
+                color: rgb(0.2, 0.2, 0.2),
+            });
+
+            this.currentY += this.drawText({
+                text: skill.name,
+                size: textSize,
+                font: this.textFont,
+                y: this.currentY,
+                x: this.currentX,
+            });
+
+            this.currentY += barGap;
+
+            counter++;
+        }
     }
 
     #processParagraphs(text: string, size: number): { paragraphs: string[]; emptyLineHeight: number } {

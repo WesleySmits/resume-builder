@@ -25,6 +25,14 @@ interface DrawFieldProps {
     centerText?: boolean;
 }
 
+interface DrawRectangleProps {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    color: RGB;
+}
+
 interface DrawBulletedListProps {
     items: string[];
     size: number;
@@ -105,7 +113,13 @@ interface Skills {
     tools: string[];
 }
 
+interface TopSkill {
+    name: string;
+    yearsOfExperience: number;
+}
+
 interface ResumeData {
     general: General;
     skills: Skills;
+    topSkills: TopSkill[];
 }
