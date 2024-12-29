@@ -4,7 +4,12 @@
             <h2>{{ getLocalizedString('topSkills') }}</h2>
 
             <div class="buttons">
-                <button @click="addSkill" class="primary icon" data-action="add">
+                <button
+                    @click="addSkill"
+                    class="primary icon"
+                    data-action="add"
+                    :disabled="topSkills.length >= MAX_TOP_SKILLS"
+                >
                     <PlusIcon />
                 </button>
 
@@ -57,6 +62,7 @@ import SortIcon from '@/icons/SortIcon.vue';
 import { useResumeStore } from '@/stores/resume';
 import { getLocalizedString } from '@/utils/translation';
 import FormField from './FormField.vue';
+import { MAX_TOP_SKILLS } from '@/utils/resume/resume';
 
 const resumeStore = useResumeStore();
 const topSkills = resumeStore.topSkills;
@@ -83,20 +89,24 @@ resumeStore.$subscribe((_, state) => {
     ];
 });
 
-function addSkill() {
+function addSkill(): void {
+    if (topSkills.length >= MAX_TOP_SKILLS) {
+        return;
+    }
+
     resumeStore.addTopSkill({ name: '', yearsOfExperience: 0 });
 }
 
-function updateSkill(index: number, value: string | number, key: string) {
+function updateSkill(index: number, value: string | number, key: string): void {
     const newSkill = { ...topSkills[index], [key]: value };
     resumeStore.updateTopSkill(index, newSkill);
 }
 
-function removeSkill(index: number) {
+function removeSkill(index: number): void {
     resumeStore.removeTopSkill(index);
 }
 
-function sortSkills() {
+function sortSkills(): void {
     resumeStore.sortTopSkills();
 }
 </script>
