@@ -1,6 +1,7 @@
 import type { PDFDocument } from 'pdf-lib';
-import Page, { SPACING } from './Page';
+import Page from './Page';
 import { getLocalizedString } from '../translation';
+import { SPACING } from './constants';
 
 export default class IntroductionPage extends Page {
     static #instance: IntroductionPage | null = null;

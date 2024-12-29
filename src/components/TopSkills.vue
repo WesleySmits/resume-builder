@@ -62,7 +62,7 @@ import SortIcon from '@/icons/SortIcon.vue';
 import { useResumeStore } from '@/stores/resume';
 import { getLocalizedString } from '@/utils/translation';
 import FormField from './FormField.vue';
-import { MAX_TOP_SKILLS } from '@/utils/resume/resume';
+import { MAX_TOP_SKILLS } from '@/utils/resume/constants';
 
 const resumeStore = useResumeStore();
 const topSkills = resumeStore.topSkills;

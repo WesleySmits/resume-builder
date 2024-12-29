@@ -1,5 +1,6 @@
 import { getLocalizedString } from '../translation';
-import Page, { HORIZONTAL_EDGE_SPACING, RIGHT_COLUMN_START, SPACING, VERTICAL_EDGE_SPACING } from './Page';
+import Page from './Page';
+import { HORIZONTAL_EDGE_SPACING, RIGHT_COLUMN_START, SPACING, VERTICAL_EDGE_SPACING } from './constants';
 import { rgb, type PDFDocument } from 'pdf-lib';
 
 export default class SkillsPage extends Page {

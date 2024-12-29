@@ -3,16 +3,16 @@ import { rgb, StandardFonts } from 'pdf-lib';
 
 import { base64ToUint8Array } from '../image';
 import { useResumeStore } from '@/stores/resume';
-import { MAX_TOP_SKILLS } from './resume';
-
-export const SPACING = 10;
-export const VERTICAL_EDGE_SPACING = 100;
-export const HORIZONTAL_EDGE_SPACING = 60;
-export const RIGHT_COLUMN_START = 295;
-
-export const PAGE_WIDTH = 595.28;
-export const PAGE_HEIGHT = 841.89;
-export const COLUMN_WIDTH = (PAGE_WIDTH - HORIZONTAL_EDGE_SPACING * 3) / 2;
+import {
+    COLUMN_WIDTH,
+    HORIZONTAL_EDGE_SPACING,
+    MAX_TOP_SKILLS,
+    PAGE_HEIGHT,
+    PAGE_WIDTH,
+    RIGHT_COLUMN_START,
+    SPACING,
+    VERTICAL_EDGE_SPACING,
+} from './constants';
 
 export default class Page {
     #document: PDFDocument | null = null;

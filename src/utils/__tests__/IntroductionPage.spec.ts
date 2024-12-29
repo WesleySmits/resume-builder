@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import IntroductionPage from '../resume/IntroductionPage';
 import { createPinia, setActivePinia } from 'pinia';
 import { PDFDocument } from 'pdf-lib';
-import { PAGE_HEIGHT, PAGE_WIDTH } from '../resume/Page';
+import { PAGE_HEIGHT, PAGE_WIDTH } from '../resume/constants';
 import { useResumeStore } from '@/stores/resume';
 
 vi.mock('../image', () => ({
