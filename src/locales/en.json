@@ -76,6 +76,7 @@
     "skills": "Skills",
     "addLanguages": "Add languages (e.g., JavaScript, Python)",
     "topSkills": "Top Skills",
+    "topSkillsTitle": "Skills (experience in years)",
     "yearsOfExperience": "Years of Experience",
     "yearsOfExperiencePlaceholder": "3 f.e.",
     "yearsOfExperienceHelperText": "Enter the years of experience you have with this skill.",

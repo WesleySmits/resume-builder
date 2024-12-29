@@ -25,6 +25,14 @@ interface DrawFieldProps {
     centerText?: boolean;
 }
 
+interface DrawRectangleProps {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    color: RGB;
+}
+
 interface DrawBulletedListProps {
     items: string[];
     size: number;
