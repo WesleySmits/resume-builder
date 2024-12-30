@@ -23,11 +23,11 @@
 
             <div>
                 <img
-                    :src="resumeStore.profilePhotoUrl"
+                    :src="resumeStore.general.profilePhoto"
                     :alt="getLocalizedString('profilePhoto')"
                     width="100"
                     height="100"
-                    v-if="resumeStore.profilePhotoUrl"
+                    v-if="resumeStore.general.profilePhoto"
                 />
             </div>
 

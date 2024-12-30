@@ -6,7 +6,7 @@ import { rgb, type PDFDocument } from 'pdf-lib';
 export default class SkillsPage extends Page {
     static #instance: SkillsPage | null = null;
 
-    #data: Skills;
+    #data: Skills = this.resumeStore.skills;
 
     public static getInstance(): SkillsPage {
         if (this.#instance === null) {
@@ -18,8 +18,6 @@ export default class SkillsPage extends Page {
 
     private constructor() {
         super();
-
-        this.#data = this.resumeStore.skills;
     }
 
     public async initialize(pdfDoc: PDFDocument): Promise<void> {
@@ -30,13 +28,13 @@ export default class SkillsPage extends Page {
         await this.drawRightColumn();
     }
 
-    protected drawFullWidth(): void {
+    public drawFullWidth(): void {
         super.drawFullWidth();
 
         this.#renderUnderlinedTitle(getLocalizedString('technicalSkills'));
     }
 
-    protected drawLeftColumn(): void {
+    public drawLeftColumn(): void {
         this.currentX = HORIZONTAL_EDGE_SPACING;
         this.currentY = VERTICAL_EDGE_SPACING + 25.4;
 
@@ -45,7 +43,7 @@ export default class SkillsPage extends Page {
         this.#renderSkillsTable(getLocalizedString('tools'), this.#data.tools);
     }
 
-    protected drawRightColumn(): void {
+    public drawRightColumn(): void {
         this.currentX = RIGHT_COLUMN_START;
         this.currentY = VERTICAL_EDGE_SPACING + 25.4;
 

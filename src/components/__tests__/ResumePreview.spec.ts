@@ -195,6 +195,9 @@ describe('ResumePreview.vue', () => {
     });
 
     it('should throw an error when PDF generation fails', async () => {
+        console.error = vi.fn();
+        expect(console.error).toHaveBeenCalledTimes(0);
+
         vi.spyOn(pdfjsLib, 'getDocument').mockReturnValue({
             promise: Promise.resolve(),
         } as never);
@@ -216,8 +219,8 @@ describe('ResumePreview.vue', () => {
         await expect(instance.renderPDF()).rejects.toThrowError();
 
         // mock console.error
-        const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
-        expect(consoleError).toHaveBeenCalledTimes(0);
+        // const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+        expect(console.error).toHaveBeenCalledTimes(3);
 
         const resumeStore = useResumeStore();
         resumeStore.general.name.firstName = 'Arya';
@@ -225,7 +228,7 @@ describe('ResumePreview.vue', () => {
 
         await flushPromises();
 
-        expect(consoleError).toHaveBeenCalledTimes(2);
+        expect(console.error).toHaveBeenCalledTimes(5);
     });
 
     it('should not follow the previous page when the current page is 1', async () => {

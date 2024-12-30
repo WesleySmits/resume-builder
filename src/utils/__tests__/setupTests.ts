@@ -28,6 +28,15 @@ export const resumeInitialState: ResumeData = {
         tools: [],
         operatingSystems: [],
     },
-    topSkills: [],
+    topSkills: [
+        {
+            name: 'JavaScript',
+            yearsOfExperience: 10,
+        },
+        {
+            name: 'TypeScript',
+            yearsOfExperience: 6,
+        },
+    ],
 };
 localStorage.setItem('resumeData', JSON.stringify(resumeInitialState));
