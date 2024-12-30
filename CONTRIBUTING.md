@@ -37,7 +37,7 @@ Thank you for considering contributing to CVue! Contributions are what make this
 
 ## Code of Conduct
 
-This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [contact@example.com].
+This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [@WesleySmits](https://github.com/wesleysmits/).
 
 ---
 
