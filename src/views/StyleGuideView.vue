@@ -153,10 +153,10 @@
 </template>
 
 <script lang="ts" setup>
-import FormField from '@/components/FormField.vue'
-import TabBar from '@/components/TabBar.vue'
-import TabContent from '@/components/TabContent.vue'
-import { ref } from 'vue'
+import FormField from '@/components/FormField.vue';
+import TabBar from '@/components/TabBar.vue';
+import TabContent from '@/components/TabContent.vue';
+import { ref } from 'vue';
 
 const tabs = [
     { id: 'general', name: 'General Information' },
@@ -164,9 +164,9 @@ const tabs = [
     { id: 'education', name: 'Education' },
     { id: 'work', name: 'Work Experience' },
     { id: 'additional', name: 'Additional Information' },
-]
+];
 
-const activeTab = ref('general')
+const activeTab = ref('general');
 </script>
 
 <style lang="postcss" scoped>
