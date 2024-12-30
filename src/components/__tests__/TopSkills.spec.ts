@@ -10,6 +10,7 @@ import { nextTick } from 'vue';
 
 interface TopSkillsInstance {
     allSkills: string[];
+    addSkill: () => void;
 }
 
 describe('TopSkills.vue', () => {
@@ -52,6 +53,73 @@ describe('TopSkills.vue', () => {
         ],
     };
 
+    const resumeInitialStateWithMaxTopSkills: ResumeData = {
+        general: {
+            name: {
+                firstName: 'Jon',
+                middleName: '',
+                lastName: 'Snow',
+                displayName: '',
+            },
+            contact: {
+                email: 'jon.snow@resume-maker.io',
+                phone: '123123123',
+            },
+            achievements: ['Defeated the Night King', 'Knows nothing', 'King in the North'],
+        },
+        skills: {
+            languages: ['HTML', 'CSS', 'JavaScript'],
+            frameworks: ['Vue.js'],
+            platforms: ['Node.js'],
+            methodologies: ['Agile'],
+            databases: ['MongoDB'],
+            tools: ['Git'],
+            operatingSystems: ['MacOS'],
+        },
+        topSkills: [
+            {
+                name: 'JavaScript',
+                yearsOfExperience: 1,
+            },
+            {
+                name: 'Vue.js',
+                yearsOfExperience: 2,
+            },
+            {
+                name: 'Node.js',
+                yearsOfExperience: 3,
+            },
+            {
+                name: 'TypeScript',
+                yearsOfExperience: 1,
+            },
+            {
+                name: 'React',
+                yearsOfExperience: 2,
+            },
+            {
+                name: 'Angular',
+                yearsOfExperience: 2,
+            },
+            {
+                name: 'Svelte',
+                yearsOfExperience: 1,
+            },
+            {
+                name: 'Nuxt.js',
+                yearsOfExperience: 2,
+            },
+            {
+                name: 'Next.js',
+                yearsOfExperience: 3,
+            },
+            {
+                name: 'Gatsby',
+                yearsOfExperience: 1,
+            },
+        ],
+    };
+
     function getMountedComponent(): VueWrapper {
         return mount(TopSkills, {
             global: {
@@ -60,6 +128,21 @@ describe('TopSkills.vue', () => {
                         createSpy: vi.fn,
                         initialState: {
                             resume: resumeInitialState,
+                        },
+                    }),
+                ],
+            },
+        });
+    }
+
+    function getMountedComponentWithMaxTopSkills(): VueWrapper {
+        return mount(TopSkills, {
+            global: {
+                plugins: [
+                    createTestingPinia({
+                        createSpy: vi.fn,
+                        initialState: {
+                            resume: resumeInitialStateWithMaxTopSkills,
                         },
                     }),
                 ],
@@ -154,5 +237,26 @@ describe('TopSkills.vue', () => {
         expect(instance.allSkills.length).toBe(10);
 
         expect(1).toBe(1);
+    });
+
+    it('should not allow to add more than the maximum number of skills because the button is disabled', async () => {
+        const wrapper = getMountedComponentWithMaxTopSkills();
+        const resumeStore = useResumeStore();
+
+        const addButton = wrapper.find<HTMLButtonElement>('button[data-action="add"]');
+        await addButton.trigger('click');
+        expect(addButton.element.disabled).toBeTruthy();
+
+        expect(resumeStore.addTopSkill).not.toHaveBeenCalled();
+    });
+
+    it('should not allow to add more than the maximum number of skills through the exposed method', async () => {
+        const wrapper = getMountedComponentWithMaxTopSkills();
+        const resumeStore = useResumeStore();
+
+        const instance = wrapper.vm as unknown as TopSkillsInstance;
+        instance.addSkill();
+
+        expect(resumeStore.addTopSkill).not.toHaveBeenCalled();
     });
 });

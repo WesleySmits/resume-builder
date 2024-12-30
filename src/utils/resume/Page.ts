@@ -15,7 +15,7 @@ import {
 } from './constants';
 
 export default class Page {
-    #document: PDFDocument | null = null;
+    #document: PDFDocument = null as unknown as PDFDocument;
     protected page: PDFPage = null as unknown as PDFPage;
 
     protected resumeStore = useResumeStore();
@@ -131,18 +131,10 @@ export default class Page {
     }
 
     protected addPage(): PDFPage {
-        if (this.#document === null) {
-            throw new Error('Document not initialized');
-        }
-
         return this.#document.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
     }
 
     protected async drawImage(src: string, width: number = 140, height: number = 140): Promise<number> {
-        if (this.#document === null) {
-            throw new Error('Document not initialized');
-        }
-
         const imageBytes = base64ToUint8Array(src);
         let image;
 
