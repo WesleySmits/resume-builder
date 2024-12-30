@@ -6,10 +6,6 @@ import { SPACING } from './constants';
 export default class IntroductionPage extends Page {
     static #instance: IntroductionPage | null = null;
 
-    #generalData: General = this.resumeStore.general;
-
-    #topSkillsData: TopSkill[] = this.resumeStore.topSkills;
-
     public static getInstance(): IntroductionPage {
         if (this.#instance === null) {
             this.#instance = new IntroductionPage();
@@ -23,10 +19,6 @@ export default class IntroductionPage extends Page {
     }
 
     public async initialize(pdfDoc: PDFDocument): Promise<void> {
-        if (!pdfDoc) {
-            throw new Error('PDFDocument is not set');
-        }
-
         await super.initialize(pdfDoc);
 
         await this.drawLeftColumn();
@@ -36,13 +28,34 @@ export default class IntroductionPage extends Page {
     public async drawLeftColumn() {
         super.drawLeftColumn();
 
-        const DEFINITION_COLUMN_X = 172;
+        await this.#drawProfilePhoto();
+        this.#drawDefinitionColumn();
+        this.#drawTopSkills();
+    }
 
-        if (this.#generalData.profilePhoto) {
-            this.currentY += await this.drawImage(this.#generalData.profilePhoto, 140, 140);
+    public async drawRightColumn() {
+        super.drawRightColumn();
+
+        this.#drawName();
+        this.#drawFunctionTitle();
+        this.#drawIntroduction();
+        this.#drawAchievements();
+        this.#drawColleaguesDescribe();
+        this.#drawColleaguesKnow();
+    }
+
+    async #drawProfilePhoto(): Promise<void> {
+        if (!this.resumeStore.general.profilePhoto) {
+            return;
         }
 
-        if (this.#generalData.name?.firstName) {
+        this.currentY += await this.drawImage(this.resumeStore.general.profilePhoto, 140, 140);
+    }
+
+    #drawDefinitionColumn(): void {
+        const DEFINITION_COLUMN_X = 172;
+
+        if (this.resumeStore.general.name?.firstName) {
             this.drawText({
                 text: getLocalizedString('firstName'),
                 size: this.textSize,
@@ -52,7 +65,7 @@ export default class IntroductionPage extends Page {
             });
 
             this.currentY += this.drawText({
-                text: this.#generalData.name.firstName,
+                text: this.resumeStore.general.name.firstName,
                 size: this.textSize,
                 font: this.textFont,
                 y: this.currentY,
@@ -60,7 +73,7 @@ export default class IntroductionPage extends Page {
             });
         }
 
-        if (this.#generalData.region) {
+        if (this.resumeStore.general.region) {
             this.drawText({
                 text: getLocalizedString('region'),
                 size: this.textSize,
@@ -70,7 +83,7 @@ export default class IntroductionPage extends Page {
             });
 
             this.currentY += this.drawText({
-                text: this.#generalData.region,
+                text: this.resumeStore.general.region,
                 size: this.textSize,
                 font: this.textFont,
                 y: this.currentY,
@@ -78,7 +91,7 @@ export default class IntroductionPage extends Page {
             });
         }
 
-        if (this.#generalData.drivingLicense) {
+        if (this.resumeStore.general.drivingLicense) {
             this.drawText({
                 text: getLocalizedString('drivingLicense'),
                 size: this.textSize,
@@ -88,34 +101,36 @@ export default class IntroductionPage extends Page {
             });
 
             this.currentY += this.drawText({
-                text: this.#generalData.drivingLicense,
+                text: this.resumeStore.general.drivingLicense,
                 size: this.textSize,
                 font: this.textFont,
                 y: this.currentY,
                 x: DEFINITION_COLUMN_X,
             });
         }
-
-        if (this.#topSkillsData.length) {
-            this.currentY += SPACING;
-
-            this.currentY += this.drawText({
-                text: getLocalizedString('topSkillsTitle'),
-                size: this.textSize,
-                font: this.titleFont,
-                y: this.currentY,
-                x: this.currentX,
-                centerText: true,
-            });
-
-            this.drawSkillsChart(this.#topSkillsData, this.textSize);
-        }
     }
 
-    public async drawRightColumn() {
-        super.drawRightColumn();
+    #drawTopSkills(): void {
+        if (this.resumeStore.topSkills.length === 0) {
+            return;
+        }
 
-        if (this.#generalData.name) {
+        this.currentY += SPACING;
+
+        this.currentY += this.drawText({
+            text: getLocalizedString('topSkillsTitle'),
+            size: this.textSize,
+            font: this.titleFont,
+            y: this.currentY,
+            x: this.currentX,
+            centerText: true,
+        });
+
+        this.drawSkillsChart(this.resumeStore.topSkills, this.textSize);
+    }
+
+    #drawName(): void {
+        if (this.resumeStore.general.name) {
             this.drawField({
                 title: this.resumeStore.formattedName,
                 text: '',
@@ -123,41 +138,51 @@ export default class IntroductionPage extends Page {
                 centerText: true,
             });
         }
+    }
 
-        if (this.#generalData.functionTitle) {
+    #drawFunctionTitle(): void {
+        if (this.resumeStore.general.functionTitle) {
             this.drawField({
-                title: this.#generalData.functionTitle,
+                title: this.resumeStore.general.functionTitle,
                 centerText: true,
             });
         }
+    }
 
-        if (this.#generalData.introduction) {
+    #drawIntroduction(): void {
+        if (this.resumeStore.general.introduction) {
             this.drawField({
-                text: this.#generalData.introduction,
+                text: this.resumeStore.general.introduction,
                 needsSpacing: true,
             });
         }
+    }
 
-        if (this.#generalData.achievements) {
+    #drawAchievements(): void {
+        if (this.resumeStore.general.achievements) {
             this.drawField({
                 title: getLocalizedString('achievements'),
-                bulletList: this.#generalData.achievements,
+                bulletList: this.resumeStore.general.achievements,
                 needsSpacing: true,
             });
         }
+    }
 
-        if (this.#generalData.colleaguesDescribe) {
+    #drawColleaguesDescribe(): void {
+        if (this.resumeStore.general.colleaguesDescribe) {
             this.drawField({
                 title: getLocalizedString('colleaguesDescribeTitle'),
-                text: this.#generalData.colleaguesDescribe,
+                text: this.resumeStore.general.colleaguesDescribe,
                 needsSpacing: true,
             });
         }
+    }
 
-        if (this.#generalData.colleaguesKnow) {
+    #drawColleaguesKnow(): void {
+        if (this.resumeStore.general.colleaguesKnow) {
             this.drawField({
                 title: getLocalizedString('colleaguesKnowTitle'),
-                text: this.#generalData.colleaguesKnow,
+                text: this.resumeStore.general.colleaguesKnow,
                 needsSpacing: true,
             });
         }

@@ -35,6 +35,10 @@ export default class Page {
     };
 
     public async initialize(pdfDoc: PDFDocument): Promise<void> {
+        if (!pdfDoc) {
+            throw new Error('PDFDocument is not set');
+        }
+
         this.#document = pdfDoc;
         this.page = this.addPage();
 
@@ -68,14 +72,6 @@ export default class Page {
 
     protected drawField(props: FieldData): number {
         let totalAddedHeight = 0;
-
-        if (this.page === null) {
-            throw new Error('Page not initialized');
-        }
-
-        if (this.titleFont === null || this.textFont === null) {
-            throw new Error('Fonts not initialized');
-        }
 
         if (props.needsSpacing) {
             this.currentY += SPACING;

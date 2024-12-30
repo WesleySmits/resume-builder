@@ -97,7 +97,10 @@ export const useResumeStore = defineStore('resume', {
     },
     actions: {
         reset() {
-            Object.assign(this, defaultResumeState);
+            // this.$state = { ...defaultResumeState };
+            this.general = { ...defaultResumeState.general };
+            this.skills = { ...defaultResumeState.skills };
+            this.topSkills = [];
         },
         async updateProfilePhoto(profilePhoto: File) {
             try {
@@ -107,6 +110,9 @@ export const useResumeStore = defineStore('resume', {
             } catch (error) {
                 console.error('Error processing profile photo:', error);
             }
+        },
+        clearProfilePhoto() {
+            this.general.profilePhoto = '';
         },
         updateName(name: Name) {
             this.general.name = name;
@@ -170,6 +176,9 @@ export const useResumeStore = defineStore('resume', {
         },
         sortTopSkills() {
             this.topSkills.sort((a, b) => b.yearsOfExperience - a.yearsOfExperience);
+        },
+        clearTopSkills() {
+            this.topSkills = [];
         },
     },
 });
