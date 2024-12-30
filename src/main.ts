@@ -9,11 +9,13 @@ import { useResumeStore } from './stores/resume';
 
 const app = createApp(App);
 
-app.use(createPinia());
+export const pinia = createPinia();
+
+app.use(pinia);
 app.use(router);
 
 const resumeStore = useResumeStore();
-resumeStore.$subscribe((mutation, state) => {
+resumeStore.$subscribe((_, state) => {
     localStorage.setItem('resumeData', JSON.stringify(state));
 });
 
