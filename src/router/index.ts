@@ -9,11 +9,6 @@ const router = createRouter({
             name: 'home',
             component: HomeView,
         },
-        {
-            path: '/style-guide',
-            name: 'style-guide',
-            component: () => import('../views/StyleGuideView.vue'),
-        },
     ],
 });
 
