@@ -83,7 +83,6 @@ export const useResumeStore = defineStore('resume', {
     },
     actions: {
         reset() {
-            // this.$state = { ...defaultResumeState };
             this.general = { ...defaultResumeState.general };
             this.skills = { ...defaultResumeState.skills };
             this.topSkills = [];
@@ -166,6 +165,9 @@ export const useResumeStore = defineStore('resume', {
         },
         sortTopSkills() {
             this.topSkills.sort((a, b) => b.yearsOfExperience - a.yearsOfExperience);
+        },
+        setTopSkills(newTopSkills: TopSkill[]): void {
+            this.topSkills = newTopSkills;
         },
         clearTopSkills() {
             this.topSkills = [];

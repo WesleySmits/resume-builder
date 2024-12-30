@@ -1,68 +1,53 @@
 <template>
-    <fieldset class="top-skills">
-        <header>
-            <h2>{{ getLocalizedString('topSkills') }}</h2>
+    <DynamicList
+        :title="getLocalizedString('topSkills')"
+        :items="topSkills"
+        :maxItems="MAX_TOP_SKILLS"
+        :defaultItem="defaultSkill"
+        :onUpdate="updateTopSkills"
+        :getKey="getKey"
+    >
+        <template #item-fields="{ item, index, updateField, removeItem }">
+            <FormField
+                type="select"
+                :id="`selectTopSkill-${index}`"
+                :label="getLocalizedString('selectTopSkill')"
+                :placeholder="getLocalizedString('selectTopSkillPlaceholder')"
+                :helperText="getLocalizedString('selectTopSkillHelperText')"
+                :errorText="getLocalizedString('requiredFieldError')"
+                :modelValue="item.name"
+                :required="false"
+                :options="allSkills.map((skill) => ({ value: skill, text: skill }))"
+                @valid="(value) => updateField('name', value as string)"
+            />
 
-            <div class="buttons">
-                <button
-                    @click="addSkill"
-                    class="primary icon"
-                    data-action="add"
-                    :disabled="topSkills.length >= MAX_TOP_SKILLS"
-                >
-                    <PlusIcon />
-                </button>
+            <FormField
+                type="number"
+                :id="`yearsOfExperience-${index}`"
+                :label="getLocalizedString('yearsOfExperience')"
+                :placeholder="getLocalizedString('yearsOfExperiencePlaceholder')"
+                :helperText="getLocalizedString('yearsOfExperienceHelperText')"
+                :errorText="getLocalizedString('requiredFieldError')"
+                min="0"
+                :modelValue="item.yearsOfExperience"
+                :required="false"
+                @valid="(value) => updateField('yearsOfExperience', value as number)"
+            />
 
-                <button @click="sortSkills" class="secondary icon" data-action="sort">
-                    <SortIcon />
-                </button>
-            </div>
-        </header>
-
-        <ul v-if="topSkills.length">
-            <li v-for="(skill, index) in topSkills" :key="skill.name" class="top-skill">
-                <FormField
-                    type="select"
-                    :id="`selectTopSkill-${index}`"
-                    :label="getLocalizedString('selectTopSkill')"
-                    :placeholder="getLocalizedString('selectTopSkillPlaceholder')"
-                    :helperText="getLocalizedString('selectTopSkillHelperText')"
-                    :errorText="getLocalizedString('requiredFieldError')"
-                    :modelValue="skill.name"
-                    :required="false"
-                    :options="allSkills.map((skill) => ({ value: skill, text: skill }))"
-                    @valid="(value) => updateSkill(index, value as string, 'name')"
-                />
-
-                <FormField
-                    type="number"
-                    :id="`yearsOfExperience-${index}`"
-                    :label="getLocalizedString('yearsOfExperience')"
-                    :placeholder="getLocalizedString('yearsOfExperiencePlaceholder')"
-                    :helperText="getLocalizedString('yearsOfExperienceHelperText')"
-                    :errorText="getLocalizedString('requiredFieldError')"
-                    min="0"
-                    :modelValue="skill.yearsOfExperience"
-                    :required="false"
-                    @valid="(value) => updateSkill(index, value as number, 'yearsOfExperience')"
-                />
-
-                <button @click="removeSkill(index)" class="secondary icon" data-action="remove">
-                    <MinusIcon />
-                </button>
-            </li>
-        </ul>
-    </fieldset>
+            <button @click="removeItem" class="secondary icon" data-action="remove">
+                <MinusIcon />
+            </button>
+        </template>
+    </DynamicList>
 </template>
 
 <script setup lang="ts">
 import MinusIcon from '@/icons/MinusIcon.vue';
-import PlusIcon from '@/icons/PlusIcon.vue';
-import SortIcon from '@/icons/SortIcon.vue';
 import { useResumeStore } from '@/stores/resume';
 import { getLocalizedString } from '@/utils/translation';
 import FormField from './FormField.vue';
 import { MAX_TOP_SKILLS } from '@/utils/resume/constants';
+import DynamicList from './DynamicList.vue';
 
 const resumeStore = useResumeStore();
 const topSkills = resumeStore.topSkills;
@@ -89,54 +74,15 @@ resumeStore.$subscribe((_, state) => {
     ];
 });
 
-function addSkill(): void {
-    if (topSkills.length >= MAX_TOP_SKILLS) {
-        return;
-    }
-
-    resumeStore.addTopSkill({ name: '', yearsOfExperience: 0 });
+function getKey(item: TopSkill, index: number): string {
+    return `${item.name}-${index}`;
 }
 
-function updateSkill(index: number, value: string | number, key: string): void {
-    const newSkill = { ...topSkills[index], [key]: value };
-    resumeStore.updateTopSkill(index, newSkill);
+function defaultSkill(): TopSkill {
+    return { name: '', yearsOfExperience: 0 };
 }
 
-function removeSkill(index: number): void {
-    resumeStore.removeTopSkill(index);
-}
-
-function sortSkills(): void {
-    resumeStore.sortTopSkills();
+function updateTopSkills(newSkills: TopSkill[]) {
+    resumeStore.setTopSkills(newSkills);
 }
 </script>
-
-<style scoped>
-.top-skills {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-header {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-}
-
-.buttons {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-}
-
-.top-skill {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-</style>

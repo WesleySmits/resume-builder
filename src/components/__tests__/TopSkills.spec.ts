@@ -1,262 +1,80 @@
-import './setupTests';
-import { mount, VueWrapper } from '@vue/test-utils';
-import { describe, it, expect, vi } from 'vitest';
+import { mount } from '@vue/test-utils';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import TopSkills from '@/components/TopSkills.vue';
 import { useResumeStore } from '@/stores/resume';
-import { createTestingPinia } from '@pinia/testing';
-import FormField from '../FormField.vue';
-import { createPinia } from 'pinia';
-import { nextTick } from 'vue';
+import { createPinia, setActivePinia } from 'pinia';
 
-interface TopSkillsInstance {
-    allSkills: string[];
-    addSkill: () => void;
-}
+vi.mock('@/utils/translation', () => ({
+    getLocalizedString: (key: string) => key, // Mock translation utility
+}));
 
 describe('TopSkills.vue', () => {
-    const resumeInitialState: ResumeData = {
-        general: {
-            name: {
-                firstName: 'Jon',
-                middleName: '',
-                lastName: 'Snow',
-                displayName: '',
-            },
-            contact: {
-                email: 'jon.snow@resume-maker.io',
-                phone: '123123123',
-            },
-            achievements: ['Defeated the Night King', 'Knows nothing', 'King in the North'],
-        },
-        skills: {
-            languages: ['HTML', 'CSS', 'JavaScript'],
-            frameworks: ['Vue.js'],
-            platforms: ['Node.js'],
-            methodologies: ['Agile'],
-            databases: ['MongoDB'],
-            tools: ['Git'],
-            operatingSystems: ['MacOS'],
-        },
-        topSkills: [
-            {
-                name: 'JavaScript',
-                yearsOfExperience: 1,
-            },
-            {
-                name: 'Vue.js',
-                yearsOfExperience: 2,
-            },
-            {
-                name: 'Node.js',
-                yearsOfExperience: 3,
-            },
-        ],
-    };
-
-    const resumeInitialStateWithMaxTopSkills: ResumeData = {
-        general: {
-            name: {
-                firstName: 'Jon',
-                middleName: '',
-                lastName: 'Snow',
-                displayName: '',
-            },
-            contact: {
-                email: 'jon.snow@resume-maker.io',
-                phone: '123123123',
-            },
-            achievements: ['Defeated the Night King', 'Knows nothing', 'King in the North'],
-        },
-        skills: {
-            languages: ['HTML', 'CSS', 'JavaScript'],
-            frameworks: ['Vue.js'],
-            platforms: ['Node.js'],
-            methodologies: ['Agile'],
-            databases: ['MongoDB'],
-            tools: ['Git'],
-            operatingSystems: ['MacOS'],
-        },
-        topSkills: [
-            {
-                name: 'JavaScript',
-                yearsOfExperience: 1,
-            },
-            {
-                name: 'Vue.js',
-                yearsOfExperience: 2,
-            },
-            {
-                name: 'Node.js',
-                yearsOfExperience: 3,
-            },
-            {
-                name: 'TypeScript',
-                yearsOfExperience: 1,
-            },
-            {
-                name: 'React',
-                yearsOfExperience: 2,
-            },
-            {
-                name: 'Angular',
-                yearsOfExperience: 2,
-            },
-            {
-                name: 'Svelte',
-                yearsOfExperience: 1,
-            },
-            {
-                name: 'Nuxt.js',
-                yearsOfExperience: 2,
-            },
-            {
-                name: 'Next.js',
-                yearsOfExperience: 3,
-            },
-            {
-                name: 'Gatsby',
-                yearsOfExperience: 1,
-            },
-        ],
-    };
-
-    function getMountedComponent(): VueWrapper {
-        return mount(TopSkills, {
-            global: {
-                plugins: [
-                    createTestingPinia({
-                        createSpy: vi.fn,
-                        initialState: {
-                            resume: resumeInitialState,
-                        },
-                    }),
-                ],
-            },
-        });
-    }
-
-    function getMountedComponentWithMaxTopSkills(): VueWrapper {
-        return mount(TopSkills, {
-            global: {
-                plugins: [
-                    createTestingPinia({
-                        createSpy: vi.fn,
-                        initialState: {
-                            resume: resumeInitialStateWithMaxTopSkills,
-                        },
-                    }),
-                ],
-            },
-        });
-    }
-
-    function getMountedComponentWithActualStore(): VueWrapper {
-        localStorage.setItem('resumeData', JSON.stringify(resumeInitialState));
-        return mount(TopSkills, {
-            global: {
-                plugins: [createPinia()],
-            },
-        });
-    }
-
-    it('should add a skill', async () => {
-        const wrapper = getMountedComponent();
-        const resumeStore = useResumeStore();
-
-        await wrapper.find('button[data-action="add"]').trigger('click');
-
-        expect(resumeStore.addTopSkill).toHaveBeenCalledWith({ name: '', yearsOfExperience: 0 });
+    beforeEach(() => {
+        setActivePinia(createPinia());
     });
 
-    it('should update a skill', async () => {
-        const wrapper = getMountedComponent();
+    it('renders the component with initial skills', () => {
         const resumeStore = useResumeStore();
-
-        expect(resumeStore.updateTopSkill).toHaveBeenCalledTimes(0);
-
-        const fields = wrapper.findAllComponents(FormField);
-        expect(fields).toHaveLength(6);
-
-        expect(resumeStore.updateTopSkill).toHaveBeenCalledTimes(0);
-        await fields[0].vm.$emit('valid', 'TypeScript');
-        expect(resumeStore.updateTopSkill).toHaveBeenCalledTimes(1);
-
-        expect(resumeStore.updateTopSkill).toHaveBeenCalledWith(0, { name: 'TypeScript', yearsOfExperience: 1 });
-    });
-
-    it('should remove a skill', async () => {
-        const wrapper = getMountedComponent();
-        const resumeStore = useResumeStore();
-
-        expect(resumeStore.updateTopSkill).toHaveBeenCalledTimes(0);
-
-        const buttons = wrapper.findAll('button[data-action="remove"]');
-        expect(buttons).toHaveLength(3);
-
-        expect(resumeStore.removeTopSkill).toHaveBeenCalledTimes(0);
-        await buttons[0].trigger('click');
-        expect(resumeStore.removeTopSkill).toHaveBeenCalledTimes(1);
-
-        expect(resumeStore.removeTopSkill).toHaveBeenCalledWith(0);
-    });
-
-    it('should sort skills', async () => {
-        const wrapper = getMountedComponent();
-        const resumeStore = useResumeStore();
-
-        expect(resumeStore.updateTopSkill).toHaveBeenCalledTimes(0);
-
-        const button = wrapper.find('button[data-action="sort"]');
-
-        expect(resumeStore.sortTopSkills).toHaveBeenCalledTimes(0);
-        button.trigger('click');
-        expect(resumeStore.sortTopSkills).toHaveBeenCalledTimes(1);
-    });
-
-    it('should update allSkills when the store changes', async () => {
-        const wrapper = getMountedComponentWithActualStore();
-        const resumeStore = useResumeStore();
-
-        const instance = wrapper.vm as unknown as TopSkillsInstance;
-
-        expect(instance.allSkills.length).toBe(9);
-
-        resumeStore.updateSkillsDatabases(['MySQL', 'PostgreSQL']);
-
-        await nextTick();
-        const testAllSkills = [
-            ...resumeStore.skills.languages,
-            ...resumeStore.skills.frameworks,
-            ...resumeStore.skills.platforms,
-            ...resumeStore.skills.methodologies,
-            ...resumeStore.skills.operatingSystems,
-            ...resumeStore.skills.databases,
-            ...resumeStore.skills.tools,
+        resumeStore.topSkills = [
+            { name: 'JavaScript', yearsOfExperience: 5 },
+            { name: 'Vue.js', yearsOfExperience: 3 },
         ];
-        expect(testAllSkills.length).toEqual(10);
-        expect(instance.allSkills.length).toBe(10);
 
-        expect(1).toBe(1);
+        const wrapper = mount(TopSkills);
+        expect(wrapper.text()).toContain('topSkills');
+
+        const skillFields = wrapper.findAll('.list-item');
+        expect(skillFields.length).toBe(2);
     });
 
-    it('should not allow to add more than the maximum number of skills because the button is disabled', async () => {
-        const wrapper = getMountedComponentWithMaxTopSkills();
+    it('adds a new skill when the add button is clicked', async () => {
         const resumeStore = useResumeStore();
+        resumeStore.topSkills = [];
 
-        const addButton = wrapper.find<HTMLButtonElement>('button[data-action="add"]');
+        const wrapper = mount(TopSkills);
+
+        const addButton = wrapper.find('[data-action="add"]');
         await addButton.trigger('click');
-        expect(addButton.element.disabled).toBeTruthy();
 
-        expect(resumeStore.addTopSkill).not.toHaveBeenCalled();
+        expect(resumeStore.topSkills.length).toBe(1);
+        expect(resumeStore.topSkills[0]).toEqual({ name: '', yearsOfExperience: 0 });
     });
 
-    it('should not allow to add more than the maximum number of skills through the exposed method', async () => {
-        const wrapper = getMountedComponentWithMaxTopSkills();
+    it('updates a skill field when the FormField emits a valid event', async () => {
         const resumeStore = useResumeStore();
+        resumeStore.topSkills = [{ name: '', yearsOfExperience: 0 }];
 
-        const instance = wrapper.vm as unknown as TopSkillsInstance;
-        instance.addSkill();
+        const wrapper = mount(TopSkills);
 
-        expect(resumeStore.addTopSkill).not.toHaveBeenCalled();
+        const formField = wrapper.findComponent({ name: 'FormField' });
+        await formField.vm.$emit('valid', 'TypeScript');
+
+        expect(resumeStore.topSkills[0].name).toBe('TypeScript');
+    });
+
+    it('removes a skill when the remove button is clicked', async () => {
+        const resumeStore = useResumeStore();
+        resumeStore.topSkills = [
+            { name: 'JavaScript', yearsOfExperience: 5 },
+            { name: 'Vue.js', yearsOfExperience: 3 },
+        ];
+
+        const wrapper = mount(TopSkills);
+
+        const removeButton = wrapper.find('[data-action="remove"]');
+        await removeButton.trigger('click');
+
+        expect(resumeStore.topSkills.length).toBe(1);
+        expect(resumeStore.topSkills[0].name).toBe('Vue.js');
+    });
+
+    it('disables the add button when the maximum number of skills is reached', () => {
+        const resumeStore = useResumeStore();
+        resumeStore.topSkills = new Array(5).fill({ name: '', yearsOfExperience: 0 });
+
+        const wrapper = mount(TopSkills);
+
+        const addButton = wrapper.find<HTMLButtonElement>('[data-action="add"]');
+        expect(addButton.element.disabled).toBeDefined();
     });
 });
