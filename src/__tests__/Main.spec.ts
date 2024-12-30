@@ -6,7 +6,7 @@ import '@/main.ts';
 import { pinia } from '@/main.ts';
 
 describe('main.ts', () => {
-    it.only('subscribes to the resumeStore and saves data to localStorage', async () => {
+    it('subscribes to the resumeStore and saves data to localStorage', async () => {
         const mockSetItem = vi.spyOn(Storage.prototype, 'setItem');
 
         await import('../main');
