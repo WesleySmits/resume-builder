@@ -22,5 +22,20 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Run tests
-              run: npm test
+            - name: Run unit tests with coverage
+              run: npm run test:unit:coverage
+
+            - name: Upload coverage report
+              uses: actions/upload-artifact@v3
+              with:
+                  name: coverage-report
+                  path: coverage/
+
+            - name: Upload to Codecov
+              uses: codecov/codecov-action@v3
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  files: ./coverage/coverage-final.json
+                  flags: unittests
+                  name: code-coverage
+                  fail_ci_if_error: true
