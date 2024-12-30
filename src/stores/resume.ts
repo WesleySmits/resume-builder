@@ -80,20 +80,6 @@ export const useResumeStore = defineStore('resume', {
             const { firstName = '', middleName = '', lastName = '' } = state.general.name || {};
             return [firstName, middleName, lastName].filter(Boolean).join(' ').trim();
         },
-        profilePhotoUrl: (state) => {
-            const profilePhoto = state.general.profilePhoto;
-
-            if (typeof profilePhoto === 'string') {
-                return profilePhoto;
-            }
-
-            if (typeof profilePhoto === 'object' && Object.keys(profilePhoto).length === 0) {
-                console.error('Profile photo is an empty object');
-                return '';
-            }
-
-            return profilePhoto ? URL.createObjectURL(profilePhoto) : undefined;
-        },
     },
     actions: {
         reset() {
@@ -104,6 +90,10 @@ export const useResumeStore = defineStore('resume', {
         },
         async updateProfilePhoto(profilePhoto: File) {
             try {
+                if (!profilePhoto.type.startsWith('image/')) {
+                    throw new Error('File is not an image');
+                }
+
                 const base64 = await convertImageToBase64(profilePhoto);
                 const roundedBase64 = await roundImage(base64, 200, 200);
                 this.general.profilePhoto = roundedBase64;

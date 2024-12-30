@@ -73,9 +73,13 @@ describe('useResumeStore', () => {
         expect(store.formattedName).toBe('John Doe Smith');
     });
 
-    it('profilePhotoUrl getter returns the correct URL', () => {
+    it('formattedName getter returns the correct display name if present', () => {
         const store = useResumeStore();
-        expect(store.profilePhotoUrl).toBe('wrs.wesley.jpg');
+        store.general.name.firstName = 'John';
+        store.general.name.middleName = 'Doe';
+        store.general.name.lastName = 'Smith';
+        store.general.name.displayName = 'Johnny Smith';
+        expect(store.formattedName).toBe('Johnny Smith');
     });
 
     it('updateProfilePhoto action updates the profile photo', async () => {
@@ -83,6 +87,26 @@ describe('useResumeStore', () => {
         const file = new File([''], 'photo.jpg', { type: 'image/jpeg' });
         await store.updateProfilePhoto(file);
         expect(store.general.profilePhoto).toEqual('data:image/jpeg;base64,');
+    });
+
+    it('updateProfilePhoto action does not update the profile photo if the file is not an image', async () => {
+        console.error = vi.fn();
+
+        const store = useResumeStore();
+        store.clearProfilePhoto();
+
+        const file = new File([''], 'resume.pdf', { type: 'application/pdf' });
+        await store.updateProfilePhoto(file);
+
+        expect(store.general.profilePhoto).toBe('');
+        expect(console.error).toHaveBeenCalled();
+    });
+
+    it('clearProfilePhoto action clears the profile photo', () => {
+        const store = useResumeStore();
+        expect(store.general.profilePhoto).not.toBe('');
+        store.clearProfilePhoto();
+        expect(store.general.profilePhoto).toBe('');
     });
 
     it('updateName action updates the name', () => {
@@ -204,5 +228,56 @@ describe('useResumeStore', () => {
         const tools = ['Git', 'Docker'];
         store.updateSkillsTools(tools);
         expect(store.skills.tools).toEqual(tools);
+    });
+
+    it('addTopSkill action adds a top skill', () => {
+        const store = useResumeStore();
+        const skill = { name: 'JavaScript', yearsOfExperience: 5 };
+        expect(store.topSkills).toEqual([]);
+        store.addTopSkill(skill);
+        expect(store.topSkills).toEqual([skill]);
+    });
+
+    it('updateTopSkill action updates a top skill', () => {
+        const store = useResumeStore();
+        const skill = { name: 'JavaScript', yearsOfExperience: 5 };
+        store.addTopSkill(skill);
+        const updatedSkill = { name: 'TypeScript', yearsOfExperience: 3 };
+        store.updateTopSkill(0, updatedSkill);
+        expect(store.topSkills[0]).toEqual(updatedSkill);
+    });
+
+    it('removeTopSkill action removes a top skill', () => {
+        const store = useResumeStore();
+        store.clearTopSkills();
+        const skill = { name: 'JavaScript', yearsOfExperience: 5 };
+        store.addTopSkill(skill);
+        expect(store.topSkills).toEqual([skill]);
+        store.removeTopSkill(0);
+        expect(store.topSkills).toEqual([]);
+    });
+
+    it('sortTopSkills action sorts top skills by years of experience', () => {
+        const store = useResumeStore();
+        const skills = [
+            { name: 'JavaScript', yearsOfExperience: 5 },
+            { name: 'TypeScript', yearsOfExperience: 3 },
+            { name: 'Vue', yearsOfExperience: 2 },
+        ];
+        store.topSkills = skills;
+        store.sortTopSkills();
+        expect(store.topSkills).toEqual([skills[0], skills[1], skills[2]]);
+    });
+
+    it('clearTopSkills action clears top skills', () => {
+        const store = useResumeStore();
+        const skills = [
+            { name: 'JavaScript', yearsOfExperience: 5 },
+            { name: 'TypeScript', yearsOfExperience: 3 },
+            { name: 'Vue', yearsOfExperience: 2 },
+        ];
+        store.topSkills = skills;
+        store.clearTopSkills();
+        expect(store.topSkills).toEqual([]);
     });
 });
