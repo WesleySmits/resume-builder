@@ -75,6 +75,17 @@
                     @valid="(value) => updateField('endDate', value as string)"
                 />
 
+                <FormField
+                    :type="'textarea'"
+                    :id="`educationDescription-${index}`"
+                    :label="getLocalizedString('educationDescription')"
+                    :placeholder="getLocalizedString('educationDescriptionPlaceholder')"
+                    :helperText="getLocalizedString('educationDescriptionHelperText')"
+                    :modelValue="item.description"
+                    :required="false"
+                    @valid="(value) => updateField('description', value as string)"
+                />
+
                 <button @click="removeItem" class="secondary" data-action="remove">
                     {{ getLocalizedString('deleteEducation') }}
                 </button>
