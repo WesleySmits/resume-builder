@@ -34,6 +34,7 @@ const selectTab = (tabId: string) => {
     background: var(--color-background-secondary);
     padding: 1rem;
     border-bottom: 1px solid var(--color-border);
+    overflow-x: auto;
 }
 
 button {
