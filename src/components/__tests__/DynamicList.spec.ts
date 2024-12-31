@@ -48,7 +48,7 @@ describe('DynamicList.vue', () => {
             props: getDefaultProps(),
         });
 
-        expect(wrapper.find('h2').text()).toBe('Test List');
+        expect(wrapper.find('legend').text()).toBe('Test List');
         expect(wrapper.find('[data-action="add"]').exists()).toBe(true);
         expect(wrapper.find('[data-action="sort"]').exists()).toBe(true);
     });
