@@ -119,5 +119,6 @@
     "certificationCompleted": "Completed?",
     "certificationYear": "Year",
     "certificationYearPlaceholder": "2021",
-    "certificationYearHelperText": "Enter the year you completed the certification."
+    "certificationYearHelperText": "Enter the year you completed the certification.",
+    "inProgress": "In Progress"
 }

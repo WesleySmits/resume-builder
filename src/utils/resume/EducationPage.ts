@@ -29,6 +29,27 @@ export default class EducationPage extends Page {
         super.drawFullWidth();
 
         this.#renderEducationTable();
+        this.#renderCertificationsList();
+    }
+
+    #renderCertificationsList(): void {
+        const certifications = this.resumeStore.certifications;
+        const xPosition = this.currentX + 5;
+
+        this.drawUnderlinedTitle(getLocalizedString('certifications'));
+
+        const certificationItems = certifications.map((certification) => {
+            const { title, provider, completed, year } = certification;
+            return `${title}${completed ? '' : ` - (${getLocalizedString('inProgress')})`} - ${provider} - ${year}`;
+        });
+
+        this.currentY += this.drawBulletedList({
+            items: certificationItems,
+            x: xPosition,
+            y: this.currentY,
+            size: this.textSize,
+            font: this.fontData.regular,
+        });
     }
 
     #renderEducationTable(): void {
