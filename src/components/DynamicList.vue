@@ -1,7 +1,7 @@
 <template>
     <fieldset class="dynamic-list">
         <header>
-            <h2>{{ title }}</h2>
+            <legend>{{ title }}</legend>
 
             <div class="buttons">
                 <button
@@ -20,7 +20,7 @@
         </header>
 
         <ul v-if="items.length">
-            <li v-for="(item, index) in items" :key="getKey(item, index)" class="list-item">
+            <li v-for="(item, index) in items" :key="getKey(item, index)" :class="listItemClass">
                 <slot
                     name="item-fields"
                     :item="item"
@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts" generic="T, K extends keyof T">
-import { ref, watch, type Ref } from 'vue';
+import { computed, ref, watch, type Ref } from 'vue';
 import PlusIcon from '@/icons/PlusIcon.vue';
 import SortIcon from '@/icons/SortIcon.vue';
 
@@ -46,10 +46,16 @@ export interface DynamicListProps<T> {
     defaultItem: () => T;
     onUpdate: (newItems: T[]) => void;
     getKey?: (item: T, index: number) => string;
+    direction?: 'row' | 'column';
 }
 
 const props = defineProps<DynamicListProps<T>>();
 const emit = defineEmits(['update']);
+
+const listItemClass = computed(() => ({
+    'list-item': true,
+    'list-item--column': props.direction === 'column',
+}));
 
 const getKey = (item: T, index: number) => {
     return props.getKey ? props.getKey(item, index) : index.toString();
@@ -123,5 +129,10 @@ header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.list-item--column {
+    flex-direction: column;
+    align-items: initial;
 }
 </style>
