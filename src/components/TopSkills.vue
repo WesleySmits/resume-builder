@@ -28,7 +28,7 @@
                 :placeholder="getLocalizedString('yearsOfExperiencePlaceholder')"
                 :helperText="getLocalizedString('yearsOfExperienceHelperText')"
                 :errorText="getLocalizedString('requiredFieldError')"
-                min="0"
+                :min="0"
                 :modelValue="item.yearsOfExperience"
                 :required="false"
                 @valid="(value) => updateField('yearsOfExperience', value as number)"

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi, type Mock } from 'vitest';
 import IntroductionPage from '../resume/IntroductionPage';
 import SkillsPage from '../resume/SkillsPage';
+import EducationPage from '../resume/EducationPage';
 import { generateResume } from '../resume/resume';
 import { PDFDocument } from 'pdf-lib';
 import { beforeEach } from 'vitest';
@@ -35,10 +36,21 @@ vi.mock('../resume/SkillsPage', () => {
     };
 });
 
+vi.mock('../resume/EducationPage', () => {
+    return {
+        default: {
+            getInstance: vi.fn().mockReturnValue({
+                initialize: vi.fn(),
+            }),
+        },
+    };
+});
+
 describe('generateResume', () => {
     beforeEach(() => {
         (IntroductionPage.getInstance().initialize as Mock).mockReset();
         (SkillsPage.getInstance().initialize as Mock).mockReset();
+        (EducationPage.getInstance().initialize as Mock).mockReset();
     });
 
     it('should create and save a PDF', async () => {
@@ -51,10 +63,12 @@ describe('generateResume', () => {
     it('should do initialize the page classes', async () => {
         const introductionPage = IntroductionPage.getInstance();
         const skillsPage = SkillsPage.getInstance();
+        const educationPage = EducationPage.getInstance();
 
         await generateResume();
 
         expect(introductionPage.initialize).toHaveBeenCalledOnce();
         expect(skillsPage.initialize).toHaveBeenCalledOnce();
+        expect(educationPage.initialize).toHaveBeenCalledOnce();
     });
 });

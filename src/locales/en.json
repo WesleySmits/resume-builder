@@ -107,5 +107,17 @@
     "educationEndDateHelperText": "Enter the end date of your education.",
     "educationDescription": "Description",
     "educationDescriptionPlaceholder": "I studied...",
-    "educationDescriptionHelperText": "Enter a description of your education."
+    "educationDescriptionHelperText": "Enter a description of your education.",
+    "newCertification": "New Certification",
+    "deleteCertification": "Delete Certification",
+    "certificationTitle": "Title",
+    "certificationTitlePlaceholder": "AWS Certified Solutions Architect",
+    "certificationTitleHelperText": "Enter the title of the certification.",
+    "certificationProvider": "Provider",
+    "certificationProviderPlaceholder": "Amazon Web Services",
+    "certificationProviderHelperText": "Enter the provider of the certification.",
+    "certificationCompleted": "Completed?",
+    "certificationYear": "Year",
+    "certificationYearPlaceholder": "2021",
+    "certificationYearHelperText": "Enter the year you completed the certification."
 }

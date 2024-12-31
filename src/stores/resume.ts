@@ -179,5 +179,8 @@ export const useResumeStore = defineStore('resume', {
         setEducation(newEducation: Education[]): void {
             this.education = newEducation;
         },
+        setCertifications(newCertifications: Certification[]): void {
+            this.certifications = newCertifications;
+        },
     },
 });

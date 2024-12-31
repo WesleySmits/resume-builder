@@ -1,9 +1,9 @@
 <template>
     <div :class="{ 'form-field': true, 'form-field--error': formState.error }">
         <component
-            :is="inputType === 'skills' ? SkillsTagInput : inputType"
+            :is="inputType === 'skills' ? SkillsTagInput : inputType === 'yesno' ? YesNoToggle : inputType"
             :id="inputType === 'skills' ? '' : id"
-            :id-prop="inputType === 'skills' ? id : ''"
+            :id-prop="inputType === 'skills' || inputType === 'yesno' ? id : ''"
             class="form-field__input"
             :placeholder="placeholder"
             :required="required"
@@ -13,6 +13,8 @@
             :modelValue="formState.value"
             :cols="cols"
             :rows="rows"
+            :min="min"
+            :max="max"
             @input="handleInput"
             @blur="validate"
             @update:modelValue="handleInput"
@@ -53,6 +55,7 @@
 import { debounce } from '@/utils/debounce';
 import { reactive, computed, ref } from 'vue';
 import SkillsTagInput from './SkillsTagInput.vue';
+import YesNoToggle from './YesNoToggle.vue';
 
 const props = defineProps<{
     id: string;
@@ -62,15 +65,17 @@ const props = defineProps<{
     required?: boolean;
     helperText?: string;
     errorText?: string;
-    modelValue?: string | string[] | number | File;
+    modelValue?: string | string[] | number | boolean | File;
     options?: { value: string; text: string }[];
     cols?: number;
     rows?: number;
+    min?: number;
+    max?: number;
 }>();
 
 const emit = defineEmits<{
-    (e: 'update:modelValue', value: string | string[]): void;
-    (e: 'valid', value: string | string[] | number | File): void;
+    (e: 'update:modelValue', value: string | string[] | boolean | number): void;
+    (e: 'valid', value: string | string[] | number | boolean | File): void;
 }>();
 
 const inputRef = ref<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null>(null);
@@ -83,6 +88,7 @@ const inputType = computed(() => {
     if (props.type === 'textarea') return 'textarea';
     if (props.type === 'select') return 'select';
     if (props.type === 'skills') return 'skills';
+    if (props.type === 'yesno') return 'yesno';
     return 'input';
 });
 
@@ -118,6 +124,17 @@ function handleInput(event: Event) {
         emit('valid', target.files[0]);
     } else if (props.type === 'skills') {
         const value = event as unknown as string[];
+        formState.value = value;
+        emit('update:modelValue', value);
+        debouncedValidate();
+    } else if (props.type === 'yesno') {
+        const input = event.target as HTMLInputElement;
+        const value = input.checked;
+        formState.value = value;
+        emit('update:modelValue', value);
+        debouncedValidate();
+    } else if (props.type === 'number') {
+        const value = target.value ? parseInt(target.value, 10) : '';
         formState.value = value;
         emit('update:modelValue', value);
         debouncedValidate();
