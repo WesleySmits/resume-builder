@@ -61,75 +61,19 @@ describe('SkillsSection.vue', () => {
         const labels = wrapper.findAll<HTMLLabelElement>('fieldset:first-of-type .form-field label');
         const helperTexts = wrapper.findAll<HTMLElement>('fieldset:first-of-type .form-field .help-text');
 
-        testFormField(
-            inputs[0].element,
-            labels[0],
-            helperTexts[0],
-            SkillFields.PROGRAMMING_LANGUAGES,
-            '',
-            resumeInitialState.skills.languages.join(','),
-            false,
-        );
+        testFormField(inputs[0].element, labels[0], helperTexts[0], SkillFields.PROGRAMMING_LANGUAGES, '', '', false);
 
-        testFormField(
-            inputs[1].element,
-            labels[1],
-            helperTexts[1],
-            SkillFields.FRAMEWORKS,
-            '',
-            resumeInitialState.skills.frameworks.join(','),
-            false,
-        );
+        testFormField(inputs[1].element, labels[1], helperTexts[1], SkillFields.FRAMEWORKS, '', '', false);
 
-        testFormField(
-            inputs[2].element,
-            labels[2],
-            helperTexts[2],
-            SkillFields.PLATFORMS,
-            '',
-            resumeInitialState.skills.platforms.join(','),
-            false,
-        );
+        testFormField(inputs[2].element, labels[2], helperTexts[2], SkillFields.PLATFORMS, '', '', false);
 
-        testFormField(
-            inputs[3].element,
-            labels[3],
-            helperTexts[3],
-            SkillFields.METHODOLOGIES,
-            '',
-            resumeInitialState.skills.methodologies.join(','),
-            false,
-        );
+        testFormField(inputs[3].element, labels[3], helperTexts[3], SkillFields.METHODOLOGIES, '', '', false);
 
-        testFormField(
-            inputs[4].element,
-            labels[4],
-            helperTexts[4],
-            SkillFields.OPERATING_SYSTEMS,
-            '',
-            resumeInitialState.skills.operatingSystems.join(','),
-            false,
-        );
+        testFormField(inputs[4].element, labels[4], helperTexts[4], SkillFields.OPERATING_SYSTEMS, '', '', false);
 
-        testFormField(
-            inputs[5].element,
-            labels[5],
-            helperTexts[5],
-            SkillFields.DATABASES,
-            '',
-            resumeInitialState.skills.databases.join(','),
-            false,
-        );
+        testFormField(inputs[5].element, labels[5], helperTexts[5], SkillFields.DATABASES, '', '', false);
 
-        testFormField(
-            inputs[6].element,
-            labels[6],
-            helperTexts[6],
-            SkillFields.TOOLS,
-            '',
-            resumeInitialState.skills.tools.join(','),
-            false,
-        );
+        testFormField(inputs[6].element, labels[6], helperTexts[6], SkillFields.TOOLS, '', '', false);
     });
 
     it('handles skill changes well', async () => {
