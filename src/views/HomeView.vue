@@ -1,6 +1,6 @@
 <template>
     <header>
-        <TabBar :tabs="tabs" v-model:activeTab="activeTab" />
+        <TabBar :tabs="tabs" v-model:activeTab="activeTab" :initial-tab="activeTab" />
     </header>
 
     <div class="resume-container">
@@ -56,7 +56,9 @@ const tabs = [
     { id: 'additional', name: 'Additional Information' },
 ];
 
-const activeTab = ref('general');
+// Get hash from URL
+const hash = window.location.hash.slice(1);
+const activeTab = hash && tabs.some((tab) => tab.id === hash) ? ref(hash) : ref('general');
 </script>
 
 <style lang="postcss" scoped>

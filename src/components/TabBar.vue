@@ -22,6 +22,7 @@ const activeTab = ref(props.initialTab || props.tabs[0]?.id);
 
 const selectTab = (tabId: string) => {
     activeTab.value = tabId;
+    window.location.hash = tabId;
     emit('update:activeTab', tabId);
 };
 </script>
