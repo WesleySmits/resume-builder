@@ -141,6 +141,11 @@ function handleInput(event: Event) {
         debouncedValidate();
     } else if (props.type === 'number') {
         const value = target.value ? parseInt(target.value, 10) : '';
+        if (typeof value !== 'number') {
+            formState.error = true;
+            return;
+        }
+
         formState.value = value;
         emit('update:modelValue', value);
         debouncedValidate();
