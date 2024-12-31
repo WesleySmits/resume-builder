@@ -72,6 +72,8 @@ describe('ResumePreview.vue', () => {
             operatingSystems: [],
         },
         topSkills: [],
+        education: [],
+        certifications: [],
     };
     it('renders the component', async () => {
         const wrapper = mount(ResumePreview, {

@@ -32,6 +32,8 @@ describe('SkillsSection.vue', () => {
             operatingSystems: ['MacOS'],
         },
         topSkills: [],
+        education: [],
+        certifications: [],
     };
 
     function getMountedComponent(): VueWrapper {
