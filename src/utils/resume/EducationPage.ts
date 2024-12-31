@@ -94,6 +94,7 @@ export default class EducationPage extends Page {
             size: this.textSize,
             font: this.fontData.regular,
         });
+
         this.currentY += heightOfRow;
 
         if (description) {
