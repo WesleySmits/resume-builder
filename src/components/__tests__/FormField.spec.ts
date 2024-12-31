@@ -6,14 +6,19 @@ describe('FormField.vue', () => {
     async function checkComponentError(
         wrapper: VueWrapper,
         input: DOMWrapper<HTMLInputElement>,
-        value: string | string[],
+        value: string | string[] | number,
         valid: boolean,
     ) {
         await input.setValue(value);
         vi.advanceTimersByTime(750);
         await wrapper.vm.$nextTick();
 
-        expect(!!wrapper.emitted('valid')).toBe(valid);
+        let emitted = wrapper.emitted('valid')?.[0]?.[0];
+        if (typeof emitted === 'string' && emitted === '') {
+            emitted = true;
+        }
+
+        expect(!!emitted).toBe(valid);
 
         if (valid) {
             expect(wrapper.classes()).not.toContain('form-field--error');
@@ -214,6 +219,64 @@ describe('FormField.vue', () => {
 
         const test = await checkComponentError(wrapper, input, ['HTML', 'CSS'], true);
         expect(test).toBe(true);
+    });
+
+    it('correctly validates a number input', async () => {
+        vi.useFakeTimers();
+
+        const wrapper = mount(FormField, {
+            props: {
+                id: 'formField',
+                label: 'Form Field',
+                type: 'number',
+                required: false,
+                helperText: 'Some helper text',
+                errorText: 'Some error text',
+                modelValue: 7,
+            },
+        });
+
+        const input = wrapper.find('input');
+
+        const test1 = await checkComponentError(wrapper, input, 'Not a number', false);
+        const test2 = await checkComponentError(wrapper, input, 123, true);
+
+        expect(test1).toBe(false);
+        expect(test2).toBe(true);
+    });
+
+    it('correctly validates a YesNo input', async () => {
+        vi.useFakeTimers();
+
+        const wrapper = mount(FormField, {
+            props: {
+                id: 'formField',
+                label: 'Form Field',
+                type: 'yesno',
+                required: true,
+                helperText: 'Some helper text',
+                modelValue: false,
+            },
+        });
+
+        const input = wrapper.find<HTMLInputElement>('input[type="checkbox"]');
+        expect(input).toBeTruthy();
+
+        input.element.checked = true;
+        input.trigger('input');
+        vi.advanceTimersByTime(750);
+        await wrapper.vm.$nextTick();
+
+        input.element.checked = true;
+        input.trigger('change');
+        vi.advanceTimersByTime(750);
+        await wrapper.vm.$nextTick();
+
+        const emitted = wrapper.emitted('valid')?.[0]?.[0];
+        const emitted2 = wrapper.emitted('valid')?.[1]?.[0];
+
+        expect(emitted).toBeTruthy();
+        expect(emitted2).toBeTruthy();
     });
 
     it('correctly validates a file input', async () => {

@@ -302,6 +302,30 @@ export default class Page {
         }
     }
 
+    protected drawUnderlinedTitle(title: string, width = 60): number {
+        let totalAddedHeight = 0;
+
+        totalAddedHeight += this.drawField({
+            title: title,
+            needsSpacing: false,
+        });
+
+        totalAddedHeight += this.drawLine({
+            horizontal: {
+                start: this.currentX,
+                end: this.page.getWidth() - width,
+            },
+            vertical: {
+                start: this.currentY,
+                end: this.currentY,
+            },
+            thickness: 1,
+            color: rgb(0, 0, 0),
+        });
+
+        return totalAddedHeight;
+    }
+
     #processParagraphs(text: string, size: number): { paragraphs: string[]; emptyLineHeight: number } {
         const paragraphs = text
             .replace(/\r\n/g, '\n')

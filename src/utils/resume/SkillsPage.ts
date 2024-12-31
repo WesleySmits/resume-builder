@@ -1,7 +1,7 @@
 import { getLocalizedString } from '../translation';
 import Page from './Page';
 import { HORIZONTAL_EDGE_SPACING, RIGHT_COLUMN_START, SPACING, VERTICAL_EDGE_SPACING } from './constants';
-import { rgb, type PDFDocument } from 'pdf-lib';
+import { type PDFDocument } from 'pdf-lib';
 
 export default class SkillsPage extends Page {
     static #instance: SkillsPage | null = null;
@@ -31,7 +31,7 @@ export default class SkillsPage extends Page {
     public drawFullWidth(): void {
         super.drawFullWidth();
 
-        this.#renderUnderlinedTitle(getLocalizedString('technicalSkills'));
+        this.drawUnderlinedTitle(getLocalizedString('technicalSkills'));
     }
 
     public drawLeftColumn(): void {
@@ -54,7 +54,7 @@ export default class SkillsPage extends Page {
     }
 
     #renderSkillsTable(title: string, skills: string[], lineEnd = 315.28): void {
-        this.#renderUnderlinedTitle(title, lineEnd);
+        this.drawUnderlinedTitle(title, lineEnd);
 
         const skills1 = skills.slice(0, Math.ceil(skills.length / 2));
         const skills2 = skills.slice(Math.ceil(skills.length / 2));
@@ -78,29 +78,5 @@ export default class SkillsPage extends Page {
 
         const height = Math.max(height1, height2);
         this.currentY += height + SPACING;
-    }
-
-    #renderUnderlinedTitle(title: string, width = 60): number {
-        let totalAddedHeight = 0;
-
-        totalAddedHeight += this.drawField({
-            title: title,
-            needsSpacing: false,
-        });
-
-        totalAddedHeight += this.drawLine({
-            horizontal: {
-                start: this.currentX,
-                end: this.page.getWidth() - width,
-            },
-            vertical: {
-                start: this.currentY,
-                end: this.currentY,
-            },
-            thickness: 1,
-            color: rgb(0, 0, 0),
-        });
-
-        return totalAddedHeight;
     }
 }

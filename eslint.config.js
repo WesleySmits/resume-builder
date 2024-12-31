@@ -1,8 +1,8 @@
-import pluginVue from 'eslint-plugin-vue'
-import vueTsEslintConfig from '@vue/eslint-config-typescript'
-import pluginVitest from '@vitest/eslint-plugin'
-import pluginPlaywright from 'eslint-plugin-playwright'
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import pluginVue from 'eslint-plugin-vue';
+import vueTsEslintConfig from '@vue/eslint-config-typescript';
+import pluginVitest from '@vitest/eslint-plugin';
+import pluginPlaywright from 'eslint-plugin-playwright';
+import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 
 export default [
     {
@@ -28,4 +28,9 @@ export default [
         files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}'],
     },
     skipFormatting,
-]
+    {
+        rules: {
+            'no-console': ['error', { allow: ['warn', 'error'] }],
+        },
+    },
+];

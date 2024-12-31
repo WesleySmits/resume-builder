@@ -280,4 +280,38 @@ describe('useResumeStore', () => {
         store.clearTopSkills();
         expect(store.topSkills).toEqual([]);
     });
+
+    it('setEducation sets the education array', () => {
+        const store = useResumeStore();
+        const education: Education[] = [
+            {
+                institution: 'University of the Internet',
+                degree: 'Bachelor of Awesomeness',
+            },
+        ];
+
+        expect(store.education.length).toBe(0);
+
+        store.setEducation(education);
+
+        expect(store.education.length).toBe(1);
+    });
+
+    it('setCertificates sets the education array', () => {
+        const store = useResumeStore();
+        const certification: Certification[] = [
+            {
+                provider: 'University of the Internet',
+                title: 'Certificate of Awesomeness',
+                completed: true,
+                year: 2024,
+            },
+        ];
+
+        expect(store.certifications.length).toBe(0);
+
+        store.setCertifications(certification);
+
+        expect(store.certifications.length).toBe(1);
+    });
 });

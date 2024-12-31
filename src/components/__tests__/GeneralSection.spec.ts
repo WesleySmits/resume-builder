@@ -38,6 +38,8 @@ describe('GeneralSection.vue', () => {
             operatingSystems: [],
         },
         topSkills: [],
+        education: [],
+        certifications: [],
     };
 
     function getMountedComponent(): VueWrapper {

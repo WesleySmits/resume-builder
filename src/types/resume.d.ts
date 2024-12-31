@@ -118,8 +118,27 @@ interface TopSkill {
     yearsOfExperience: number;
 }
 
+interface Education {
+    institution: string;
+    degree: string;
+    fieldOfStudy?: string;
+    location?: string;
+    startDate?: string;
+    endDate?: string;
+    description?: string;
+}
+
+interface Certification {
+    title: string;
+    provider: string;
+    completed: boolean;
+    year?: number;
+}
+
 interface ResumeData {
     general: General;
     skills: Skills;
     topSkills: TopSkill[];
+    education: Education[];
+    certifications: Certification[];
 }
