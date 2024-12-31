@@ -32,7 +32,7 @@ interface Props {
 const props = defineProps<Props>();
 const emit = defineEmits(['update:modelValue', 'input', 'blur']);
 
-const inputValue = ref(props.value ?? '');
+const inputValue = ref('');
 const tags = ref<string[]>([...(props.modelValue ?? [])]);
 
 const addTag = () => {
