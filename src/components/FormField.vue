@@ -110,7 +110,7 @@ function validate() {
         formState.error = true;
     } else {
         formState.error = false;
-        if (formState.value || formState.value === '') {
+        if (formState.value || formState.value === '' || formState.value === false) {
             emit('valid', formState.value);
         }
     }
@@ -128,8 +128,14 @@ function handleInput(event: Event) {
         emit('update:modelValue', value);
         debouncedValidate();
     } else if (props.type === 'yesno') {
-        const input = event.target as HTMLInputElement;
-        const value = input.checked;
+        let value: boolean;
+        if (event instanceof Event) {
+            const target = event.target as HTMLInputElement;
+            value = target.checked;
+        } else {
+            value = event as boolean;
+        }
+
         formState.value = value;
         emit('update:modelValue', value);
         debouncedValidate();
