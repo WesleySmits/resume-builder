@@ -1,6 +1,7 @@
 <template>
     <header>
         <TabBar :tabs="tabs" v-model:activeTab="activeTab" :initial-tab="activeTab" />
+        <DarkModeToggle />
     </header>
 
     <div class="resume-container">
@@ -47,6 +48,7 @@ import ResumePreview from '@/components/ResumePreview.vue';
 import SkillsSection from '@/components/ResumeFormSections/SkillsSection.vue';
 import EducationSection from '@/components/ResumeFormSections/EducationSection.vue';
 import ResumeForm from '@/components/ResumeForm.vue';
+import DarkModeToggle from '@/components/DarkModeToggle.vue';
 
 const tabs = [
     { id: 'general', name: 'General Information' },
@@ -85,6 +87,16 @@ const activeTab = hash && tabs.some((tab) => tab.id === hash) ? ref(hash) : ref(
             flex: 0 0 40%;
         }
     }
+}
+
+header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-background-secondary);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 1rem;
 }
 
 footer {

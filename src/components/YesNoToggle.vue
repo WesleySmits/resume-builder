@@ -51,7 +51,7 @@ input[type='checkbox'] {
     background-color: #ccc;
     border-radius: 25px;
     position: relative;
-    transition: background-color 0.3s;
+    transition: background-color var(--transition-duration);
 }
 
 .toggle-inner {
@@ -63,7 +63,7 @@ input[type='checkbox'] {
     position: absolute;
     top: 1px;
     left: 1px;
-    transition: left 0.3s;
+    transition: left var(--transition-duration);
 }
 
 .toggle-inner.checked {
