@@ -15,6 +15,7 @@ export default mergeConfig(
                 exclude: ['node_modules/', 'src/**/__tests__/', 'src/**/enums/', 'src/**/router/', 'src/**/types/'],
                 include: ['src/**/*.ts', 'src/**/*.vue'],
             },
+            setupFiles: ['./vitest.setup.ts'],
         },
     }),
 );

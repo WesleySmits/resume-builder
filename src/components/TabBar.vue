@@ -30,10 +30,9 @@ const selectTab = (tabId: string) => {
 <style scoped>
 .tab-bar {
     display: flex;
+    flex: 1;
     gap: 1rem;
-    background: var(--color-background-secondary);
-    padding: 1rem;
-    border-bottom: 1px solid var(--color-border);
+    padding: 1rem 0;
     overflow-x: auto;
 }
 
@@ -45,8 +44,8 @@ button {
     font-weight: bold;
     color: var(--color-text);
     transition:
-        color 0.3s,
-        border-bottom 0.3s;
+        color var(--transition-duration),
+        border-bottom var(--transition-duration);
 }
 
 button.active {

@@ -4,62 +4,152 @@
 @import './buttons.css';
 @import './lists.css';
 
-/* color palette from <https://github.com/vuejs/theme> */
-:root {
-    /* Light Theme */
-    --background-color: #ffffff;
-    --background-secondary: #f4f4f4;
-    --text-color: #333333;
-    --text-muted: #7d7d7d;
-    --highlight-color: #dcb83a;
-    --highlight-color-selected: #b3942e;
-    --primary-color: #4a90e2;
-    --border-color: #e0e0e0;
-    --color-state-error: #dc3545;
-
-    /* Dark Theme */
-    --background-color-dark: #000000;
-    --background-secondary-dark: #121212;
-    --text-color-dark: #e0e0e0;
-    --text-muted-dark: #a0a0a0;
-    --primary-color-dark: #1e90ff;
-    --border-color-dark: #2c2c2c;
-
-    /* Shared */
-    --font-family: 'Inter', sans-serif;
-    --font-family-heading: 'Merriweather', serif;
-    --font-size-base: 16px;
-    --line-height-base: 1.5;
-
-    --transition-duration: 0.4s;
+@property --background-color {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #ffffff;
 }
 
-/* Semantic Variables */
+@property --background-secondary {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #f4f4f4;
+}
+
+@property --text-color {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #333333;
+}
+
+@property --text-muted {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #7d7d7d;
+}
+
+@property --highlight-color {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #dcb83a;
+}
+
+@property --highlight-color-selected {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #b3942e;
+}
+
+@property --primary-color {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #4a90e2;
+}
+
+@property --border-color {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #e0e0e0;
+}
+
+@property --color-state-error {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #dc3545;
+}
+
+@property --transition-duration {
+    syntax: '<time>';
+    inherits: false;
+    initial-value: 0.4s;
+}
+
+/* Dark theme properties */
+@property --background-color-dark {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #000000;
+}
+
+@property --background-secondary-dark {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #121212;
+}
+
+@property --text-color-dark {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #e0e0e0;
+}
+
+@property --text-muted-dark {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #a0a0a0;
+}
+
+@property --primary-color-dark {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #1e90ff;
+}
+
+@property --border-color-dark {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #2c2c2c;
+}
+
+@property --font-family {
+    syntax: '<string>';
+    inherits: true;
+    initial-value: 'Inter, sans-serif';
+}
+
+@property --font-family-heading {
+    syntax: '<string>';
+    inherits: true;
+    initial-value: 'Merriweather, serif';
+}
+
+@property --font-size-base {
+    syntax: '<length>';
+    inherits: true;
+    initial-value: 16px;
+}
+
+@property --line-height-base {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 1.5;
+}
+
+@property --section-gap {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 10rem;
+}
+
 :root {
     --color-background: var(--background-color);
-    --color-background-secondary: var(--background-secondary-color);
+    --color-background-secondary: var(--background-secondary);
     --color-text: var(--text-color);
     --color-text-muted: var(--text-muted);
     --color-highlight: var(--highlight-color);
     --color-border: var(--border-color);
     --color-button-background: var(--primary-color);
     --color-button-text: var(--background-color);
-
-    /* Shared */
-    --section-gap: 10rem;
 }
 
-@media (prefers-color-scheme: dark) {
-    /* Override Semantic Variables for Dark Theme */
-    :root {
-        --color-background: var(--background-color-dark);
-        --color-background-secondary: var(--background-secondary-color-dark);
-        --color-text: var(--text-color-dark);
-        --color-text-muted: var(--text-muted-dark);
-        --color-border: var(--border-color-dark);
-        --color-button-background: var(--primary-color-dark);
-        --color-button-text: var(--background-color-dark);
-    }
+:root.dark {
+    --color-background: var(--background-color-dark);
+    --color-background-secondary: var(--background-secondary-dark);
+    --color-text: var(--text-color-dark);
+    --color-text-muted: var(--text-muted-dark);
+    --color-border: var(--border-color-dark);
+    --color-button-background: var(--primary-color-dark);
+    --color-button-text: var(--background-color-dark);
 }
 
 *,
@@ -73,8 +163,8 @@ body {
     color: var(--color-text);
     background: var(--color-background);
     transition:
-        color 0.5s,
-        background-color 0.5s;
+        color var(--transition-duration),
+        background-color var(--transition-duration);
 }
 
 h1,
