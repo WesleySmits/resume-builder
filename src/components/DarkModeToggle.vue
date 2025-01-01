@@ -38,9 +38,9 @@ import { onMounted, ref } from 'vue';
 
 type Theme = 'light' | 'dark';
 
-const toggleIcon = ref<SVGSVGElement | null>(null);
-const moonToSun = ref<SVGAnimateElement | null>(null);
-const sunToMoon = ref<SVGAnimateElement | null>(null);
+const toggleIcon = ref<SVGSVGElement>();
+const moonToSun = ref<SVGAnimateElement>();
+const sunToMoon = ref<SVGAnimateElement>();
 
 function setTheme(theme: Theme): void {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -61,6 +61,14 @@ function toggleTheme(): void {
 }
 
 onMounted(() => {
+    if (sunToMoon.value && !sunToMoon.value.beginElement) {
+        sunToMoon.value.beginElement = () => {};
+    }
+
+    if (moonToSun.value && !moonToSun.value.beginElement) {
+        moonToSun.value.beginElement = () => {};
+    }
+
     const currentTheme = localStorage.getItem('theme') as Theme | null;
     if (currentTheme !== null) {
         setTheme(currentTheme);
