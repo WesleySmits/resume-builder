@@ -131,6 +131,8 @@ export default class Page {
     }
 
     protected addPage(): PDFPage {
+        this.currentX = HORIZONTAL_EDGE_SPACING;
+        this.currentY = VERTICAL_EDGE_SPACING;
         return this.#document.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
     }
 
