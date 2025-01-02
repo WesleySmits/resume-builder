@@ -8,18 +8,25 @@
         </div>
 
         <input
+            type="search"
             v-model="inputValue"
             :placeholder="placeholder"
             @keydown="onKeydown"
             @blur="addTag"
             @input="onInput"
             :id="props.idProp"
+            :list="`${props.idProp}-datalist`"
         />
+
+        <datalist v-if="dataListItems.length" :id="`${props.idProp}-datalist`">
+            <option v-for="item in dataListItems" :key="item" :value="item" />
+        </datalist>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useResumeStore } from '@/stores/resume';
+import { ref, watch } from 'vue';
 
 interface Props {
     modelValue: string[];
@@ -27,6 +34,7 @@ interface Props {
     id: string;
     idProp: string;
     value: string;
+    fieldType: string;
 }
 
 const props = defineProps<Props>();
@@ -34,6 +42,37 @@ const emit = defineEmits(['update:modelValue', 'input', 'blur']);
 
 const inputValue = ref('');
 const tags = ref<string[]>([...(props.modelValue ?? [])]);
+
+const fieldType = props.fieldType;
+const dataListItems = ref<string[]>(getDataListItems());
+
+watch(
+    tags,
+    () => {
+        dataListItems.value = getDataListItems();
+    },
+    { deep: true },
+);
+
+function getDataListItems(): string[] {
+    if (!fieldType) {
+        return [];
+    }
+
+    const store = useResumeStore();
+    const skills = store.skills;
+    if (!skills.hasOwnProperty(fieldType)) {
+        return [];
+    }
+
+    const field = skills[fieldType as keyof Skills];
+    if (!field) {
+        return [];
+    }
+
+    const fieldItems = field.filter((item) => !tags.value.includes(item));
+    return fieldItems;
+}
 
 const addTag = () => {
     const trimmedValue = inputValue.value.trim();
@@ -58,6 +97,11 @@ const onKeydown = (event: KeyboardEvent) => {
 };
 
 const onInput = () => {
+    if (!dataListItems.value.includes(inputValue.value)) {
+        return;
+    }
+
+    addTag();
     emit('input', tags.value);
 };
 </script>

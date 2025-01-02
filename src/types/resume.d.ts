@@ -135,22 +135,18 @@ interface Certification {
     year?: number;
 }
 
+interface Period {
+    startDate: string;
+    endDate?: string;
+}
+
 interface Job {
     company: string;
     location?: string;
-    period: {
-        start: string;
-        end?: string;
-    };
+    period: Period;
     role: string;
     industry: string;
-    programmingLanguages: string[];
-    frameworks: string[];
-    platforms: string[];
-    methodologies: string[];
-    operatingSystems: string[];
-    databases: string[];
-    toolsAndLibraries: string[];
+    skills: Skills;
     description: string;
     responsibilities: string[];
 }

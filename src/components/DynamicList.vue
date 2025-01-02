@@ -25,7 +25,7 @@
                     name="item-fields"
                     :item="item"
                     :index="index"
-                    :updateField="(key: keyof T, value: T[K]) => updateItem(index, key, value)"
+                    :updateField="(keyPath: string, value: unknown) => updateItem(index, keyPath, value)"
                     :removeItem="() => removeItem(index)"
                 />
             </li>
@@ -82,8 +82,23 @@ function addItem() {
     props.onUpdate(items.value);
 }
 
-function updateItem<K extends keyof T>(index: number, key: K, value: T[K]) {
-    const updatedItem = { ...items.value[index], [key]: value };
+function updateItem(index: number, keyPath: string, value: unknown) {
+    const updatedItem = { ...items.value[index] };
+
+    const keys = keyPath.split('.');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let target: any = updatedItem;
+
+    for (let i = 0; i < keys.length - 1; i++) {
+        const k = keys[i] as keyof T;
+
+        target = target[k] || (target[k] = {});
+    }
+
+    // Set the value for the final key
+    target[keys[keys.length - 1]] = value;
+
+    // Replace the updated item in the array
     items.value.splice(index, 1, updatedItem);
     emit('update', items.value);
     props.onUpdate(items.value);
