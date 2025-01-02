@@ -145,7 +145,13 @@
     "jobDescription": "Description",
     "jobDescriptionPlaceholder": "I worked on...",
     "jobDescriptionHelperText": "Enter a description of your role and responsibilities.",
+    "jobResponsibility": "Responsibility",
+    "jobResponsibilityPlaceholder": "Developed, tested, deployed...",
+    "jobResponsibilityHelperText": "Enter a responsibility.",
     "jobResponsibilities": "Responsibilities",
     "jobResponsibilitiesPlaceholder": "Developed, tested, deployed...",
-    "jobResponsibilitiesHelperText": "Enter a list of your responsibilities."
+    "jobResponsibilitiesHelperText": "Enter a list of your responsibilities.",
+    "workExperience": "Work Experience",
+    "overviewWorkExperience": "Overview of Work Experience",
+    "descriptionWorkExperience": "Below is an extensive description of projects executed by {name}."
 }

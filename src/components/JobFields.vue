@@ -88,16 +88,35 @@
                     @valid="(value) => updateField('description', value as string)"
                 />
 
-                <FormField
-                    :type="'textarea'"
-                    :id="`jobResponsibilities-${index}`"
-                    :label="getLocalizedString('jobResponsibilities')"
-                    :placeholder="getLocalizedString('jobResponsibilitiesPlaceholder')"
-                    :helperText="getLocalizedString('jobResponsibilitiesHelperText')"
-                    :modelValue="item.responsibilities"
-                    :required="false"
-                    @valid="(value) => updateField('responsibilities', value as string[])"
-                />
+                <DynamicList
+                    :title="getLocalizedString('jobResponsibilities')"
+                    :items="item.responsibilities"
+                    :defaultItem="() => ''"
+                    :onUpdate="() => {}"
+                    :getKey="getResponsibilitiesKey"
+                >
+                    <template
+                        #item-fields="{
+                            item: responsibilityItem,
+                            index: responsibilityIndex,
+                            removeItem: responsibilityRemoveItem,
+                        }"
+                    >
+                        <FormField
+                            :type="'text'"
+                            :id="`responsibility-${responsibilityIndex}`"
+                            :label="getLocalizedString('jobResponsibility')"
+                            :placeholder="getLocalizedString('jobResponsibilityPlaceholder')"
+                            :helperText="getLocalizedString('jobResponsibilityHelperText')"
+                            :modelValue="responsibilityItem"
+                            :required="false"
+                            @valid="(value) => updateResponsibility(responsibilityIndex, value as string, item)"
+                        />
+                        <button @click="responsibilityRemoveItem" class="secondary" data-action="remove">
+                            {{ getLocalizedString('deleteResponsibility') }}
+                        </button>
+                    </template>
+                </DynamicList>
 
                 <fieldset>
                     <legend>{{ getLocalizedString('technicalSkills') }}</legend>
@@ -129,9 +148,30 @@ import { useResumeStore } from '@/stores/resume';
 import { getLocalizedString } from '@/utils/translation';
 import FormField from './FormField.vue';
 import DynamicList from './DynamicList.vue';
+// import { ref } from 'vue';
 
 const resumeStore = useResumeStore();
 const jobs = resumeStore.jobs;
+// const responsibilities = ref<string[]>([]);
+
+function updateResponsibility(index: number, newResponsibility: string, job: Job): void {
+    const responsibilities = job.responsibilities;
+
+    responsibilities[index] = newResponsibility;
+    job.responsibilities = [...responsibilities];
+
+    const jobs = resumeStore.jobs;
+    jobs[jobs.indexOf(job)] = job;
+    resumeStore.setJobs(jobs);
+}
+
+// function updateResponsibilities(newResponsibilities: string[]): void {
+//     responsibilities.value = [...newResponsibilities];
+// }
+
+function getResponsibilitiesKey(item: string, index: number): string {
+    return `responsibility-${index}`;
+}
 
 function getKey(item: Job, index: number): string {
     return `${item.company}-${item.role}-${index}`;
@@ -237,9 +277,9 @@ function getSkillsData(skills: Skills, jobIndex: number) {
             id: `jobSkillsTools-${jobIndex}`,
             type: 'skills',
             fieldType: 'tools',
-            label: getLocalizedString('toolsAndLibraries'),
-            placeholder: getLocalizedString('toolsAndLibrariesPlaceholder'),
-            helperText: getLocalizedString('toolsAndLibrariesHelperText'),
+            label: getLocalizedString('tools'),
+            placeholder: getLocalizedString('toolsPlaceholder'),
+            helperText: getLocalizedString('toolsHelperText'),
             required: false,
             handleChange: (value: string[]) => (skills.tools = value),
             modelValue: skills.tools,
