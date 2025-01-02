@@ -40,6 +40,7 @@ describe('GeneralSection.vue', () => {
         topSkills: [],
         education: [],
         certifications: [],
+        jobs: [],
     };
 
     function getMountedComponent(): VueWrapper {
