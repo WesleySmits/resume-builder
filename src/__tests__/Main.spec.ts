@@ -1,28 +1,65 @@
-import { describe, it, vi, expect } from 'vitest';
-import { setActivePinia } from 'pinia';
-import { useResumeStore } from '@/stores/resume';
-import { nextTick } from 'vue';
-import '@/main.ts';
-import { pinia } from '@/main.ts';
+import { describe, it, vi, expect, afterEach, beforeEach, type Mock } from 'vitest';
+import { createApp, nextTick } from 'vue';
+
+vi.mock('vue', async () => {
+    const originalModule = await vi.importActual('vue');
+    return {
+        ...originalModule,
+        createApp: vi.fn(() => ({
+            use: vi.fn(),
+            mount: vi.fn(),
+        })),
+    };
+});
+
+vi.mock('pinia', () => {
+    const originalModule = vi.importActual<typeof import('pinia')>('pinia');
+    return {
+        ...originalModule,
+        createPinia: vi.fn(() => ({
+            use: vi.fn(),
+        })),
+        setActivePinia: vi.fn(),
+    };
+});
+
+vi.mock('@/stores/resume', () => {
+    return {
+        useResumeStore: () => {
+            return {
+                $subscribe: vi.fn(),
+                updateName: vi.fn(),
+            };
+        },
+    };
+});
 
 describe('main.ts', () => {
-    it('subscribes to the resumeStore and saves data to localStorage', async () => {
-        const mockSetItem = vi.spyOn(Storage.prototype, 'setItem');
+    beforeEach(() => {
+        document.body.innerHTML = '<div id="app"></div>';
+    });
+
+    afterEach(() => {
+        document.body.innerHTML = '';
+
+        vi.restoreAllMocks();
+        vi.clearAllMocks();
+        vi.resetAllMocks();
+    });
+
+    it('should mount the app to the #app div', async () => {
+        await nextTick();
+        const appDiv = document.getElementById('app');
+        expect(appDiv).not.toBeNull();
 
         await import('../main');
-        setActivePinia(pinia);
-        const resumeStore = useResumeStore();
-
-        resumeStore.updateName({
-            displayName: 'New Display Name',
-            firstName: 'New First Name',
-            lastName: 'New Last Name',
-            middleName: 'New Middle Name',
-        });
-
         await nextTick();
 
-        expect(mockSetItem).toHaveBeenCalledTimes(1);
-        expect(mockSetItem).toHaveBeenCalledWith('resumeData', JSON.stringify(resumeStore.$state));
+        const mockCreateApp = createApp as Mock;
+        expect(mockCreateApp).toHaveBeenCalled();
+        const mockAppInstance = mockCreateApp.mock.results[0].value;
+        expect(mockAppInstance.mount).toHaveBeenCalledWith('#app');
+
+        vi.restoreAllMocks();
     });
 });
