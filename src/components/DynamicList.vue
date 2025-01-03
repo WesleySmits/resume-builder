@@ -1,35 +1,39 @@
 <template>
     <fieldset class="dynamic-list">
-        <header>
-            <legend>{{ title }}</legend>
+        <details name="skills-curtain" open>
+            <summary>
+                <header>
+                    <legend>{{ title }}</legend>
 
-            <div class="buttons">
-                <button
-                    @click="addItem"
-                    class="primary icon"
-                    data-action="add"
-                    :disabled="maxItems ? items.length >= maxItems : false"
-                >
-                    <PlusIcon />
-                </button>
+                    <div class="buttons">
+                        <button
+                            @click="addItem"
+                            class="primary icon"
+                            data-action="add"
+                            :disabled="maxItems ? items.length >= maxItems : false"
+                        >
+                            <PlusIcon />
+                        </button>
 
-                <button v-if="sortable" @click="sortItems" class="secondary icon" data-action="sort">
-                    <SortIcon />
-                </button>
-            </div>
-        </header>
+                        <button v-if="sortable" @click="sortItems" class="secondary icon" data-action="sort">
+                            <SortIcon />
+                        </button>
+                    </div>
+                </header>
+            </summary>
 
-        <ul v-if="items.length">
-            <li v-for="(item, index) in items" :key="getKey(item, index)" :class="listItemClass">
-                <slot
-                    name="item-fields"
-                    :item="item"
-                    :index="index"
-                    :updateField="(keyPath: string, value: unknown) => updateItem(index, keyPath, value)"
-                    :removeItem="() => removeItem(index)"
-                />
-            </li>
-        </ul>
+            <ul v-if="items.length" class="dynamic-list__items">
+                <li v-for="(item, index) in items" :key="getKey(item, index)" :class="listItemClass">
+                    <slot
+                        name="item-fields"
+                        :item="item"
+                        :index="index"
+                        :updateField="(keyPath: string, value: unknown) => updateItem(index, keyPath, value)"
+                        :removeItem="() => removeItem(index)"
+                    />
+                </li>
+            </ul>
+        </details>
     </fieldset>
 </template>
 
@@ -121,6 +125,12 @@ function sortItems() {
 .dynamic-list {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+}
+
+.dynamic-list__items {
+    display: flex;
+    flex-flow: column nowrap;
     gap: 1rem;
 }
 

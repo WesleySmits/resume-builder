@@ -1,69 +1,87 @@
 <template>
     <div class="form">
         <fieldset>
-            <legend>{{ getLocalizedString('name') }}</legend>
+            <details name="general-fields" open>
+                <summary>
+                    <header>
+                        <legend>{{ getLocalizedString('name') }}</legend>
+                    </header>
+                </summary>
 
-            <FormField
-                v-for="field in getNameFieldData()"
-                :type="field.type ?? 'text'"
-                :key="field.id"
-                :id="field.id"
-                :label="field.label"
-                :placeholder="field.placeholder"
-                :helperText="field.helperText"
-                :errorText="field.required ? getLocalizedString('requiredFieldError') : undefined"
-                @valid="(value) => field.handleChange(value as string)"
-                :modelValue="general.name?.[field.id as keyof Name]"
-                :required="field.required"
-            />
-        </fieldset>
-
-        <fieldset>
-            <legend>{{ getLocalizedString('personalInformation') }}</legend>
-
-            <div>
-                <img
-                    :src="resumeStore.general.profilePhoto"
-                    :alt="getLocalizedString('profilePhoto')"
-                    width="100"
-                    height="100"
-                    v-if="resumeStore.general.profilePhoto"
+                <FormField
+                    v-for="field in getNameFieldData()"
+                    :type="field.type ?? 'text'"
+                    :key="field.id"
+                    :id="field.id"
+                    :label="field.label"
+                    :placeholder="field.placeholder"
+                    :helperText="field.helperText"
+                    :errorText="field.required ? getLocalizedString('requiredFieldError') : undefined"
+                    @valid="(value) => field.handleChange(value as string)"
+                    :modelValue="general.name?.[field.id as keyof Name]"
+                    :required="field.required"
                 />
-            </div>
-
-            <FormField
-                v-for="field in getPersonalInformationData()"
-                :key="field.id"
-                :id="field.id"
-                :type="field.type ?? 'text'"
-                :accept="field.accept"
-                :label="field.label"
-                :placeholder="field.placeholder"
-                :helperText="field.helperText"
-                :errorText="field.required ? getLocalizedString('requiredFieldError') : undefined"
-                :required="field.required"
-                @valid="(value) => field.handleChange(value as string)"
-                :modelValue="field.modelValue ?? ''"
-            />
+            </details>
         </fieldset>
 
         <fieldset>
-            <legend>{{ getLocalizedString('about') }}</legend>
+            <details name="general-fields">
+                <summary>
+                    <header>
+                        <legend>{{ getLocalizedString('personalInformation') }}</legend>
+                    </header>
+                </summary>
 
-            <FormField
-                v-for="field in getAboutData()"
-                :key="field.id"
-                :id="field.id"
-                :rows="field.rows"
-                :type="field.type"
-                :label="field.label"
-                :placeholder="field.placeholder"
-                :helperText="field.helperText"
-                :errorText="field.required ? getLocalizedString('requiredFieldError') : undefined"
-                @valid="(value) => field.handleChange(value as string)"
-                :modelValue="field.modelValue ?? ''"
-                :required="field.required"
-            />
+                <div>
+                    <img
+                        :src="resumeStore.general.profilePhoto"
+                        :alt="getLocalizedString('profilePhoto')"
+                        width="100"
+                        height="100"
+                        v-if="resumeStore.general.profilePhoto"
+                    />
+                </div>
+
+                <FormField
+                    v-for="field in getPersonalInformationData()"
+                    :key="field.id"
+                    :id="field.id"
+                    :type="field.type ?? 'text'"
+                    :accept="field.accept"
+                    :label="field.label"
+                    :placeholder="field.placeholder"
+                    :helperText="field.helperText"
+                    :errorText="field.required ? getLocalizedString('requiredFieldError') : undefined"
+                    :required="field.required"
+                    @valid="(value) => field.handleChange(value as string)"
+                    :modelValue="field.modelValue ?? ''"
+                />
+            </details>
+        </fieldset>
+
+        <fieldset>
+            <details name="general-fields">
+                <summary>
+                    <header>
+                        <legend>{{ getLocalizedString('about') }}</legend>
+                    </header>
+                </summary>
+
+                <FormField
+                    v-for="field in getAboutData()"
+                    :key="field.id"
+                    :id="field.id"
+                    :rows="field.rows"
+                    :type="field.type"
+                    :label="field.label"
+                    :placeholder="field.placeholder"
+                    :helperText="field.helperText"
+                    :errorText="field.required ? getLocalizedString('requiredFieldError') : undefined"
+                    @valid="(value) => field.handleChange(value as string)"
+                    :modelValue="field.modelValue ?? ''"
+                    :required="field.required"
+                />
+            </details>
         </fieldset>
     </div>
 </template>

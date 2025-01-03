@@ -3,6 +3,7 @@
 @import './form.css';
 @import './buttons.css';
 @import './lists.css';
+@import './details.css';
 
 @property --background-color {
     syntax: '<color>';
