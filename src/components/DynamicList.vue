@@ -1,35 +1,39 @@
 <template>
     <fieldset class="dynamic-list">
-        <header>
-            <legend>{{ title }}</legend>
+        <details name="skills-curtain" open>
+            <summary>
+                <header>
+                    <legend>{{ title }}</legend>
 
-            <div class="buttons">
-                <button
-                    @click="addItem"
-                    class="primary icon"
-                    data-action="add"
-                    :disabled="maxItems ? items.length >= maxItems : false"
-                >
-                    <PlusIcon />
-                </button>
+                    <div class="buttons">
+                        <button
+                            @click="addItem"
+                            class="primary icon"
+                            data-action="add"
+                            :disabled="maxItems ? items.length >= maxItems : false"
+                        >
+                            <PlusIcon />
+                        </button>
 
-                <button v-if="sortable" @click="sortItems" class="secondary icon" data-action="sort">
-                    <SortIcon />
-                </button>
-            </div>
-        </header>
+                        <button v-if="sortable" @click="sortItems" class="secondary icon" data-action="sort">
+                            <SortIcon />
+                        </button>
+                    </div>
+                </header>
+            </summary>
 
-        <ul v-if="items.length">
-            <li v-for="(item, index) in items" :key="getKey(item, index)" :class="listItemClass">
-                <slot
-                    name="item-fields"
-                    :item="item"
-                    :index="index"
-                    :updateField="(key: keyof T, value: T[K]) => updateItem(index, key, value)"
-                    :removeItem="() => removeItem(index)"
-                />
-            </li>
-        </ul>
+            <ul v-if="items.length" class="dynamic-list__items">
+                <li v-for="(item, index) in items" :key="getKey(item, index)" :class="listItemClass">
+                    <slot
+                        name="item-fields"
+                        :item="item"
+                        :index="index"
+                        :updateField="(keyPath: string, value: unknown) => updateItem(index, keyPath, value)"
+                        :removeItem="() => removeItem(index)"
+                    />
+                </li>
+            </ul>
+        </details>
     </fieldset>
 </template>
 
@@ -82,8 +86,21 @@ function addItem() {
     props.onUpdate(items.value);
 }
 
-function updateItem<K extends keyof T>(index: number, key: K, value: T[K]) {
-    const updatedItem = { ...items.value[index], [key]: value };
+function updateItem(index: number, keyPath: string, value: unknown) {
+    const updatedItem = { ...items.value[index] };
+
+    const keys = keyPath.split('.');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let target: any = updatedItem;
+
+    for (let i = 0; i < keys.length - 1; i++) {
+        const k = keys[i] as keyof T;
+
+        target = target[k] || (target[k] = {});
+    }
+
+    target[keys[keys.length - 1]] = value;
+
     items.value.splice(index, 1, updatedItem);
     emit('update', items.value);
     props.onUpdate(items.value);
@@ -106,6 +123,12 @@ function sortItems() {
 .dynamic-list {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+}
+
+.dynamic-list__items {
+    display: flex;
+    flex-flow: column nowrap;
     gap: 1rem;
 }
 

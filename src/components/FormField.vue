@@ -2,6 +2,7 @@
     <div :class="{ 'form-field': true, 'form-field--error': formState.error }">
         <component
             :is="inputType === 'skills' ? SkillsTagInput : inputType === 'yesno' ? YesNoToggle : inputType"
+            :fieldType="props.fieldType ?? ''"
             :id="inputType === 'skills' ? '' : id"
             :id-prop="inputType === 'skills' || inputType === 'yesno' ? id : ''"
             class="form-field__input"
@@ -62,6 +63,7 @@ const props = defineProps<{
     label: string;
     placeholder?: string;
     type?: string;
+    fieldType?: string;
     required?: boolean;
     helperText?: string;
     errorText?: string;

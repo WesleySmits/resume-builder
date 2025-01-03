@@ -38,6 +38,7 @@ const defaultResumeState: ResumeData = {
     topSkills: [],
     education: [],
     certifications: [],
+    jobs: [],
 };
 
 export const useResumeStore = defineStore('resume', {
@@ -74,6 +75,7 @@ export const useResumeStore = defineStore('resume', {
         topSkills: ref<TopSkill[]>(parsedResumeData?.topSkills ?? []),
         education: ref<Education[]>(parsedResumeData?.education ?? []),
         certifications: ref<Certification[]>(parsedResumeData?.certifications ?? []),
+        jobs: ref<Job[]>(parsedResumeData?.jobs ?? []),
     }),
     getters: {
         formattedName: (state) => {
@@ -181,6 +183,9 @@ export const useResumeStore = defineStore('resume', {
         },
         setCertifications(newCertifications: Certification[]): void {
             this.certifications = newCertifications;
+        },
+        setJobs(newJobs: Job[]): void {
+            this.jobs = newJobs;
         },
     },
 });

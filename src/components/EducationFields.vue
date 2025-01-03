@@ -9,86 +9,92 @@
     >
         <template #item-fields="{ item, index, updateField, removeItem }">
             <fieldset>
-                <legend>{{ item.fieldOfStudy || getLocalizedString('newEducation') }}</legend>
-                <FormField
-                    :id="`educationInstitution-${index}`"
-                    :label="getLocalizedString('educationInstitution')"
-                    :placeholder="getLocalizedString('educationInstitutionPlaceholder')"
-                    :helperText="getLocalizedString('educationInstitutionHelperText')"
-                    :errorText="getLocalizedString('requiredFieldError')"
-                    :modelValue="item.institution"
-                    :required="true"
-                    @valid="(value) => updateField('institution', value as string)"
-                />
+                <details name="education-curtain" :open="index === 0">
+                    <summary>
+                        <header>
+                            <legend>{{ item.fieldOfStudy || getLocalizedString('newEducation') }}</legend>
+                        </header>
+                    </summary>
+                    <FormField
+                        :id="`educationInstitution-${index}`"
+                        :label="getLocalizedString('educationInstitution')"
+                        :placeholder="getLocalizedString('educationInstitutionPlaceholder')"
+                        :helperText="getLocalizedString('educationInstitutionHelperText')"
+                        :errorText="getLocalizedString('requiredFieldError')"
+                        :modelValue="item.institution"
+                        :required="true"
+                        @valid="(value) => updateField('institution', value as string)"
+                    />
 
-                <FormField
-                    :id="`educationDegree-${index}`"
-                    :label="getLocalizedString('educationDegree')"
-                    :placeholder="getLocalizedString('educationDegreePlaceholder')"
-                    :helperText="getLocalizedString('educationDegreeHelperText')"
-                    :errorText="getLocalizedString('requiredFieldError')"
-                    :modelValue="item.degree"
-                    :required="true"
-                    @valid="(value) => updateField('degree', value as string)"
-                />
+                    <FormField
+                        :id="`educationDegree-${index}`"
+                        :label="getLocalizedString('educationDegree')"
+                        :placeholder="getLocalizedString('educationDegreePlaceholder')"
+                        :helperText="getLocalizedString('educationDegreeHelperText')"
+                        :errorText="getLocalizedString('requiredFieldError')"
+                        :modelValue="item.degree"
+                        :required="true"
+                        @valid="(value) => updateField('degree', value as string)"
+                    />
 
-                <FormField
-                    :id="`educationFieldOfStudy-${index}`"
-                    :label="getLocalizedString('educationFieldOfStudy')"
-                    :placeholder="getLocalizedString('educationFieldOfStudyPlaceholder')"
-                    :helperText="getLocalizedString('educationFieldOfStudyHelperText')"
-                    :errorText="getLocalizedString('requiredFieldError')"
-                    :modelValue="item.fieldOfStudy"
-                    :required="true"
-                    @valid="(value) => updateField('fieldOfStudy', value as string)"
-                />
+                    <FormField
+                        :id="`educationFieldOfStudy-${index}`"
+                        :label="getLocalizedString('educationFieldOfStudy')"
+                        :placeholder="getLocalizedString('educationFieldOfStudyPlaceholder')"
+                        :helperText="getLocalizedString('educationFieldOfStudyHelperText')"
+                        :errorText="getLocalizedString('requiredFieldError')"
+                        :modelValue="item.fieldOfStudy"
+                        :required="true"
+                        @valid="(value) => updateField('fieldOfStudy', value as string)"
+                    />
 
-                <FormField
-                    :id="`educationLocation-${index}`"
-                    :label="getLocalizedString('educationLocation')"
-                    :placeholder="getLocalizedString('educationLocationPlaceholder')"
-                    :helperText="getLocalizedString('educationLocationHelperText')"
-                    :modelValue="item.location"
-                    :required="false"
-                    @valid="(value) => updateField('location', value as string)"
-                />
+                    <FormField
+                        :id="`educationLocation-${index}`"
+                        :label="getLocalizedString('educationLocation')"
+                        :placeholder="getLocalizedString('educationLocationPlaceholder')"
+                        :helperText="getLocalizedString('educationLocationHelperText')"
+                        :modelValue="item.location"
+                        :required="false"
+                        @valid="(value) => updateField('location', value as string)"
+                    />
 
-                <FormField
-                    type="date"
-                    :id="`educationStartDate-${index}`"
-                    :label="getLocalizedString('educationStartDate')"
-                    :placeholder="getLocalizedString('educationStartDatePlaceholder')"
-                    :helperText="getLocalizedString('educationStartDateHelperText')"
-                    :modelValue="item.startDate"
-                    :required="false"
-                    @valid="(value) => updateField('startDate', value as string)"
-                />
+                    <FormField
+                        type="date"
+                        :id="`educationStartDate-${index}`"
+                        :label="getLocalizedString('educationStartDate')"
+                        :placeholder="getLocalizedString('educationStartDatePlaceholder')"
+                        :helperText="getLocalizedString('educationStartDateHelperText')"
+                        :modelValue="item.startDate"
+                        :required="false"
+                        @valid="(value) => updateField('startDate', value as string)"
+                    />
 
-                <FormField
-                    type="date"
-                    :id="`educationEndDate-${index}`"
-                    :label="getLocalizedString('educationEndDate')"
-                    :placeholder="getLocalizedString('educationEndDatePlaceholder')"
-                    :helperText="getLocalizedString('educationEndDateHelperText')"
-                    :modelValue="item.startDate"
-                    :required="false"
-                    @valid="(value) => updateField('endDate', value as string)"
-                />
+                    <FormField
+                        type="date"
+                        :id="`educationEndDate-${index}`"
+                        :label="getLocalizedString('educationEndDate')"
+                        :placeholder="getLocalizedString('educationEndDatePlaceholder')"
+                        :helperText="getLocalizedString('educationEndDateHelperText')"
+                        :modelValue="item.startDate"
+                        :required="false"
+                        @valid="(value) => updateField('endDate', value as string)"
+                    />
 
-                <FormField
-                    :type="'textarea'"
-                    :id="`educationDescription-${index}`"
-                    :label="getLocalizedString('educationDescription')"
-                    :placeholder="getLocalizedString('educationDescriptionPlaceholder')"
-                    :helperText="getLocalizedString('educationDescriptionHelperText')"
-                    :modelValue="item.description"
-                    :required="false"
-                    @valid="(value) => updateField('description', value as string)"
-                />
+                    <FormField
+                        :type="'textarea'"
+                        :id="`educationDescription-${index}`"
+                        :label="getLocalizedString('educationDescription')"
+                        :placeholder="getLocalizedString('educationDescriptionPlaceholder')"
+                        :helperText="getLocalizedString('educationDescriptionHelperText')"
+                        :modelValue="item.description"
+                        :required="false"
+                        @valid="(value) => updateField('description', value as string)"
+                    />
 
-                <button @click="removeItem" class="secondary" data-action="remove">
-                    {{ getLocalizedString('deleteEducation') }}
-                </button>
+                    <button @click="removeItem" class="secondary" data-action="remove">
+                        {{ getLocalizedString('deleteEducation') }}
+                    </button>
+                </details>
             </fieldset>
         </template>
     </DynamicList>

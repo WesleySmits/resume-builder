@@ -1,0 +1,42 @@
+details {
+    summary {
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        position: relative;
+
+        header {
+            margin-bottom: 1rem;
+        }
+
+        legend {
+            margin-bottom: 0;
+        }
+
+        &:after {
+            content: '▸';
+            position: absolute;
+            right: 0;
+            top: 1rem;
+            bottom: 0;
+            transition: transform var(--transition-duration);
+            width: 1rem;
+            height: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &[open] > summary {
+        &:after {
+            transform: translateY(-15%) rotate(90deg);
+        }
+    }
+
+    &:not([open]) summary {
+        legend {
+            margin-bottom: 0;
+        }
+    }
+}

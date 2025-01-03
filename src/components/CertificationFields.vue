@@ -9,53 +9,59 @@
     >
         <template #item-fields="{ item, index, updateField, removeItem }">
             <fieldset>
-                <legend>{{ item.title || getLocalizedString('newCertification') }}</legend>
-                <FormField
-                    :id="`certificationTitle-${index}`"
-                    :label="getLocalizedString('certificationTitle')"
-                    :placeholder="getLocalizedString('certificationTitlePlaceholder')"
-                    :helperText="getLocalizedString('certificationTitleHelperText')"
-                    :errorText="getLocalizedString('requiredFieldError')"
-                    :modelValue="item.title"
-                    :required="true"
-                    @valid="(value) => updateField('title', value as string)"
-                />
+                <details>
+                    <summary>
+                        <header>
+                            <legend>{{ item.title || getLocalizedString('newCertification') }}</legend>
+                        </header>
+                    </summary>
+                    <FormField
+                        :id="`certificationTitle-${index}`"
+                        :label="getLocalizedString('certificationTitle')"
+                        :placeholder="getLocalizedString('certificationTitlePlaceholder')"
+                        :helperText="getLocalizedString('certificationTitleHelperText')"
+                        :errorText="getLocalizedString('requiredFieldError')"
+                        :modelValue="item.title"
+                        :required="true"
+                        @valid="(value) => updateField('title', value as string)"
+                    />
 
-                <FormField
-                    :id="`certificationProvider-${index}`"
-                    :label="getLocalizedString('certificationProvider')"
-                    :placeholder="getLocalizedString('certificationProviderPlaceholder')"
-                    :helperText="getLocalizedString('certificationProviderHelperText')"
-                    :errorText="getLocalizedString('requiredFieldError')"
-                    :modelValue="item.provider"
-                    :required="true"
-                    @valid="(value) => updateField('provider', value as string)"
-                />
+                    <FormField
+                        :id="`certificationProvider-${index}`"
+                        :label="getLocalizedString('certificationProvider')"
+                        :placeholder="getLocalizedString('certificationProviderPlaceholder')"
+                        :helperText="getLocalizedString('certificationProviderHelperText')"
+                        :errorText="getLocalizedString('requiredFieldError')"
+                        :modelValue="item.provider"
+                        :required="true"
+                        @valid="(value) => updateField('provider', value as string)"
+                    />
 
-                <FormField
-                    type="yesno"
-                    :id="`certificationCompleted-${index}`"
-                    :label="getLocalizedString('certificationCompleted')"
-                    :modelValue="item.completed"
-                    @valid="(value) => updateField('completed', value as boolean)"
-                />
+                    <FormField
+                        type="yesno"
+                        :id="`certificationCompleted-${index}`"
+                        :label="getLocalizedString('certificationCompleted')"
+                        :modelValue="item.completed"
+                        @valid="(value) => updateField('completed', value as boolean)"
+                    />
 
-                <FormField
-                    type="number"
-                    :min="1900"
-                    :max="new Date().getFullYear()"
-                    :id="`certificationYear-${index}`"
-                    :label="getLocalizedString('certificationYear')"
-                    :placeholder="getLocalizedString('certificationYearPlaceholder')"
-                    :helperText="getLocalizedString('certificationYearHelperText')"
-                    :modelValue="item.year"
-                    :required="false"
-                    @valid="(value) => updateField('year', value as number)"
-                />
+                    <FormField
+                        type="number"
+                        :min="1900"
+                        :max="new Date().getFullYear()"
+                        :id="`certificationYear-${index}`"
+                        :label="getLocalizedString('certificationYear')"
+                        :placeholder="getLocalizedString('certificationYearPlaceholder')"
+                        :helperText="getLocalizedString('certificationYearHelperText')"
+                        :modelValue="item.year"
+                        :required="false"
+                        @valid="(value) => updateField('year', value as number)"
+                    />
 
-                <button @click="removeItem" class="secondary" data-action="remove">
-                    {{ getLocalizedString('deleteCertification') }}
-                </button>
+                    <button @click="removeItem" class="secondary" data-action="remove">
+                        {{ getLocalizedString('deleteCertification') }}
+                    </button>
+                </details>
             </fieldset>
         </template>
     </DynamicList>

@@ -314,4 +314,36 @@ describe('useResumeStore', () => {
 
         expect(store.certifications.length).toBe(1);
     });
+
+    it('setJobs sets the jobs array', () => {
+        const store = useResumeStore();
+        const jobs: Job[] = [
+            {
+                company: "The Night's Watch",
+                role: 'Watch Commander',
+                period: {
+                    startDate: '300 AC',
+                    endDate: 'Present',
+                },
+                description: 'Defending the realm against the White Walkers.',
+                industry: 'Public Safety',
+                skills: {
+                    languages: ['JavaScript'],
+                    frameworks: ['Vue'],
+                    platforms: ['Node.js'],
+                    methodologies: ['Agile'],
+                    operatingSystems: ['Linux'],
+                    databases: ['MongoDB'],
+                    tools: ['Git'],
+                },
+                responsibilities: ["Lead the Night's Watch", 'Defend the Wall'],
+            },
+        ];
+
+        expect(store.jobs.length).toBe(0);
+
+        store.setJobs(jobs);
+
+        expect(store.jobs.length).toBe(1);
+    });
 });

@@ -19,8 +19,7 @@
                             <EducationSection />
                         </div>
                         <div v-else-if="activeTab === 'work'">
-                            <h1>Work Experience</h1>
-                            <p>Describe your work experience here.</p>
+                            <JobSection />
                         </div>
                         <div v-else-if="activeTab === 'additional'">
                             <h1>Additional Information</h1>
@@ -49,6 +48,7 @@ import SkillsSection from '@/components/ResumeFormSections/SkillsSection.vue';
 import EducationSection from '@/components/ResumeFormSections/EducationSection.vue';
 import ResumeForm from '@/components/ResumeForm.vue';
 import DarkModeToggle from '@/components/DarkModeToggle.vue';
+import JobSection from '@/components/ResumeFormSections/JobSection.vue';
 
 const tabs = [
     { id: 'general', name: 'General Information' },

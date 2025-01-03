@@ -40,5 +40,6 @@ export const resumeInitialState: ResumeData = {
     ],
     education: [],
     certifications: [],
+    jobs: [],
 };
 localStorage.setItem('resumeData', JSON.stringify(resumeInitialState));

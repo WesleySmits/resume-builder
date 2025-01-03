@@ -1,20 +1,26 @@
 <template>
     <div class="form">
         <fieldset>
-            <legend>{{ getLocalizedString('skills') }}</legend>
+            <details open name="skills-curtain">
+                <summary>
+                    <header>
+                        <legend>{{ getLocalizedString('skills') }}</legend>
+                    </header>
+                </summary>
 
-            <FormField
-                v-for="field in getSkillsData()"
-                :type="field.type"
-                :key="field.id"
-                :id="field.id"
-                :label="field.label"
-                :placeholder="field.placeholder"
-                :helperText="field.helperText"
-                @valid="(value) => field.handleChange(value as string)"
-                :modelValue="field.modelValue"
-                :required="field.required"
-            />
+                <FormField
+                    v-for="field in getSkillsData()"
+                    :type="field.type"
+                    :key="field.id"
+                    :id="field.id"
+                    :label="field.label"
+                    :placeholder="field.placeholder"
+                    :helperText="field.helperText"
+                    @valid="(value) => field.handleChange(value as string)"
+                    :modelValue="field.modelValue"
+                    :required="field.required"
+                />
+            </details>
         </fieldset>
 
         <TopSkills />

@@ -135,10 +135,27 @@ interface Certification {
     year?: number;
 }
 
+interface Period {
+    startDate: string;
+    endDate?: string;
+}
+
+interface Job {
+    company: string;
+    location?: string;
+    period: Period;
+    role: string;
+    industry: string;
+    skills: Skills;
+    description: string;
+    responsibilities: string[];
+}
+
 interface ResumeData {
     general: General;
     skills: Skills;
     topSkills: TopSkill[];
     education: Education[];
     certifications: Certification[];
+    jobs: Job[];
 }
