@@ -99,10 +99,8 @@ function updateItem(index: number, keyPath: string, value: unknown) {
         target = target[k] || (target[k] = {});
     }
 
-    // Set the value for the final key
     target[keys[keys.length - 1]] = value;
 
-    // Replace the updated item in the array
     items.value.splice(index, 1, updatedItem);
     emit('update', items.value);
     props.onUpdate(items.value);

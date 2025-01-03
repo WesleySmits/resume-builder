@@ -158,7 +158,6 @@ import { useResumeStore } from '@/stores/resume';
 import { getLocalizedString } from '@/utils/translation';
 import FormField from './FormField.vue';
 import DynamicList from './DynamicList.vue';
-// import { ref } from 'vue';
 
 const resumeStore = useResumeStore();
 const jobs = resumeStore.jobs;
