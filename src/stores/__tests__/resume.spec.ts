@@ -346,4 +346,55 @@ describe('useResumeStore', () => {
 
         expect(store.jobs.length).toBe(1);
     });
+
+    it('should sort jobs by start date', () => {
+        const store = useResumeStore();
+        const jobs: Job[] = [
+            {
+                company: 'Company 1',
+                role: 'Role 1',
+                period: {
+                    startDate: '2022-01-01',
+                    endDate: '2022-01-02',
+                },
+                description: 'Description 1',
+                industry: 'Industry 1',
+                skills: {
+                    languages: [],
+                    frameworks: [],
+                    platforms: [],
+                    methodologies: [],
+                    operatingSystems: [],
+                    databases: [],
+                    tools: [],
+                },
+                responsibilities: [],
+            },
+            {
+                company: 'Company 2',
+                role: 'Role 2',
+                period: {
+                    startDate: '2022-01-03',
+                    endDate: '2022-01-04',
+                },
+                description: 'Description 2',
+                industry: 'Industry 2',
+                skills: {
+                    languages: [],
+                    frameworks: [],
+                    platforms: [],
+                    methodologies: [],
+                    operatingSystems: [],
+                    databases: [],
+                    tools: [],
+                },
+                responsibilities: [],
+            },
+        ];
+
+        store.setJobs(jobs);
+
+        expect(store.jobs[0].company).toBe('Company 2');
+        expect(store.jobs[1].company).toBe('Company 1');
+    });
 });
