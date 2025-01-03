@@ -185,7 +185,9 @@ export const useResumeStore = defineStore('resume', {
             this.certifications = newCertifications;
         },
         setJobs(newJobs: Job[]): void {
-            this.jobs = newJobs;
+            this.jobs = newJobs.sort(
+                (a, b) => new Date(b.period.startDate).getTime() - new Date(a.period.startDate).getTime(),
+            );
         },
     },
 });
