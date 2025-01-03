@@ -18,7 +18,7 @@
             :list="`${props.idProp}-datalist`"
         />
 
-        <datalist v-if="dataListItems.length" :id="`${props.idProp}-datalist`">
+        <datalist v-if="dataListItems?.length" :id="`${props.idProp}-datalist`">
             <option v-for="item in dataListItems" :key="item" :value="item" />
         </datalist>
     </div>
@@ -34,7 +34,7 @@ interface Props {
     id: string;
     idProp: string;
     value: string;
-    fieldType: string;
+    fieldType?: string;
 }
 
 const props = defineProps<Props>();
@@ -44,7 +44,7 @@ const inputValue = ref('');
 const tags = ref<string[]>([...(props.modelValue ?? [])]);
 
 const fieldType = props.fieldType;
-const dataListItems = ref<string[]>(getDataListItems());
+const dataListItems = ref<string[] | null>(getDataListItems());
 
 watch(
     tags,
@@ -54,9 +54,9 @@ watch(
     { deep: true },
 );
 
-function getDataListItems(): string[] {
+function getDataListItems(): string[] | null {
     if (!fieldType) {
-        return [];
+        return null;
     }
 
     const store = useResumeStore();
@@ -66,10 +66,6 @@ function getDataListItems(): string[] {
     }
 
     const field = skills[fieldType as keyof Skills];
-    if (!field) {
-        return [];
-    }
-
     const fieldItems = field.filter((item) => !tags.value.includes(item));
     return fieldItems;
 }
@@ -97,7 +93,7 @@ const onKeydown = (event: KeyboardEvent) => {
 };
 
 const onInput = () => {
-    if (!dataListItems.value.includes(inputValue.value)) {
+    if (dataListItems.value && !dataListItems.value.includes(inputValue.value)) {
         return;
     }
 

@@ -111,6 +111,29 @@ describe('DynamicList.vue', () => {
         expect(items[0].value).toBe('Updated Item');
     });
 
+    it('updates an item sub field when the slot emits an update', async () => {
+        const wrapper = mount(DynamicList as unknown as new () => typeof DynamicList, {
+            props: getDefaultProps(),
+            slots: {
+                'item-fields': `
+          <template #item-fields="{ updateField }">
+            <input
+              data-field="value"
+              @input="updateField('object.value', $event.target.value)"
+            />
+          </template>
+        `,
+            },
+        });
+
+        const input = wrapper.find('input[data-field="value"]');
+        await input.setValue('Updated Item');
+
+        expect(wrapper.emitted('update')).toBeTruthy();
+        const items = wrapper.emitted('update')?.[0]?.[0] as TestItem[];
+        expect(items[0].value).toBe('Updated Item');
+    });
+
     it('sorts the items when the "Sort" button is clicked', async () => {
         const wrapper = mount(DynamicList as unknown as new () => typeof DynamicList, {
             props: {
