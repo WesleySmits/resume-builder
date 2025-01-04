@@ -43,14 +43,19 @@ export default class JobPage extends Page {
 
         this.currentY += SPACING;
 
-        if (this.resumeStore.jobs.length === 0) {
+        if (this.resumeStore.jobs.length === 0 && this.resumeStore.personalProjects.length === 0) {
             return;
         }
 
         this.#renderJobs();
+        this.#renderPersonalProjects();
     }
 
     #renderJobs(): void {
+        if (this.resumeStore.jobs.length === 0) {
+            return;
+        }
+
         const jobs = this.resumeStore.jobs;
         const firstJob = this.resumeStore.jobs[0];
         const otherJobs = jobs.slice(1);
@@ -103,6 +108,54 @@ export default class JobPage extends Page {
             needsSpacing: true,
             centerText: false,
         });
+    }
+
+    #renderProject(project: PersonalProject): void {
+        const title =
+            project.title +
+            (project.period
+                ? ` (${formatDateToLocale(project.period.startDate)} - ${project.period.endDate ? formatDateToLocale(project.period.endDate) : 'present'})`
+                : '');
+        this.currentY += this.drawUnderlinedTitle(title);
+
+        this.currentY += this.drawText({
+            text: project.description,
+            x: this.currentX,
+            y: this.currentY,
+            size: this.textSize,
+            font: this.fontData.regular,
+            maxWidth: INNER_PAGE_WIDTH,
+        });
+
+        this.currentY += SPACING;
+
+        this.currentY += this.#drawDLRow(
+            getLocalizedString('programmingLanguages'),
+            project.skills.languages.join(', '),
+        );
+        this.currentY += this.#drawDLRow(getLocalizedString('frameworks'), project.skills.frameworks.join(', '));
+        this.currentY += this.#drawDLRow(getLocalizedString('platforms'), project.skills.platforms.join(', '));
+        this.currentY += this.#drawDLRow(getLocalizedString('methodologies'), project.skills.methodologies.join(', '));
+        this.currentY += this.#drawDLRow(
+            getLocalizedString('operatingSystems'),
+            project.skills.operatingSystems.join(', '),
+        );
+    }
+
+    #renderPersonalProjects(): void {
+        let personalProjects = this.resumeStore.personalProjects;
+        const firstProject = personalProjects[0];
+        const otherProjects = personalProjects.slice(1);
+
+        if (this.resumeStore.jobs.length === 0) {
+            this.#renderProject(firstProject);
+            personalProjects = otherProjects;
+        }
+
+        for (const project of personalProjects) {
+            this.page = this.addPage();
+            this.#renderProject(project);
+        }
     }
 
     #drawDLRow(term: string, definition: string): number {
