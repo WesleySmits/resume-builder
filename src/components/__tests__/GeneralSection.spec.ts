@@ -8,40 +8,10 @@ import { PersonalInfoFields } from '@/enums/personalInfo';
 import FormField from '@/components/FormField.vue';
 import { AboutFields } from '@/enums/about';
 import { testFormField } from './utils';
+import { getDummyResume } from '@/utils/__tests__/dummyResume';
 
 describe('GeneralSection.vue', () => {
-    const resumeInitialState: ResumeData = {
-        general: {
-            name: {
-                firstName: 'Jon',
-                middleName: '',
-                lastName: 'Snow',
-                displayName: '',
-            },
-            profilePhoto: '',
-            region: 'The Wall',
-            contact: {
-                email: 'jon.snow@resume-maker.io',
-                phone: '123123123',
-            },
-            drivingLicense: 'Car',
-            functionTitle: 'Watch Commander',
-            achievements: ['Defeated the Night King', 'Knows nothing', 'King in the North'],
-        },
-        skills: {
-            languages: [],
-            frameworks: [],
-            platforms: [],
-            methodologies: [],
-            databases: [],
-            tools: [],
-            operatingSystems: [],
-        },
-        topSkills: [],
-        education: [],
-        certifications: [],
-        jobs: [],
-    };
+    const resumeInitialState = getDummyResume();
 
     function getMountedComponent(): VueWrapper {
         return mount(GeneralSection, {

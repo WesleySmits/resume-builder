@@ -1,14 +1,17 @@
-import { resumeInitialState } from './setupTests';
+import './setupTests';
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import SkillsTagInput from '../SkillsTagInput.vue';
 import { createTestingPinia } from '@pinia/testing';
+import { setupDummyResume } from '@/utils/__tests__/dummyResume';
 
 interface SkillsTagInputInstance {
     dataListItems: string[];
 }
 
 describe('SkillsTagInput.vue', () => {
+    const resumeInitialState = setupDummyResume();
+
     it('renders correctly', () => {
         const wrapper = mount(SkillsTagInput, {
             props: {

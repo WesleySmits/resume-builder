@@ -1,5 +1,4 @@
 import './setupTests';
-import { resumeInitialState } from './setupTests';
 import { setActivePinia, createPinia } from 'pinia';
 import { useResumeStore } from '../resume';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -11,7 +10,6 @@ vi.mock('@/utils/image', () => ({
 
 describe('useResumeStore', () => {
     beforeEach(() => {
-        localStorage.setItem('resumeData', JSON.stringify(resumeInitialState));
         setActivePinia(createPinia());
     });
 
@@ -30,13 +28,13 @@ describe('useResumeStore', () => {
         expect(store.general.achievements).toEqual(['Defeated the Night King', 'Knows nothing', 'King in the North']);
         expect(store.general.colleaguesDescribe).toBe('Brave');
         expect(store.general.colleaguesKnow).toBe('Loyal');
-        expect(store.skills.languages).toEqual([]);
-        expect(store.skills.frameworks).toEqual([]);
-        expect(store.skills.platforms).toEqual([]);
-        expect(store.skills.methodologies).toEqual([]);
-        expect(store.skills.operatingSystems).toEqual([]);
-        expect(store.skills.databases).toEqual([]);
-        expect(store.skills.tools).toEqual([]);
+        expect(store.skills.languages).toEqual(['HTML', 'CSS', 'JavaScript']);
+        expect(store.skills.frameworks).toEqual(['Vue.js']);
+        expect(store.skills.platforms).toEqual(['Node.js']);
+        expect(store.skills.methodologies).toEqual(['Agile']);
+        expect(store.skills.operatingSystems).toEqual(['MacOS']);
+        expect(store.skills.databases).toEqual(['MongoDB']);
+        expect(store.skills.tools).toEqual(['Git']);
     });
 
     it('initializes with empty default state', () => {
@@ -104,6 +102,7 @@ describe('useResumeStore', () => {
 
     it('clearProfilePhoto action clears the profile photo', () => {
         const store = useResumeStore();
+        store.general.profilePhoto = 'data:image/jpeg;base64,';
         expect(store.general.profilePhoto).not.toBe('');
         store.clearProfilePhoto();
         expect(store.general.profilePhoto).toBe('');
@@ -232,6 +231,7 @@ describe('useResumeStore', () => {
 
     it('addTopSkill action adds a top skill', () => {
         const store = useResumeStore();
+        store.setTopSkills([]);
         const skill = { name: 'JavaScript', yearsOfExperience: 5 };
         expect(store.topSkills).toEqual([]);
         store.addTopSkill(skill);

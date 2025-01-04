@@ -151,6 +151,13 @@ interface Job {
     responsibilities: string[];
 }
 
+interface PersonalProject {
+    title: string;
+    period: Period;
+    skills: Skills;
+    description: string;
+}
+
 interface ResumeData {
     general: General;
     skills: Skills;
@@ -158,4 +165,5 @@ interface ResumeData {
     education: Education[];
     certifications: Certification[];
     jobs: Job[];
+    personalProjects: PersonalProject[];
 }
