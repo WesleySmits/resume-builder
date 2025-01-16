@@ -8,7 +8,7 @@ import * as pdfjsLib from 'pdfjs-dist/build/pdf.min.mjs';
 import './setupTests';
 import { type Ref } from 'vue';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
-import { getDummyResume } from '@/utils/__tests__/dummyResume';
+import { getDummyResume } from '@/utils/dummyResume';
 
 vi.mock('pdfjs-dist/build/pdf.min.mjs', () => ({
     GlobalWorkerOptions: { workerSrc: '' },

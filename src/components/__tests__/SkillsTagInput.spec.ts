@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import SkillsTagInput from '../SkillsTagInput.vue';
 import { createTestingPinia } from '@pinia/testing';
-import { setupDummyResume } from '@/utils/__tests__/dummyResume';
+import { setupDummyResume } from '@/utils/dummyResume';
 
 interface SkillsTagInputInstance {
     dataListItems: string[];

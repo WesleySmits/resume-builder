@@ -10,63 +10,7 @@ vi.mock('../image', () => ({
     base64ToUint8Array: vi.fn().mockReturnValue(new Uint8Array([1, 2, 3])),
 }));
 
-vi.mock('@/stores/resume', () => {
-    const mockStore = {
-        general: {
-            name: {
-                firstName: 'Jon',
-                middleName: '',
-                lastName: 'Snow',
-                displayName: '',
-            },
-            profilePhoto: 'data:image/jpeg;base64,',
-            region: 'The Wall',
-            contact: {
-                email: 'jon.snow@resume-maker.io',
-                phone: '123123123',
-            },
-            drivingLicense: 'Car',
-            functionTitle: 'Watch Commander',
-            introduction: 'I am the sword in the darkness.',
-            achievements: ['Knows nothing', '', 'King in the North \n\n Defeated the Night King'],
-            colleaguesDescribe: 'Brave',
-            colleaguesKnow: 'Loyal',
-        },
-        skills: {
-            languages: [],
-            frameworks: [],
-            platforms: [],
-            methodologies: [],
-            databases: [],
-            tools: [],
-            operatingSystems: [],
-        },
-        topSkills: [
-            {
-                name: 'JavaScript',
-                yearsOfExperience: 10,
-            },
-            {
-                name: 'TypeScript',
-                yearsOfExperience: 6,
-            },
-        ],
-        reset: vi.fn(() => {
-            mockStore.general.profilePhoto = '';
-            mockStore.general.name.firstName = '';
-            mockStore.general.name.lastName = '';
-        }),
-        clearTopSkills: vi.fn(() => {
-            mockStore.topSkills = [];
-        }),
-        addTopSkill: vi.fn(),
-        clearProfilePhoto: vi.fn(),
-    };
-
-    return {
-        useResumeStore: () => mockStore,
-    };
-});
+vi.mock('@/stores/resume');
 
 describe('IntroductionPage', () => {
     async function getPdfDocumentWithMocks(): Promise<PDFDocument> {

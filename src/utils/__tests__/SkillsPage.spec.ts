@@ -4,43 +4,7 @@ import { PDFDocument } from 'pdf-lib';
 import { PAGE_HEIGHT, PAGE_WIDTH } from '../resume/constants';
 import SkillsPage from '../resume/SkillsPage';
 
-vi.mock('@/stores/resume', () => {
-    const mockStore = {
-        general: {
-            name: {
-                firstName: 'Jon',
-                middleName: '',
-                lastName: 'Snow',
-                displayName: '',
-            },
-            profilePhoto: 'data:image/jpeg;base64,',
-            region: 'The Wall',
-            contact: {
-                email: 'jon.snow@resume-maker.io',
-                phone: '123123123',
-            },
-            drivingLicense: 'Car',
-            functionTitle: 'Watch Commander',
-            introduction: 'I am the sword in the darkness.',
-            achievements: ['Defeated the Night King', 'Knows nothing', 'King in the North'],
-            colleaguesDescribe: 'Brave',
-            colleaguesKnow: 'Loyal',
-        },
-        skills: {
-            languages: ['JavaScript', 'TypeScript'],
-            frameworks: ['Vue.js', 'React'],
-            platforms: ['Node.js', 'Docker'],
-            methodologies: ['Agile', 'Scrum'],
-            databases: ['MongoDB', 'PostgreSQL'],
-            tools: ['Git', 'Docker'],
-            operatingSystems: ['Windows', 'Linux'],
-        },
-    };
-
-    return {
-        useResumeStore: () => mockStore,
-    };
-});
+vi.mock('@/stores/resume');
 
 describe('SkillsPage', () => {
     async function getPdfDocumentWithMocks(): Promise<PDFDocument> {
@@ -117,7 +81,7 @@ describe('SkillsPage', () => {
         const page = pdfDoc.addPage();
 
         expect(page.drawLine).toHaveBeenCalledTimes(4);
-        expect(page.drawText).toHaveBeenCalledTimes(10);
+        expect(page.drawText).toHaveBeenCalledTimes(9);
 
         skillsPage.drawRightColumn = backupDrawRightColumn;
     });
@@ -135,7 +99,7 @@ describe('SkillsPage', () => {
         const page = pdfDoc.addPage();
 
         expect(page.drawLine).toHaveBeenCalledTimes(5);
-        expect(page.drawText).toHaveBeenCalledTimes(13);
+        expect(page.drawText).toHaveBeenCalledTimes(9);
 
         skillsPage.drawLeftColumn = backupDrawLeftColumn;
     });

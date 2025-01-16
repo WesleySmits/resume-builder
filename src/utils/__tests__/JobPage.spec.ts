@@ -5,46 +5,7 @@ import JobPage from '../resume/JobPage';
 import { PAGE_HEIGHT, PAGE_WIDTH } from '../resume/constants';
 import { useResumeStore } from '@/stores/resume';
 
-vi.mock('@/stores/resume', () => {
-    const mockStore = {
-        general: {
-            name: {
-                firstName: 'Jon',
-                middleName: '',
-                lastName: 'Snow',
-                displayName: '',
-            },
-            profilePhoto: 'data:image/jpeg;base64,',
-            region: 'The Wall',
-            contact: {
-                email: 'jon.snow@resume-maker.io',
-                phone: '123123123',
-            },
-            drivingLicense: 'Car',
-            functionTitle: 'Watch Commander',
-            introduction: 'I am the sword in the darkness.',
-            achievements: ['Defeated the Night King', 'Knows nothing', 'King in the North'],
-            colleaguesDescribe: 'Brave',
-            colleaguesKnow: 'Loyal',
-        },
-        skills: {
-            languages: ['JavaScript', 'TypeScript'],
-            frameworks: ['Vue.js', 'React'],
-            platforms: ['Node.js', 'Docker'],
-            methodologies: ['Agile', 'Scrum'],
-            databases: ['MongoDB', 'PostgreSQL'],
-            tools: ['Git', 'Docker'],
-            operatingSystems: ['Windows', 'Linux'],
-        },
-        education: [],
-        certifications: [],
-        jobs: [],
-    };
-
-    return {
-        useResumeStore: () => mockStore,
-    };
-});
+vi.mock('@/stores/resume');
 
 describe('JobPage', () => {
     async function getPdfDocumentWithMocks(): Promise<PDFDocument> {
@@ -92,7 +53,7 @@ describe('JobPage', () => {
         expect(page.drawLine).toHaveBeenCalledTimes(1);
     });
 
-    it('should draw all the education options to the screen', async () => {
+    it('should draw all the job options to the screen', async () => {
         const resumeStore = useResumeStore();
         const jobs: Job[] = [
             {
@@ -102,7 +63,7 @@ describe('JobPage', () => {
                     startDate: '2001-01-01',
                     endDate: '2023-01-01',
                 },
-                description: 'This was a very tough 5-minute education.',
+                description: 'This was a very tough 5-minute job.',
                 role: '',
                 responsibilities: ['Being awesome'],
                 industry: 'Education',
@@ -124,7 +85,7 @@ describe('JobPage', () => {
                     startDate: '2001-01-01',
                     endDate: '2023-01-01',
                 },
-                description: 'This was a very tough 5-minute education.',
+                description: 'This was a very tough 5-minute job.',
 
                 role: 'Bachelor of Awesomeness',
                 responsibilities: ['Being awesome'],

@@ -7,7 +7,7 @@ export function getDummyResume(): ResumeData {
                 lastName: 'Snow',
                 displayName: '',
             },
-            profilePhoto: '',
+            profilePhoto: 'data:image/jpeg;base64,',
             region: 'The Wall',
             contact: {
                 email: 'jon.snow@resume-maker.io',

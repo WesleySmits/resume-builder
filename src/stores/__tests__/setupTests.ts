@@ -1,3 +1,3 @@
-import { setupDummyResume } from '@/utils/__tests__/dummyResume';
+import { setupDummyResume } from '@/utils/dummyResume';
 
 export const resumeInitialState = setupDummyResume();

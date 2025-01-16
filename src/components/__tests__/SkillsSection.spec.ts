@@ -6,7 +6,7 @@ import { mount, VueWrapper } from '@vue/test-utils';
 import { SkillFields } from '@/enums/skills';
 import { testFormField } from './utils';
 import FormField from '@/components/FormField.vue';
-import { getDummyResume } from '@/utils/__tests__/dummyResume';
+import { getDummyResume } from '@/utils/dummyResume';
 
 describe('SkillsSection.vue', () => {
     const resumeInitialState = getDummyResume();
