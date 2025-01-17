@@ -1,0 +1,94 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`EducationSection.vue > matches the snapshot 1`] = `
+"<div class="form">
+  <fieldset data-v-7fdf210c="" class="dynamic-list" id="educations">
+    <details data-v-7fdf210c="" name="skills-curtain" open="">
+      <summary data-v-7fdf210c="">
+        <header data-v-7fdf210c="">
+          <legend data-v-7fdf210c="">Education</legend>
+          <div data-v-7fdf210c="" class="buttons"><button data-v-7fdf210c="" class="primary icon" data-action="add"><svg data-v-7fdf210c="" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg></button>
+            <!--v-if-->
+          </div>
+        </header>
+      </summary>
+      <ul data-v-7fdf210c="" class="dynamic-list__items">
+        <li data-v-7fdf210c="" class="list-item list-item--column">
+          <fieldset id="education-0">
+            <details name="education-curtain" open="">
+              <summary>
+                <header>
+                  <legend>Healthcare</legend>
+                </header>
+              </summary>
+              <div data-v-b9645e84="" class="form-field"><input data-v-b9645e84="" fieldtype="" id="educationInstitution-0" id-prop="" class="form-field__input" placeholder="University of Amsterdam" required="" aria-labelledby="educationInstitution-0" aria-describedby="educationInstitution-0-helper" modelvalue="Apple School" value="Apple School"><label data-v-b9645e84="" for="educationInstitution-0">Institution</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter the institution you studied at.</small>
+                <!--v-if-->
+              </div>
+              <div data-v-b9645e84="" class="form-field"><input data-v-b9645e84="" fieldtype="" id="educationDegree-0" id-prop="" class="form-field__input" placeholder="Bachelor of Science" required="" aria-labelledby="educationDegree-0" aria-describedby="educationDegree-0-helper" modelvalue="Master of Pears" value="Master of Pears"><label data-v-b9645e84="" for="educationDegree-0">Degree</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter the degree you obtained.</small>
+                <!--v-if-->
+              </div>
+              <div data-v-b9645e84="" class="form-field"><input data-v-b9645e84="" fieldtype="" id="educationFieldOfStudy-0" id-prop="" class="form-field__input" placeholder="Computer Science" required="" aria-labelledby="educationFieldOfStudy-0" aria-describedby="educationFieldOfStudy-0-helper" modelvalue="Healthcare" value="Healthcare"><label data-v-b9645e84="" for="educationFieldOfStudy-0">Field of Study</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter the field of study.</small>
+                <!--v-if-->
+              </div>
+              <div data-v-b9645e84="" class="form-field"><input data-v-b9645e84="" fieldtype="" id="educationLocation-0" id-prop="" class="form-field__input" placeholder="Amsterdam, Netherlands" aria-labelledby="educationLocation-0" aria-describedby="educationLocation-0-helper" modelvalue="The Stars" value="The Stars"><label data-v-b9645e84="" for="educationLocation-0">Location</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter the location of the institution.</small>
+                <!--v-if-->
+              </div>
+              <div data-v-b9645e84="" class="form-field"><input data-v-b9645e84="" fieldtype="" id="educationStartDate-0" id-prop="" class="form-field__input" placeholder="01/2018" aria-labelledby="educationStartDate-0" aria-describedby="educationStartDate-0-helper" modelvalue="1970-01-01" type="date" value="1970-01-01"><label data-v-b9645e84="" for="educationStartDate-0">Start Date</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter the start date of your education.</small>
+                <!--v-if-->
+              </div>
+              <div data-v-b9645e84="" class="form-field"><input data-v-b9645e84="" fieldtype="" id="educationEndDate-0" id-prop="" class="form-field__input" placeholder="01/2022" aria-labelledby="educationEndDate-0" aria-describedby="educationEndDate-0-helper" modelvalue="1970-01-01" type="date" value="1970-01-01"><label data-v-b9645e84="" for="educationEndDate-0">End Date</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter the end date of your education.</small>
+                <!--v-if-->
+              </div>
+              <div data-v-b9645e84="" class="form-field"><textarea data-v-b9645e84="" fieldtype="" id="educationDescription-0" id-prop="" class="form-field__input" placeholder="I studied..." aria-labelledby="educationDescription-0" aria-describedby="educationDescription-0-helper" modelvalue="Extensive study of fruits." type="textarea" value="Extensive study of fruits."><!--v-if--></textarea><label data-v-b9645e84="" for="educationDescription-0">Description</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter a description of your education.</small>
+                <!--v-if-->
+              </div><button class="secondary" data-action="remove">Delete Education</button>
+            </details>
+          </fieldset>
+        </li>
+      </ul>
+    </details>
+  </fieldset>
+  <fieldset data-v-7fdf210c="" class="dynamic-list" id="certifications">
+    <details data-v-7fdf210c="" name="skills-curtain" open="">
+      <summary data-v-7fdf210c="">
+        <header data-v-7fdf210c="">
+          <legend data-v-7fdf210c="">Certifications</legend>
+          <div data-v-7fdf210c="" class="buttons"><button data-v-7fdf210c="" class="primary icon" data-action="add"><svg data-v-7fdf210c="" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg></button>
+            <!--v-if-->
+          </div>
+        </header>
+      </summary>
+      <ul data-v-7fdf210c="" class="dynamic-list__items">
+        <li data-v-7fdf210c="" class="list-item list-item--column">
+          <fieldset id="certification-0">
+            <details>
+              <summary>
+                <header>
+                  <legend>Certification 1</legend>
+                </header>
+              </summary>
+              <div data-v-b9645e84="" class="form-field"><input data-v-b9645e84="" fieldtype="" id="certificationTitle-0" id-prop="" class="form-field__input" placeholder="AWS Certified Solutions Architect" required="" aria-labelledby="certificationTitle-0" aria-describedby="certificationTitle-0-helper" modelvalue="Certification 1" value="Certification 1"><label data-v-b9645e84="" for="certificationTitle-0">Title</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter the title of the certification.</small>
+                <!--v-if-->
+              </div>
+              <div data-v-b9645e84="" class="form-field"><input data-v-b9645e84="" fieldtype="" id="certificationProvider-0" id-prop="" class="form-field__input" placeholder="Amazon Web Services" required="" aria-labelledby="certificationProvider-0" aria-describedby="certificationProvider-0-helper" modelvalue="Provider 1" value="Provider 1"><label data-v-b9645e84="" for="certificationProvider-0">Provider</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter the provider of the certification.</small>
+                <!--v-if-->
+              </div>
+              <div data-v-b9645e84="" class="form-field">
+                <div data-v-40d4be4c="" data-v-b9645e84="" class="yes-no-toggle form-field__input" fieldtype="" id-prop="certificationCompleted-0" required="false" aria-labelledby="certificationCompleted-0" aria-describedby="certificationCompleted-0-helper" type="yesno" value="true"><input data-v-40d4be4c="" type="checkbox" id="certificationCompleted-0"><label data-v-40d4be4c="" for="certificationCompleted-0" class="toggle-label"><span data-v-40d4be4c="" class="toggle-inner checked"></span></label></div><label data-v-b9645e84="" for="certificationCompleted-0">Completed?</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text"></small>
+                <!--v-if-->
+              </div>
+              <div data-v-b9645e84="" class="form-field"><input data-v-b9645e84="" fieldtype="" id="certificationYear-0" id-prop="" class="form-field__input" placeholder="2021" aria-labelledby="certificationYear-0" aria-describedby="certificationYear-0-helper" modelvalue="2021" min="1900" max="2025" type="number" value="2021"><label data-v-b9645e84="" for="certificationYear-0">Year</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter the year you completed the certification.</small>
+                <!--v-if-->
+              </div><button class="secondary" data-action="remove">Delete Certification</button>
+            </details>
+          </fieldset>
+        </li>
+      </ul>
+    </details>
+  </fieldset>
+</div>"
+`;

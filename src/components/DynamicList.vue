@@ -1,6 +1,6 @@
 <template>
-    <fieldset class="dynamic-list">
-        <details name="skills-curtain" open>
+    <fieldset class="dynamic-list" :id="id">
+        <details :name="props.curtainName ?? 'skills-curtain'" open>
             <summary>
                 <header>
                     <legend>{{ title }}</legend>
@@ -51,6 +51,8 @@ export interface DynamicListProps<T> {
     onUpdate: (newItems: T[]) => void;
     getKey?: (item: T, index: number) => string;
     direction?: 'row' | 'column';
+    id?: string;
+    curtainName?: string;
 }
 
 const props = defineProps<DynamicListProps<T>>();

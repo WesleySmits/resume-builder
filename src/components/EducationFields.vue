@@ -6,9 +6,10 @@
         :onUpdate="updateEducation"
         :getKey="getKey"
         :direction="'column'"
+        :id="`educations`"
     >
         <template #item-fields="{ item, index, updateField, removeItem }">
-            <fieldset>
+            <fieldset :id="`education-${index}`">
                 <details name="education-curtain" :open="index === 0">
                     <summary>
                         <header>

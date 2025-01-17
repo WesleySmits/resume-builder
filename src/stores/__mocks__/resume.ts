@@ -23,6 +23,8 @@ const mockStore = {
     updateColleaguesDescribe: vi.fn(),
     updateColleaguesKnow: vi.fn(),
     updateFunctionTitle: vi.fn(),
+    setJobs: vi.fn(),
+    setPersonalProjects: vi.fn(),
 };
 
 export const useResumeStore = () => mockStore;

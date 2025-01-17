@@ -6,9 +6,10 @@
         :onUpdate="updateJobs"
         :getKey="getKey"
         :direction="'column'"
+        :id="'jobs'"
     >
         <template #item-fields="{ item, index, updateField, removeItem }">
-            <fieldset>
+            <fieldset :id="`job-${index}`">
                 <details name="jobs-curtain" :open="index === 0">
                     <summary>
                         <header>
@@ -101,6 +102,8 @@
                         :defaultItem="() => ''"
                         :onUpdate="() => {}"
                         :getKey="getResponsibilitiesKey"
+                        :id="`jobResponsibilities`"
+                        :curtain-name="'jobResponsibilities-curtain'"
                     >
                         <template
                             #item-fields="{

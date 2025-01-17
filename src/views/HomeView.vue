@@ -9,25 +9,9 @@
             <ResumeForm>
                 <TabContent :activeTab="activeTab">
                     <template #default="{ activeTab }">
-                        <div v-if="activeTab === 'general'">
-                            <GeneralSection />
-                        </div>
-                        <div v-else-if="activeTab === 'skills'">
-                            <SkillsSection />
-                        </div>
-                        <div v-else-if="activeTab === 'education'">
-                            <EducationSection />
-                        </div>
-                        <div v-else-if="activeTab === 'work'">
-                            <JobSection />
-                        </div>
-                        <div v-else-if="activeTab === 'additional'">
-                            <h1>Additional Information</h1>
-                            <p>Provide any additional information here.</p>
-                        </div>
-                    </template>
-                </TabContent></ResumeForm
-            >
+                        <component v-if="activeTab" :is="getTabComponent(activeTab as TabKeys)" :key="activeTab" />
+                    </template> </TabContent
+            ></ResumeForm>
         </main>
 
         <aside>
@@ -39,16 +23,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, type Component, ref, type Ref } from 'vue';
 import TabBar from '@/components/TabBar.vue';
 import TabContent from '@/components/TabContent.vue';
-import GeneralSection from '@/components/ResumeFormSections/GeneralSection.vue';
 import ResumePreview from '@/components/ResumePreview.vue';
-import SkillsSection from '@/components/ResumeFormSections/SkillsSection.vue';
-import EducationSection from '@/components/ResumeFormSections/EducationSection.vue';
 import ResumeForm from '@/components/ResumeForm.vue';
 import DarkModeToggle from '@/components/DarkModeToggle.vue';
-import JobSection from '@/components/ResumeFormSections/JobSection.vue';
 
 const tabs = [
     { id: 'general', name: 'General Information' },
@@ -58,9 +38,22 @@ const tabs = [
     { id: 'additional', name: 'Additional Information' },
 ];
 
-// Get hash from URL
-const hash = window.location.hash.slice(1);
-const activeTab = hash && tabs.some((tab) => tab.id === hash) ? ref(hash) : ref('general');
+const hash = window.location.hash.slice(1) as TabKeys;
+const activeTab: Ref<TabKeys> = hash && tabs.some((tab) => tab.id === hash) ? ref(hash) : ref('general');
+
+type TabKeys = 'general' | 'skills' | 'education' | 'work' | 'additional';
+
+const tabComponents: Record<TabKeys, Component> = {
+    general: defineAsyncComponent(() => import('@/components/ResumeFormSections/GeneralSection.vue')),
+    skills: defineAsyncComponent(() => import('@/components/ResumeFormSections/SkillsSection.vue')),
+    education: defineAsyncComponent(() => import('@/components/ResumeFormSections/EducationSection.vue')),
+    work: defineAsyncComponent(() => import('@/components/ResumeFormSections/JobSection.vue')),
+    additional: defineAsyncComponent(() => import('@/components/ResumeFormSections/AdditionalSection.vue')),
+};
+
+function getTabComponent(tabId: TabKeys): Component | null {
+    return tabComponents[tabId] || null;
+}
 </script>
 
 <style lang="postcss" scoped>

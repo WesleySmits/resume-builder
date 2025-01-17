@@ -296,10 +296,10 @@ describe('useResumeStore', () => {
             },
         ];
 
+        store.setEducation([]);
         expect(store.education.length).toBe(0);
 
         store.setEducation(education);
-
         expect(store.education.length).toBe(1);
     });
 
@@ -314,10 +314,10 @@ describe('useResumeStore', () => {
             },
         ];
 
+        store.setCertifications([]);
         expect(store.certifications.length).toBe(0);
 
         store.setCertifications(certification);
-
         expect(store.certifications.length).toBe(1);
     });
 
@@ -346,10 +346,10 @@ describe('useResumeStore', () => {
             },
         ];
 
+        store.setJobs([]);
         expect(store.jobs.length).toBe(0);
 
         store.setJobs(jobs);
-
         expect(store.jobs.length).toBe(1);
     });
 

@@ -6,9 +6,10 @@
         :onUpdate="updatePersonalProjects"
         :getKey="getKey"
         :direction="'column'"
+        :id="'personalProjects'"
     >
         <template #item-fields="{ item, index, updateField, removeItem }">
-            <fieldset>
+            <fieldset :id="`personalProject-${index}`">
                 <details name="job-curtain" :open="index === 0">
                     <summary>
                         <header>
