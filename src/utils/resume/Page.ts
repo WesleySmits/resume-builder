@@ -233,20 +233,15 @@ export default class Page {
 
             const { paragraphs, emptyLineHeight } = this.#processParagraphs(item, size);
             totalHeight += emptyLineHeight;
-            paragraphs.forEach((paragraph, index) => {
+            paragraphs.forEach((paragraph) => {
                 const lines = this.#splitTextIntoLines(paragraph, size, font);
                 lines.forEach((line, lineIndex) => {
-                    const text = lineIndex === 0 ? bullet + line : '   ' + line; // Add bullet only to the first line
+                    const text = lineIndex === 0 ? bullet + line : '   ' + line;
 
                     this.page.drawText(text, { x, y: currentY, size, font, color: rgb(0, 0, 0) });
                     currentY -= lineHeight;
                     totalHeight += lineHeight;
                 });
-
-                if (index < paragraphs.length - 1) {
-                    currentY -= lineHeight; // Add extra line height between paragraphs
-                    totalHeight += lineHeight;
-                }
             });
         });
 

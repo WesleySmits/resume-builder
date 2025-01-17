@@ -24,8 +24,14 @@ describe('useResumeStore', () => {
         expect(store.general.region).toBe('The Wall');
         expect(store.general.drivingLicense).toBe('Car');
         expect(store.general.functionTitle).toBe('Watch Commander');
-        expect(store.general.introduction).toBe('I am the sword in the darkness.');
-        expect(store.general.achievements).toEqual(['Defeated the Night King', 'Knows nothing', 'King in the North']);
+        expect(store.general.introduction).toBe(
+            'I am the sword in the darkness. \n I am the watcher on the walls. \n I am the shield that guards the realms',
+        );
+        expect(store.general.achievements).toEqual([
+            'Defeated the Night King.. \n and his dragon.. \n Sort of',
+            '',
+            'King in the North',
+        ]);
         expect(store.general.colleaguesDescribe).toBe('Brave');
         expect(store.general.colleaguesKnow).toBe('Loyal');
         expect(store.skills.languages).toEqual(['HTML', 'CSS', 'JavaScript']);

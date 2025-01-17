@@ -15,8 +15,9 @@ export function getDummyResume(): ResumeData {
             },
             drivingLicense: 'Car',
             functionTitle: 'Watch Commander',
-            achievements: ['Defeated the Night King', 'Knows nothing', 'King in the North'],
-            introduction: 'I am the sword in the darkness.',
+            achievements: ['Defeated the Night King.. \n and his dragon.. \n Sort of', '', 'King in the North'],
+            introduction:
+                'I am the sword in the darkness. \n I am the watcher on the walls. \n I am the shield that guards the realms',
             colleaguesDescribe: 'Brave',
             colleaguesKnow: 'Loyal',
         },
@@ -45,7 +46,7 @@ export function getDummyResume(): ResumeData {
         personalProjects: [
             {
                 title: 'Project 1',
-                description: 'This was  a very tough 5-minute project.',
+                description: 'This was a very tough 5-minute project.',
                 period: {
                     startDate: '2001-01-01',
                     endDate: '2023-01-01',
