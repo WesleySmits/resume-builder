@@ -42,7 +42,38 @@ export function getDummyResume(): ResumeData {
         education: [],
         certifications: [],
         jobs: [],
-        personalProjects: [],
+        personalProjects: [
+            {
+                title: 'Project 1',
+                description: 'This was  a very tough 5-minute project.',
+                period: {
+                    startDate: '2001-01-01',
+                    endDate: '2023-01-01',
+                },
+                skills: {
+                    languages: ['JavaScript', 'TypeScript'],
+                    frameworks: ['Vue.js', 'React'],
+                    platforms: ['Node.js', 'Docker'],
+                    methodologies: ['Agile', 'Scrum'],
+                    databases: ['MongoDB', 'PostgreSQL'],
+                    tools: ['Git', 'Docker'],
+                    operatingSystems: ['Windows', 'Linux'],
+                },
+            },
+            {
+                title: 'Project 2',
+                description: 'This was a very tough 5-minute project.',
+                skills: {
+                    languages: ['JavaScript', 'TypeScript'],
+                    frameworks: ['Vue.js', 'React'],
+                    platforms: ['Node.js', 'Docker'],
+                    methodologies: ['Agile', 'Scrum'],
+                    databases: ['MongoDB', 'PostgreSQL'],
+                    tools: ['Git', 'Docker'],
+                    operatingSystems: ['Windows', 'Linux'],
+                },
+            },
+        ],
     };
 }
 

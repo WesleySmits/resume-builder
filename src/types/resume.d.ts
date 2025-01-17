@@ -153,9 +153,9 @@ interface Job {
 
 interface PersonalProject {
     title: string;
-    period: Period;
     skills: Skills;
     description: string;
+    period?: Period;
 }
 
 interface ResumeData {

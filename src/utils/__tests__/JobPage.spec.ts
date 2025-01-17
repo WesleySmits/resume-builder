@@ -39,7 +39,7 @@ describe('JobPage', () => {
 
         await jobPage.initialize(pdfDoc);
 
-        expect(pdfDoc.addPage).toHaveBeenCalledOnce();
+        expect(pdfDoc.addPage).toHaveBeenCalledTimes(2);
         expect(pdfDoc.addPage).toHaveBeenCalledWith([PAGE_WIDTH, PAGE_HEIGHT]);
     });
 
@@ -50,7 +50,7 @@ describe('JobPage', () => {
         await jobPage.initialize(pdfDoc);
 
         const page = pdfDoc.addPage();
-        expect(page.drawLine).toHaveBeenCalledTimes(1);
+        expect(page.drawLine).toHaveBeenCalledTimes(3);
     });
 
     it('should draw all the job options to the screen', async () => {
@@ -110,9 +110,52 @@ describe('JobPage', () => {
 
         const page = pdfDoc.addPage();
 
-        expect(page.drawLine).toHaveBeenCalledTimes(3);
+        expect(page.drawLine).toHaveBeenCalledTimes(5);
         expect(page.drawText).toHaveBeenCalledWith('University of the Internet (Online)', expect.any(Object));
         expect(page.drawText).toHaveBeenCalledWith('University of the Banana (Online)', expect.any(Object));
         expect(page.drawText).toHaveBeenCalledWith('Bachelor of Awesomeness', expect.any(Object));
+    });
+
+    it('should not draw anything if there are no jobs', async () => {
+        const resumeStore = useResumeStore();
+        resumeStore.jobs = [];
+
+        const jobPage = JobPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await jobPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawLine).toHaveBeenCalledTimes(3);
+        expect(page.drawText).toHaveBeenCalledTimes(26);
+    });
+
+    it('should draw all the personal projects to the screen', async () => {
+        const jobPage = JobPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await jobPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawLine).toHaveBeenCalledTimes(3);
+        expect(page.drawText).toHaveBeenCalledTimes(26);
+    });
+
+    it('should not draw anything if there are no jobs or personal projects', async () => {
+        const resumeStore = useResumeStore();
+        resumeStore.jobs = [];
+        resumeStore.personalProjects = [];
+
+        const jobPage = JobPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await jobPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawLine).toHaveBeenCalledTimes(1);
+        expect(page.drawText).toHaveBeenCalledTimes(2);
     });
 });

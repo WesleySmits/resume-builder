@@ -397,4 +397,90 @@ describe('useResumeStore', () => {
         expect(store.jobs[0].company).toBe('Company 2');
         expect(store.jobs[1].company).toBe('Company 1');
     });
+
+    it('should set the personalJobs array and sort it', () => {
+        const store = useResumeStore();
+        const personalProjects: PersonalProject[] = [
+            {
+                title: 'Project 1',
+                period: {
+                    startDate: '2022-01-01',
+                    endDate: '2022-01-02',
+                },
+                description: 'Description 1',
+                skills: {
+                    languages: [],
+                    frameworks: [],
+                    platforms: [],
+                    methodologies: [],
+                    operatingSystems: [],
+                    databases: [],
+                    tools: [],
+                },
+            },
+            {
+                title: 'Project 2',
+                period: {
+                    startDate: '2022-01-03',
+                    endDate: '2022-01-04',
+                },
+                description: 'Description 2',
+                skills: {
+                    languages: [],
+                    frameworks: [],
+                    platforms: [],
+                    methodologies: [],
+                    operatingSystems: [],
+                    databases: [],
+                    tools: [],
+                },
+            },
+        ];
+
+        store.setPersonalProjects(personalProjects);
+
+        expect(store.personalProjects[0].title).toBe('Project 2');
+        expect(store.personalProjects[1].title).toBe('Project 1');
+    });
+
+    it('should set the personalJobs array and not sort it due to the missing date', () => {
+        const store = useResumeStore();
+        const personalProjects: PersonalProject[] = [
+            {
+                title: 'Project 1',
+                period: {
+                    startDate: '2022-01-01',
+                    endDate: '2022-01-02',
+                },
+                description: 'Description 1',
+                skills: {
+                    languages: [],
+                    frameworks: [],
+                    platforms: [],
+                    methodologies: [],
+                    operatingSystems: [],
+                    databases: [],
+                    tools: [],
+                },
+            },
+            {
+                title: 'Project 2',
+                description: 'Description 2',
+                skills: {
+                    languages: [],
+                    frameworks: [],
+                    platforms: [],
+                    methodologies: [],
+                    operatingSystems: [],
+                    databases: [],
+                    tools: [],
+                },
+            },
+        ];
+
+        store.setPersonalProjects(personalProjects);
+
+        expect(store.personalProjects[0].title).toBe('Project 1');
+        expect(store.personalProjects[1].title).toBe('Project 2');
+    });
 });

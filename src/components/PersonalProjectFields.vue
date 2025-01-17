@@ -37,7 +37,7 @@
                             :label="getLocalizedString('startDate')"
                             :placeholder="getLocalizedString('startDatePlaceholder')"
                             :helperText="getLocalizedString('startDateHelperText')"
-                            :modelValue="item.period.startDate"
+                            :modelValue="item.period?.startDate"
                             :required="true"
                             @valid="(value) => updateField('period.startDate', value as string)"
                         />
@@ -48,7 +48,7 @@
                             :label="getLocalizedString('endDate')"
                             :placeholder="getLocalizedString('endDatePlaceholder')"
                             :helperText="getLocalizedString('endDateHelperText')"
-                            :modelValue="item.period.endDate"
+                            :modelValue="item.period?.endDate"
                             :required="false"
                             @valid="(value) => updateField('period.endDate', value as string)"
                         />

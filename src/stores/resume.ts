@@ -192,9 +192,13 @@ export const useResumeStore = defineStore('resume', {
             );
         },
         setPersonalProjects(newProjects: PersonalProject[]): void {
-            this.personalProjects = newProjects.sort(
-                (a, b) => new Date(b.period.startDate).getTime() - new Date(a.period.startDate).getTime(),
-            );
+            this.personalProjects = newProjects.sort((a, b) => {
+                if (a.period && b.period) {
+                    return new Date(b.period.startDate).getTime() - new Date(a.period.startDate).getTime();
+                }
+
+                return 0;
+            });
         },
     },
 });
