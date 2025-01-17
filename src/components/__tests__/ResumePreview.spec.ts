@@ -8,6 +8,7 @@ import * as pdfjsLib from 'pdfjs-dist/build/pdf.min.mjs';
 import './setupTests';
 import { type Ref } from 'vue';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
+import { getDummyResume } from '@/utils/dummyResume';
 
 vi.mock('pdfjs-dist/build/pdf.min.mjs', () => ({
     GlobalWorkerOptions: { workerSrc: '' },
@@ -44,38 +45,8 @@ interface ResumePreviewInstance {
 }
 
 describe('ResumePreview.vue', () => {
-    const resumeInitialState: ResumeData = {
-        general: {
-            name: {
-                firstName: 'Jon',
-                middleName: '',
-                lastName: 'Snow',
-                displayName: '',
-            },
-            profilePhoto: '',
-            region: 'The Wall',
-            contact: {
-                email: 'jon.snow@resume-maker.io',
-                phone: '123123123',
-            },
-            drivingLicense: 'Car',
-            functionTitle: 'Watch Commander',
-            achievements: ['Defeated the Night King', 'Knows nothing', 'King in the North'],
-        },
-        skills: {
-            languages: [],
-            frameworks: [],
-            platforms: [],
-            methodologies: [],
-            databases: [],
-            tools: [],
-            operatingSystems: [],
-        },
-        topSkills: [],
-        education: [],
-        certifications: [],
-        jobs: [],
-    };
+    const resumeInitialState = getDummyResume();
+
     it('renders the component', async () => {
         const wrapper = mount(ResumePreview, {
             global: {

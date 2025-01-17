@@ -5,46 +5,7 @@ import JobPage from '../resume/JobPage';
 import { PAGE_HEIGHT, PAGE_WIDTH } from '../resume/constants';
 import { useResumeStore } from '@/stores/resume';
 
-vi.mock('@/stores/resume', () => {
-    const mockStore = {
-        general: {
-            name: {
-                firstName: 'Jon',
-                middleName: '',
-                lastName: 'Snow',
-                displayName: '',
-            },
-            profilePhoto: 'data:image/jpeg;base64,',
-            region: 'The Wall',
-            contact: {
-                email: 'jon.snow@resume-maker.io',
-                phone: '123123123',
-            },
-            drivingLicense: 'Car',
-            functionTitle: 'Watch Commander',
-            introduction: 'I am the sword in the darkness.',
-            achievements: ['Defeated the Night King', 'Knows nothing', 'King in the North'],
-            colleaguesDescribe: 'Brave',
-            colleaguesKnow: 'Loyal',
-        },
-        skills: {
-            languages: ['JavaScript', 'TypeScript'],
-            frameworks: ['Vue.js', 'React'],
-            platforms: ['Node.js', 'Docker'],
-            methodologies: ['Agile', 'Scrum'],
-            databases: ['MongoDB', 'PostgreSQL'],
-            tools: ['Git', 'Docker'],
-            operatingSystems: ['Windows', 'Linux'],
-        },
-        education: [],
-        certifications: [],
-        jobs: [],
-    };
-
-    return {
-        useResumeStore: () => mockStore,
-    };
-});
+vi.mock('@/stores/resume');
 
 describe('JobPage', () => {
     async function getPdfDocumentWithMocks(): Promise<PDFDocument> {
@@ -78,7 +39,7 @@ describe('JobPage', () => {
 
         await jobPage.initialize(pdfDoc);
 
-        expect(pdfDoc.addPage).toHaveBeenCalledOnce();
+        expect(pdfDoc.addPage).toHaveBeenCalledTimes(2);
         expect(pdfDoc.addPage).toHaveBeenCalledWith([PAGE_WIDTH, PAGE_HEIGHT]);
     });
 
@@ -89,10 +50,10 @@ describe('JobPage', () => {
         await jobPage.initialize(pdfDoc);
 
         const page = pdfDoc.addPage();
-        expect(page.drawLine).toHaveBeenCalledTimes(1);
+        expect(page.drawLine).toHaveBeenCalledTimes(3);
     });
 
-    it('should draw all the education options to the screen', async () => {
+    it('should draw all the job options to the screen', async () => {
         const resumeStore = useResumeStore();
         const jobs: Job[] = [
             {
@@ -102,7 +63,7 @@ describe('JobPage', () => {
                     startDate: '2001-01-01',
                     endDate: '2023-01-01',
                 },
-                description: 'This was a very tough 5-minute education.',
+                description: 'This was a very tough 5-minute job.',
                 role: '',
                 responsibilities: ['Being awesome'],
                 industry: 'Education',
@@ -124,7 +85,7 @@ describe('JobPage', () => {
                     startDate: '2001-01-01',
                     endDate: '2023-01-01',
                 },
-                description: 'This was a very tough 5-minute education.',
+                description: 'This was a very tough 5-minute job.',
 
                 role: 'Bachelor of Awesomeness',
                 responsibilities: ['Being awesome'],
@@ -149,9 +110,52 @@ describe('JobPage', () => {
 
         const page = pdfDoc.addPage();
 
-        expect(page.drawLine).toHaveBeenCalledTimes(3);
+        expect(page.drawLine).toHaveBeenCalledTimes(5);
         expect(page.drawText).toHaveBeenCalledWith('University of the Internet (Online)', expect.any(Object));
         expect(page.drawText).toHaveBeenCalledWith('University of the Banana (Online)', expect.any(Object));
         expect(page.drawText).toHaveBeenCalledWith('Bachelor of Awesomeness', expect.any(Object));
+    });
+
+    it('should not draw anything if there are no jobs', async () => {
+        const resumeStore = useResumeStore();
+        resumeStore.jobs = [];
+
+        const jobPage = JobPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await jobPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawLine).toHaveBeenCalledTimes(3);
+        expect(page.drawText).toHaveBeenCalledTimes(26);
+    });
+
+    it('should draw all the personal projects to the screen', async () => {
+        const jobPage = JobPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await jobPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawLine).toHaveBeenCalledTimes(3);
+        expect(page.drawText).toHaveBeenCalledTimes(26);
+    });
+
+    it('should not draw anything if there are no jobs or personal projects', async () => {
+        const resumeStore = useResumeStore();
+        resumeStore.jobs = [];
+        resumeStore.personalProjects = [];
+
+        const jobPage = JobPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await jobPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawLine).toHaveBeenCalledTimes(1);
+        expect(page.drawText).toHaveBeenCalledTimes(2);
     });
 });

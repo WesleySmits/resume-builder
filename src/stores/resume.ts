@@ -39,6 +39,7 @@ const defaultResumeState: ResumeData = {
     education: [],
     certifications: [],
     jobs: [],
+    personalProjects: [],
 };
 
 export const useResumeStore = defineStore('resume', {
@@ -76,6 +77,7 @@ export const useResumeStore = defineStore('resume', {
         education: ref<Education[]>(parsedResumeData?.education ?? []),
         certifications: ref<Certification[]>(parsedResumeData?.certifications ?? []),
         jobs: ref<Job[]>(parsedResumeData?.jobs ?? []),
+        personalProjects: ref<PersonalProject[]>(parsedResumeData?.personalProjects ?? []),
     }),
     getters: {
         formattedName: (state) => {
@@ -188,6 +190,15 @@ export const useResumeStore = defineStore('resume', {
             this.jobs = newJobs.sort(
                 (a, b) => new Date(b.period.startDate).getTime() - new Date(a.period.startDate).getTime(),
             );
+        },
+        setPersonalProjects(newProjects: PersonalProject[]): void {
+            this.personalProjects = newProjects.sort((a, b) => {
+                if (a.period && b.period) {
+                    return new Date(b.period.startDate).getTime() - new Date(a.period.startDate).getTime();
+                }
+
+                return 0;
+            });
         },
     },
 });

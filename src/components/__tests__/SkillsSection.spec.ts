@@ -6,36 +6,10 @@ import { mount, VueWrapper } from '@vue/test-utils';
 import { SkillFields } from '@/enums/skills';
 import { testFormField } from './utils';
 import FormField from '@/components/FormField.vue';
+import { getDummyResume } from '@/utils/dummyResume';
 
 describe('SkillsSection.vue', () => {
-    const resumeInitialState: ResumeData = {
-        general: {
-            name: {
-                firstName: 'Jon',
-                middleName: '',
-                lastName: 'Snow',
-                displayName: '',
-            },
-            contact: {
-                email: 'jon.snow@resume-maker.io',
-                phone: '123123123',
-            },
-            achievements: ['Defeated the Night King', 'Knows nothing', 'King in the North'],
-        },
-        skills: {
-            languages: ['HTML', 'CSS', 'JavaScript'],
-            frameworks: ['Vue.js'],
-            platforms: ['Node.js'],
-            methodologies: ['Agile'],
-            databases: ['MongoDB'],
-            tools: ['Git'],
-            operatingSystems: ['MacOS'],
-        },
-        topSkills: [],
-        education: [],
-        certifications: [],
-        jobs: [],
-    };
+    const resumeInitialState = getDummyResume();
 
     function getMountedComponent(): VueWrapper {
         return mount(SkillsSection, {

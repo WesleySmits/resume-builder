@@ -1,5 +1,4 @@
 import './setupTests';
-import { resumeInitialState } from './setupTests';
 import { setActivePinia, createPinia } from 'pinia';
 import { useResumeStore } from '../resume';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -11,7 +10,6 @@ vi.mock('@/utils/image', () => ({
 
 describe('useResumeStore', () => {
     beforeEach(() => {
-        localStorage.setItem('resumeData', JSON.stringify(resumeInitialState));
         setActivePinia(createPinia());
     });
 
@@ -26,17 +24,23 @@ describe('useResumeStore', () => {
         expect(store.general.region).toBe('The Wall');
         expect(store.general.drivingLicense).toBe('Car');
         expect(store.general.functionTitle).toBe('Watch Commander');
-        expect(store.general.introduction).toBe('I am the sword in the darkness.');
-        expect(store.general.achievements).toEqual(['Defeated the Night King', 'Knows nothing', 'King in the North']);
+        expect(store.general.introduction).toBe(
+            'I am the sword in the darkness. \n I am the watcher on the walls. \n I am the shield that guards the realms',
+        );
+        expect(store.general.achievements).toEqual([
+            'Defeated the Night King.. \n and his dragon.. \n Sort of',
+            '',
+            'King in the North',
+        ]);
         expect(store.general.colleaguesDescribe).toBe('Brave');
         expect(store.general.colleaguesKnow).toBe('Loyal');
-        expect(store.skills.languages).toEqual([]);
-        expect(store.skills.frameworks).toEqual([]);
-        expect(store.skills.platforms).toEqual([]);
-        expect(store.skills.methodologies).toEqual([]);
-        expect(store.skills.operatingSystems).toEqual([]);
-        expect(store.skills.databases).toEqual([]);
-        expect(store.skills.tools).toEqual([]);
+        expect(store.skills.languages).toEqual(['HTML', 'CSS', 'JavaScript']);
+        expect(store.skills.frameworks).toEqual(['Vue.js']);
+        expect(store.skills.platforms).toEqual(['Node.js']);
+        expect(store.skills.methodologies).toEqual(['Agile']);
+        expect(store.skills.operatingSystems).toEqual(['MacOS']);
+        expect(store.skills.databases).toEqual(['MongoDB']);
+        expect(store.skills.tools).toEqual(['Git']);
     });
 
     it('initializes with empty default state', () => {
@@ -104,6 +108,7 @@ describe('useResumeStore', () => {
 
     it('clearProfilePhoto action clears the profile photo', () => {
         const store = useResumeStore();
+        store.general.profilePhoto = 'data:image/jpeg;base64,';
         expect(store.general.profilePhoto).not.toBe('');
         store.clearProfilePhoto();
         expect(store.general.profilePhoto).toBe('');
@@ -232,6 +237,7 @@ describe('useResumeStore', () => {
 
     it('addTopSkill action adds a top skill', () => {
         const store = useResumeStore();
+        store.setTopSkills([]);
         const skill = { name: 'JavaScript', yearsOfExperience: 5 };
         expect(store.topSkills).toEqual([]);
         store.addTopSkill(skill);
@@ -396,5 +402,91 @@ describe('useResumeStore', () => {
 
         expect(store.jobs[0].company).toBe('Company 2');
         expect(store.jobs[1].company).toBe('Company 1');
+    });
+
+    it('should set the personalJobs array and sort it', () => {
+        const store = useResumeStore();
+        const personalProjects: PersonalProject[] = [
+            {
+                title: 'Project 1',
+                period: {
+                    startDate: '2022-01-01',
+                    endDate: '2022-01-02',
+                },
+                description: 'Description 1',
+                skills: {
+                    languages: [],
+                    frameworks: [],
+                    platforms: [],
+                    methodologies: [],
+                    operatingSystems: [],
+                    databases: [],
+                    tools: [],
+                },
+            },
+            {
+                title: 'Project 2',
+                period: {
+                    startDate: '2022-01-03',
+                    endDate: '2022-01-04',
+                },
+                description: 'Description 2',
+                skills: {
+                    languages: [],
+                    frameworks: [],
+                    platforms: [],
+                    methodologies: [],
+                    operatingSystems: [],
+                    databases: [],
+                    tools: [],
+                },
+            },
+        ];
+
+        store.setPersonalProjects(personalProjects);
+
+        expect(store.personalProjects[0].title).toBe('Project 2');
+        expect(store.personalProjects[1].title).toBe('Project 1');
+    });
+
+    it('should set the personalJobs array and not sort it due to the missing date', () => {
+        const store = useResumeStore();
+        const personalProjects: PersonalProject[] = [
+            {
+                title: 'Project 1',
+                period: {
+                    startDate: '2022-01-01',
+                    endDate: '2022-01-02',
+                },
+                description: 'Description 1',
+                skills: {
+                    languages: [],
+                    frameworks: [],
+                    platforms: [],
+                    methodologies: [],
+                    operatingSystems: [],
+                    databases: [],
+                    tools: [],
+                },
+            },
+            {
+                title: 'Project 2',
+                description: 'Description 2',
+                skills: {
+                    languages: [],
+                    frameworks: [],
+                    platforms: [],
+                    methodologies: [],
+                    operatingSystems: [],
+                    databases: [],
+                    tools: [],
+                },
+            },
+        ];
+
+        store.setPersonalProjects(personalProjects);
+
+        expect(store.personalProjects[0].title).toBe('Project 1');
+        expect(store.personalProjects[1].title).toBe('Project 2');
     });
 });
