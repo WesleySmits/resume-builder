@@ -40,9 +40,48 @@ export function getDummyResume(): ResumeData {
                 yearsOfExperience: 6,
             },
         ],
-        education: [],
-        certifications: [],
-        jobs: [],
+        education: [
+            {
+                institution: 'Apple School',
+                degree: 'Master of Pears',
+                fieldOfStudy: 'Healthcare',
+                location: 'The Stars',
+                startDate: '1970-01-01',
+                endDate: '1970-01-02',
+                description: 'Extensive study of fruits.',
+            },
+        ],
+        certifications: [
+            {
+                title: 'Certification 1',
+                provider: 'Provider 1',
+                completed: true,
+                year: 2021,
+            },
+        ],
+        jobs: [
+            {
+                company: 'University of the Banana',
+                location: 'Online',
+                period: {
+                    startDate: '2001-01-01',
+                    endDate: '2023-01-01',
+                },
+                description: 'This was a very tough 5-minute job.',
+                role: '',
+                responsibilities: ['Being awesome'],
+                industry: 'Education',
+                skills: {
+                    languages: ['JavaScript', 'TypeScript'],
+                    frameworks: ['Vue.js', 'React'],
+                    platforms: ['Node.js', 'Docker'],
+                    methodologies: ['Agile', 'Scrum'],
+                    databases: ['MongoDB', 'PostgreSQL'],
+                    tools: ['Git', 'Docker'],
+                    operatingSystems: ['Windows', 'Linux'],
+                },
+            },
+        ],
         personalProjects: [
             {
                 title: 'Project 1',

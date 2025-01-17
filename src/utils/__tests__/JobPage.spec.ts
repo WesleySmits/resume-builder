@@ -39,7 +39,7 @@ describe('JobPage', () => {
 
         await jobPage.initialize(pdfDoc);
 
-        expect(pdfDoc.addPage).toHaveBeenCalledTimes(2);
+        expect(pdfDoc.addPage).toHaveBeenCalledTimes(3);
         expect(pdfDoc.addPage).toHaveBeenCalledWith([PAGE_WIDTH, PAGE_HEIGHT]);
     });
 
@@ -50,7 +50,7 @@ describe('JobPage', () => {
         await jobPage.initialize(pdfDoc);
 
         const page = pdfDoc.addPage();
-        expect(page.drawLine).toHaveBeenCalledTimes(3);
+        expect(page.drawLine).toHaveBeenCalledTimes(4);
     });
 
     it('should draw all the job options to the screen', async () => {

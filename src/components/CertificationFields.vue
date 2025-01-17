@@ -6,9 +6,10 @@
         :onUpdate="updateCertifications"
         :getKey="getKey"
         :direction="'column'"
+        :id="'certifications'"
     >
         <template #item-fields="{ item, index, updateField, removeItem }">
-            <fieldset>
+            <fieldset :id="`certification-${index}`">
                 <details>
                     <summary>
                         <header>

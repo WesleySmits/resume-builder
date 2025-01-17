@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AdditionalSection.vue > matches the snapshot 1`] = `
+"<div class="form">
+  <h1>Additional Information</h1>
+  <p>Provide any additional information here.</p>
+</div>"
+`;
