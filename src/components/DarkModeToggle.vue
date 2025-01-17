@@ -34,13 +34,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, useTemplateRef } from 'vue';
 
 type Theme = 'light' | 'dark';
 
-const toggleIcon = ref<SVGSVGElement>();
-const moonToSun = ref<SVGAnimateElement>();
-const sunToMoon = ref<SVGAnimateElement>();
+const toggleIcon = useTemplateRef<SVGSVGElement>('toggleIcon');
+const moonToSun = useTemplateRef<SVGAnimateElement>('moonToSun');
+const sunToMoon = useTemplateRef<SVGAnimateElement>('sunToMoon');
 
 function setTheme(theme: Theme): void {
     document.documentElement.classList.toggle('dark', theme === 'dark');
