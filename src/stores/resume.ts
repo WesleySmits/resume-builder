@@ -41,6 +41,7 @@ const defaultResumeState: ResumeData = {
     jobs: [],
     personalProjects: [],
     languages: [],
+    competencies: [],
 };
 
 export const useResumeStore = defineStore('resume', {
@@ -80,6 +81,7 @@ export const useResumeStore = defineStore('resume', {
         jobs: ref<Job[]>(parsedResumeData?.jobs ?? []),
         personalProjects: ref<PersonalProject[]>(parsedResumeData?.personalProjects ?? []),
         languages: ref<Language[]>(parsedResumeData?.languages ?? []),
+        competencies: ref<Competency[]>(parsedResumeData?.competencies ?? []),
     }),
     getters: {
         formattedName: (state) => {
@@ -213,6 +215,9 @@ export const useResumeStore = defineStore('resume', {
             this.languages = newLanguages.sort((a, b) => {
                 return experienceOrder.indexOf(a.experience) - experienceOrder.indexOf(b.experience);
             });
+        },
+        setCompetencies(newCompetencies: Competency[]): void {
+            this.competencies = newCompetencies;
         },
     },
 });

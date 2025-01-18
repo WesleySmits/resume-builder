@@ -165,6 +165,10 @@ interface Language {
     experience: LanguageExperienceLevel;
 }
 
+interface Competency {
+    name: string;
+}
+
 interface ResumeData {
     general: General;
     skills: Skills;
@@ -174,4 +178,5 @@ interface ResumeData {
     jobs: Job[];
     personalProjects: PersonalProject[];
     languages: Language[];
+    competencies: Competency[];
 }

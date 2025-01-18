@@ -120,6 +120,17 @@ export function getDummyResume(): ResumeData {
                 experience: 'Fluent/Native',
             },
         ],
+        competencies: [
+            {
+                name: 'Problem Solving',
+            },
+            {
+                name: 'Teamwork',
+            },
+            {
+                name: 'Analytical Thinking',
+            },
+        ],
     };
 }
 
