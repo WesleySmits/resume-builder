@@ -158,6 +158,13 @@ interface PersonalProject {
     period?: Period;
 }
 
+type LanguageExperienceLevel = 'Fluent/Native' | 'Advanced' | 'Intermediate' | 'Beginner';
+
+interface Language {
+    name: string;
+    experience: LanguageExperienceLevel;
+}
+
 interface ResumeData {
     general: General;
     skills: Skills;
@@ -166,4 +173,5 @@ interface ResumeData {
     certifications: Certification[];
     jobs: Job[];
     personalProjects: PersonalProject[];
+    languages: Language[];
 }

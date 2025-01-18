@@ -170,5 +170,15 @@
     "personalProjectTitle": "Title",
     "personalProjectTitlePlaceholder": "Portfolio Website",
     "personalProjectTitleHelperText": "Enter the title of the personal project.",
-    "deletePersonalProject": "Delete Personal Project"
+    "deletePersonalProject": "Delete Personal Project",
+    "language": "Language",
+    "languages": "Languages",
+    "newLanguage": "New Language",
+    "languagePlaceholder": "English, Dutch, Spanish, etc.",
+    "languageHelperText": "Enter the language you speak.",
+    "removeLanguage": "Remove Language",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "fluent": "Fluent / Native"
 }

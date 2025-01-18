@@ -40,6 +40,7 @@ const defaultResumeState: ResumeData = {
     certifications: [],
     jobs: [],
     personalProjects: [],
+    languages: [],
 };
 
 export const useResumeStore = defineStore('resume', {
@@ -78,6 +79,7 @@ export const useResumeStore = defineStore('resume', {
         certifications: ref<Certification[]>(parsedResumeData?.certifications ?? []),
         jobs: ref<Job[]>(parsedResumeData?.jobs ?? []),
         personalProjects: ref<PersonalProject[]>(parsedResumeData?.personalProjects ?? []),
+        languages: ref<Language[]>(parsedResumeData?.languages ?? []),
     }),
     getters: {
         formattedName: (state) => {
@@ -198,6 +200,18 @@ export const useResumeStore = defineStore('resume', {
                 }
 
                 return 0;
+            });
+        },
+        setLanguages(newLanguages: Language[]): void {
+            const experienceOrder: LanguageExperienceLevel[] = [
+                'Fluent/Native',
+                'Advanced',
+                'Intermediate',
+                'Beginner',
+            ];
+
+            this.languages = newLanguages.sort((a, b) => {
+                return experienceOrder.indexOf(a.experience) - experienceOrder.indexOf(b.experience);
             });
         },
     },

@@ -114,6 +114,12 @@ export function getDummyResume(): ResumeData {
                 },
             },
         ],
+        languages: [
+            {
+                name: 'English',
+                experience: 'Fluent/Native',
+            },
+        ],
     };
 }
 
