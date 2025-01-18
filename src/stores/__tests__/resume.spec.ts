@@ -489,4 +489,27 @@ describe('useResumeStore', () => {
         expect(store.personalProjects[0].title).toBe('Project 1');
         expect(store.personalProjects[1].title).toBe('Project 2');
     });
+
+    it('should set the languages array', () => {
+        const store = useResumeStore();
+        const languages: Language[] = [
+            {
+                name: 'Spanish',
+                experience: 'Intermediate',
+            },
+
+            {
+                name: 'English',
+                experience: 'Fluent/Native',
+            },
+        ];
+
+        store.setLanguages([]);
+        expect(store.languages.length).toBe(0);
+
+        store.setLanguages(languages);
+        expect(store.languages.length).toBe(2);
+        expect(store.languages[0].name).toBe('English');
+        expect(store.languages[1].name).toBe('Spanish');
+    });
 });
