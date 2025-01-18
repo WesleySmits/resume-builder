@@ -3,6 +3,7 @@ import IntroductionPage from './IntroductionPage';
 import SkillsPage from './SkillsPage';
 import EducationPage from './EducationPage';
 import JobPage from './JobPage';
+import AdditionalPage from './AdditionalPage';
 
 export async function generateResume(): Promise<Uint8Array> {
     const pdfDoc = await PDFDocument.create();
@@ -18,6 +19,9 @@ export async function generateResume(): Promise<Uint8Array> {
 
     const jobPage = JobPage.getInstance();
     await jobPage.initialize(pdfDoc);
+
+    const additionalPage = AdditionalPage.getInstance();
+    await additionalPage.initialize(pdfDoc);
 
     return pdfDoc.save();
 }

@@ -6,6 +6,7 @@ import JobPage from '../resume/JobPage';
 import { generateResume } from '../resume/resume';
 import { PDFDocument } from 'pdf-lib';
 import { beforeEach } from 'vitest';
+import AdditionalPage from '../resume/AdditionalPage';
 
 vi.mock('pdf-lib', () => {
     return {
@@ -56,6 +57,15 @@ vi.mock('../resume/JobPage', () => {
         },
     };
 });
+vi.mock('../resume/AdditionalPage', () => {
+    return {
+        default: {
+            getInstance: vi.fn().mockReturnValue({
+                initialize: vi.fn(),
+            }),
+        },
+    };
+});
 
 describe('generateResume', () => {
     beforeEach(() => {
@@ -63,6 +73,7 @@ describe('generateResume', () => {
         (SkillsPage.getInstance().initialize as Mock).mockReset();
         (EducationPage.getInstance().initialize as Mock).mockReset();
         (JobPage.getInstance().initialize as Mock).mockReset();
+        (AdditionalPage.getInstance().initialize as Mock).mockReset();
     });
 
     it('should create and save a PDF', async () => {
@@ -84,5 +95,6 @@ describe('generateResume', () => {
         expect(skillsPage.initialize).toHaveBeenCalledOnce();
         expect(educationPage.initialize).toHaveBeenCalledOnce();
         expect(jobPage.initialize).toHaveBeenCalledOnce();
+        expect(AdditionalPage.getInstance().initialize).toHaveBeenCalledOnce();
     });
 });

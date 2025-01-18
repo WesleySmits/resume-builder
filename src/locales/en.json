@@ -180,5 +180,9 @@
     "beginner": "Beginner",
     "intermediate": "Intermediate",
     "advanced": "Advanced",
-    "fluent": "Fluent / Native"
+    "fluent": "Fluent / Native",
+    "experienceFluentNative": "Native or near native (C1/C2)",
+    "experienceAdvanced": "Advanced (B2)",
+    "experienceIntermediate": "Intermediate (B1)",
+    "experienceBeginner": "Beginner (A1/A2)"
 }

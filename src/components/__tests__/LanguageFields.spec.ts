@@ -44,7 +44,7 @@ describe('EducationFields.vue', () => {
         expect(fields.length).toBe(2);
     });
 
-    it.only('should successfully add a new language', async () => {
+    it('should successfully add a new language', async () => {
         const store = useResumeStore();
 
         const wrapper = getMountedComponent();
