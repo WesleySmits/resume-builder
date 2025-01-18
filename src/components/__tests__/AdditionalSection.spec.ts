@@ -3,6 +3,7 @@ import { describe, it, expect, vi } from 'vitest';
 import AdditionalSection from '../ResumeFormSections/AdditionalSection.vue';
 import { createTestingPinia } from '@pinia/testing';
 import { getDummyResume } from '@/utils/dummyResume';
+import LanguageFields from '../LanguageFields.vue';
 
 describe('AdditionalSection.vue', () => {
     const resumeInitialState = getDummyResume();
@@ -27,16 +28,9 @@ describe('AdditionalSection.vue', () => {
         expect(wrapper.exists()).toBe(true);
     });
 
-    it('renders the correct static content', () => {
+    it('renders the correct components', () => {
         const wrapper = getMountedComponent();
-
-        const heading = wrapper.find('h1');
-        expect(heading.exists()).toBe(true);
-        expect(heading.text()).toBe('Additional Information');
-
-        const paragraph = wrapper.find('p');
-        expect(paragraph.exists()).toBe(true);
-        expect(paragraph.text()).toBe('Provide any additional information here.');
+        expect(wrapper.findComponent(LanguageFields).exists()).toBe(true);
     });
 
     it('matches the snapshot', () => {

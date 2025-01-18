@@ -1,8 +1,9 @@
 <template>
     <div class="form">
-        <h1>Additional Information</h1>
-        <p>Provide any additional information here.</p>
+        <LanguageFields />
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import LanguageFields from '../LanguageFields.vue';
+</script>

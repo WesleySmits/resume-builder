@@ -17,139 +17,141 @@
                         </header>
                     </summary>
 
-                    <FormField
-                        :id="`company-${index}`"
-                        :label="getLocalizedString('company')"
-                        :placeholder="getLocalizedString('companyPlaceholder')"
-                        :helperText="getLocalizedString('companyHelperText')"
-                        :errorText="getLocalizedString('requiredFieldError')"
-                        :modelValue="item.company"
-                        :required="true"
-                        @valid="(value) => updateField('company', value as string)"
-                    />
-
-                    <FormField
-                        :id="`jobLocation-${index}`"
-                        :label="getLocalizedString('jobLocation')"
-                        :placeholder="getLocalizedString('jobLocationPlaceholder')"
-                        :helperText="getLocalizedString('jobLocationHelperText')"
-                        :modelValue="item.location"
-                        :required="false"
-                        @valid="(value) => updateField('location', value as string)"
-                    />
-
-                    <FormField
-                        :id="`jobRole-${index}`"
-                        :label="getLocalizedString('jobRole')"
-                        :placeholder="getLocalizedString('jobRolePlaceholder')"
-                        :helperText="getLocalizedString('jobRoleHelperText')"
-                        :modelValue="item.role"
-                        :required="true"
-                        @valid="(value) => updateField('role', value as string)"
-                    />
-
-                    <FormField
-                        :id="`jobIndustry-${index}`"
-                        :label="getLocalizedString('jobIndustry')"
-                        :placeholder="getLocalizedString('jobIndustryPlaceholder')"
-                        :helperText="getLocalizedString('jobIndustryHelperText')"
-                        :modelValue="item.industry"
-                        :required="true"
-                        @valid="(value) => updateField('industry', value as string)"
-                    />
-
-                    <fieldset>
-                        <header>
-                            <legend>{{ getLocalizedString('jobPeriod') }}</legend>
-                        </header>
+                    <div class="form">
                         <FormField
-                            type="date"
-                            :id="`jobStartDate-${index}`"
-                            :label="getLocalizedString('jobStartDate')"
-                            :placeholder="getLocalizedString('jobStartDatePlaceholder')"
-                            :helperText="getLocalizedString('jobStartDateHelperText')"
-                            :modelValue="item.period.startDate"
+                            :id="`company-${index}`"
+                            :label="getLocalizedString('company')"
+                            :placeholder="getLocalizedString('companyPlaceholder')"
+                            :helperText="getLocalizedString('companyHelperText')"
+                            :errorText="getLocalizedString('requiredFieldError')"
+                            :modelValue="item.company"
                             :required="true"
-                            @valid="(value) => updateField('period.startDate', value as string)"
+                            @valid="(value) => updateField('company', value as string)"
                         />
 
                         <FormField
-                            type="date"
-                            :id="`jobEndDate-${index}`"
-                            :label="getLocalizedString('jobEndDate')"
-                            :placeholder="getLocalizedString('jobEndDatePlaceholder')"
-                            :helperText="getLocalizedString('jobEndDateHelperText')"
-                            :modelValue="item.period.endDate"
+                            :id="`jobLocation-${index}`"
+                            :label="getLocalizedString('jobLocation')"
+                            :placeholder="getLocalizedString('jobLocationPlaceholder')"
+                            :helperText="getLocalizedString('jobLocationHelperText')"
+                            :modelValue="item.location"
                             :required="false"
-                            @valid="(value) => updateField('period.endDate', value as string)"
+                            @valid="(value) => updateField('location', value as string)"
                         />
-                    </fieldset>
 
-                    <FormField
-                        :type="'textarea'"
-                        :id="`jobDescription-${index}`"
-                        :label="getLocalizedString('jobDescription')"
-                        :placeholder="getLocalizedString('jobDescriptionPlaceholder')"
-                        :helperText="getLocalizedString('jobDescriptionHelperText')"
-                        :modelValue="item.description"
-                        :required="false"
-                        @valid="(value) => updateField('description', value as string)"
-                    />
-
-                    <DynamicList
-                        :title="getLocalizedString('jobResponsibilities')"
-                        :items="item.responsibilities"
-                        :defaultItem="() => ''"
-                        :onUpdate="() => {}"
-                        :getKey="getResponsibilitiesKey"
-                        :id="`jobResponsibilities`"
-                        :curtain-name="'jobResponsibilities-curtain'"
-                    >
-                        <template
-                            #item-fields="{
-                                item: responsibilityItem,
-                                index: responsibilityIndex,
-                                removeItem: responsibilityRemoveItem,
-                            }"
-                        >
-                            <FormField
-                                :type="'text'"
-                                :id="`responsibility-${responsibilityIndex}`"
-                                :label="getLocalizedString('jobResponsibility')"
-                                :placeholder="getLocalizedString('jobResponsibilityPlaceholder')"
-                                :helperText="getLocalizedString('jobResponsibilityHelperText')"
-                                :modelValue="responsibilityItem"
-                                :required="false"
-                                @valid="(value) => updateResponsibility(responsibilityIndex, value as string, item)"
-                            />
-                            <button @click="responsibilityRemoveItem" class="secondary" data-action="remove">
-                                {{ getLocalizedString('deleteResponsibility') }}
-                            </button>
-                        </template>
-                    </DynamicList>
-
-                    <fieldset>
-                        <header>
-                            <legend>{{ getLocalizedString('technicalSkills') }}</legend>
-                        </header>
                         <FormField
-                            v-for="field in getSkillsData(item.skills, index)"
-                            :type="field.type"
-                            :fieldType="field.fieldType"
-                            :key="field.id"
-                            :id="field.id"
-                            :label="field.label"
-                            :placeholder="field.placeholder"
-                            :helperText="field.helperText"
-                            @valid="(value) => field.handleChange(value as string[])"
-                            :modelValue="field.modelValue"
-                            :required="field.required"
+                            :id="`jobRole-${index}`"
+                            :label="getLocalizedString('jobRole')"
+                            :placeholder="getLocalizedString('jobRolePlaceholder')"
+                            :helperText="getLocalizedString('jobRoleHelperText')"
+                            :modelValue="item.role"
+                            :required="true"
+                            @valid="(value) => updateField('role', value as string)"
                         />
-                    </fieldset>
 
-                    <button @click="removeItem" class="secondary" data-action="remove">
-                        {{ getLocalizedString('deleteJob') }}
-                    </button>
+                        <FormField
+                            :id="`jobIndustry-${index}`"
+                            :label="getLocalizedString('jobIndustry')"
+                            :placeholder="getLocalizedString('jobIndustryPlaceholder')"
+                            :helperText="getLocalizedString('jobIndustryHelperText')"
+                            :modelValue="item.industry"
+                            :required="true"
+                            @valid="(value) => updateField('industry', value as string)"
+                        />
+
+                        <fieldset>
+                            <header>
+                                <legend>{{ getLocalizedString('jobPeriod') }}</legend>
+                            </header>
+                            <FormField
+                                type="date"
+                                :id="`jobStartDate-${index}`"
+                                :label="getLocalizedString('jobStartDate')"
+                                :placeholder="getLocalizedString('jobStartDatePlaceholder')"
+                                :helperText="getLocalizedString('jobStartDateHelperText')"
+                                :modelValue="item.period.startDate"
+                                :required="true"
+                                @valid="(value) => updateField('period.startDate', value as string)"
+                            />
+
+                            <FormField
+                                type="date"
+                                :id="`jobEndDate-${index}`"
+                                :label="getLocalizedString('jobEndDate')"
+                                :placeholder="getLocalizedString('jobEndDatePlaceholder')"
+                                :helperText="getLocalizedString('jobEndDateHelperText')"
+                                :modelValue="item.period.endDate"
+                                :required="false"
+                                @valid="(value) => updateField('period.endDate', value as string)"
+                            />
+                        </fieldset>
+
+                        <FormField
+                            :type="'textarea'"
+                            :id="`jobDescription-${index}`"
+                            :label="getLocalizedString('jobDescription')"
+                            :placeholder="getLocalizedString('jobDescriptionPlaceholder')"
+                            :helperText="getLocalizedString('jobDescriptionHelperText')"
+                            :modelValue="item.description"
+                            :required="false"
+                            @valid="(value) => updateField('description', value as string)"
+                        />
+
+                        <DynamicList
+                            :title="getLocalizedString('jobResponsibilities')"
+                            :items="item.responsibilities"
+                            :defaultItem="() => ''"
+                            :onUpdate="() => {}"
+                            :getKey="getResponsibilitiesKey"
+                            :id="`jobResponsibilities`"
+                            :curtain-name="'jobResponsibilities-curtain'"
+                        >
+                            <template
+                                #item-fields="{
+                                    item: responsibilityItem,
+                                    index: responsibilityIndex,
+                                    removeItem: responsibilityRemoveItem,
+                                }"
+                            >
+                                <FormField
+                                    :type="'text'"
+                                    :id="`responsibility-${responsibilityIndex}`"
+                                    :label="getLocalizedString('jobResponsibility')"
+                                    :placeholder="getLocalizedString('jobResponsibilityPlaceholder')"
+                                    :helperText="getLocalizedString('jobResponsibilityHelperText')"
+                                    :modelValue="responsibilityItem"
+                                    :required="false"
+                                    @valid="(value) => updateResponsibility(responsibilityIndex, value as string, item)"
+                                />
+                                <button @click="responsibilityRemoveItem" class="secondary" data-action="remove">
+                                    {{ getLocalizedString('deleteResponsibility') }}
+                                </button>
+                            </template>
+                        </DynamicList>
+
+                        <fieldset>
+                            <header>
+                                <legend>{{ getLocalizedString('technicalSkills') }}</legend>
+                            </header>
+                            <FormField
+                                v-for="field in getSkillsData(item.skills, index)"
+                                :type="field.type"
+                                :fieldType="field.fieldType"
+                                :key="field.id"
+                                :id="field.id"
+                                :label="field.label"
+                                :placeholder="field.placeholder"
+                                :helperText="field.helperText"
+                                @valid="(value) => field.handleChange(value as string[])"
+                                :modelValue="field.modelValue"
+                                :required="field.required"
+                            />
+                        </fieldset>
+
+                        <button @click="removeItem" class="secondary" data-action="remove">
+                            {{ getLocalizedString('deleteJob') }}
+                        </button>
+                    </div>
                 </details>
             </fieldset>
         </template>
