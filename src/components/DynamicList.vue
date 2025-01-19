@@ -1,6 +1,6 @@
 <template>
     <fieldset class="dynamic-list" :id="id">
-        <details :name="props.curtainName ?? 'skills-curtain'" open>
+        <details ref="curtain" :name="props.curtainName ?? 'skills-curtain'" open>
             <summary>
                 <header>
                     <legend>{{ title }}</legend>
@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts" generic="T, K extends keyof T">
-import { computed, ref, watch, type Ref } from 'vue';
+import { computed, ref, useTemplateRef, watch, type Ref } from 'vue';
 import PlusIcon from '@/icons/PlusIcon.vue';
 import SortIcon from '@/icons/SortIcon.vue';
 
@@ -57,6 +57,7 @@ export interface DynamicListProps<T> {
 
 const props = defineProps<DynamicListProps<T>>();
 const emit = defineEmits(['update']);
+const curtainRef = useTemplateRef('curtain');
 
 const listItemClass = computed(() => ({
     'list-item': true,
@@ -79,6 +80,10 @@ watch(
 function addItem() {
     if (items.value.length >= (props.maxItems || Infinity)) {
         return;
+    }
+
+    if (curtainRef.value) {
+        curtainRef.value.open = true;
     }
 
     const defaultItem = props.defaultItem();
