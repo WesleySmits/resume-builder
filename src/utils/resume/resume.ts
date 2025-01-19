@@ -1,27 +1,107 @@
-import { PDFDocument } from 'pdf-lib';
-import IntroductionPage from './IntroductionPage';
-import SkillsPage from './SkillsPage';
-import EducationPage from './EducationPage';
-import JobPage from './JobPage';
-import AdditionalPage from './AdditionalPage';
+import { useResumeStore } from '@/stores/resume';
 
 export async function generateResume(): Promise<Uint8Array> {
+    const PDFDocument = (await import('pdf-lib')).PDFDocument;
+    const IntroductionPage = (await import('./IntroductionPage')).default;
     const pdfDoc = await PDFDocument.create();
 
     const introductionPage = IntroductionPage.getInstance();
     await introductionPage.initialize(pdfDoc);
 
-    const skillsPage = SkillsPage.getInstance();
-    await skillsPage.initialize(pdfDoc);
+    if (shouldGenerateSkillsPage()) {
+        const { default: SkillsPage } = await import('./SkillsPage');
+        const skillsPage = SkillsPage.getInstance();
+        await skillsPage.initialize(pdfDoc);
+    }
 
-    const educationPage = EducationPage.getInstance();
-    await educationPage.initialize(pdfDoc);
+    if (shouldGenerateEducationPage()) {
+        const { default: EducationPage } = await import('./EducationPage');
+        const educationPage = EducationPage.getInstance();
+        await educationPage.initialize(pdfDoc);
+    }
 
-    const jobPage = JobPage.getInstance();
-    await jobPage.initialize(pdfDoc);
+    if (shouldGenerateJobPage()) {
+        const { default: JobPage } = await import('./JobPage');
+        const jobPage = JobPage.getInstance();
+        await jobPage.initialize(pdfDoc);
+    }
 
-    const additionalPage = AdditionalPage.getInstance();
-    await additionalPage.initialize(pdfDoc);
+    if (shouldGenerateAdditionalPage()) {
+        const { default: AdditionalPage } = await import('./AdditionalPage');
+        const additionalPage = AdditionalPage.getInstance();
+        await additionalPage.initialize(pdfDoc);
+    }
 
     return pdfDoc.save();
+}
+
+export function shouldGenerateIntroductionPage(): boolean {
+    const store = useResumeStore();
+
+    if (!store.general.name.firstName || !store.general.name.lastName) {
+        return false;
+    }
+
+    console.log('Generating introduction page');
+    return true;
+}
+
+function shouldGenerateSkillsPage(): boolean {
+    const store = useResumeStore();
+
+    const skillCategories = [
+        store.skills.languages,
+        store.skills.platforms,
+        store.skills.frameworks,
+        store.skills.databases,
+        store.skills.tools,
+        store.skills.methodologies,
+        store.skills.operatingSystems,
+    ];
+
+    if (skillCategories.every((category) => category.length === 0)) {
+        return false;
+    }
+
+    console.log('Generating skills page', store.skills);
+    return true;
+}
+
+function shouldGenerateEducationPage(): boolean {
+    const store = useResumeStore();
+
+    const educationSections = [store.education, store.certifications];
+
+    if (educationSections.every((section) => section.length === 0)) {
+        return false;
+    }
+
+    console.log('Generating education page');
+    return true;
+}
+
+function shouldGenerateJobPage(): boolean {
+    const store = useResumeStore();
+
+    const jobSections = [store.jobs, store.personalProjects];
+
+    if (jobSections.every((section) => section.length === 0)) {
+        return false;
+    }
+
+    console.log('Generating job page');
+    return true;
+}
+
+function shouldGenerateAdditionalPage(): boolean {
+    const store = useResumeStore();
+
+    const additionalSections = [store.languages, store.competencies];
+
+    if (additionalSections.every((section) => section.length === 0)) {
+        return false;
+    }
+
+    console.log('Generating additional page');
+    return true;
 }
