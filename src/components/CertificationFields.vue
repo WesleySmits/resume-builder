@@ -7,6 +7,7 @@
         :getKey="getKey"
         :direction="'column'"
         :id="'certifications'"
+        :curtain-name="'certifications-curtain'"
     >
         <template #item-fields="{ item, index, updateField, removeItem }">
             <fieldset :id="`certification-${index}`">
