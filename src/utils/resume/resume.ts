@@ -42,7 +42,6 @@ export function shouldGenerateIntroductionPage(): boolean {
         return false;
     }
 
-    console.log('Generating introduction page');
     return true;
 }
 
@@ -63,7 +62,6 @@ function shouldGenerateSkillsPage(): boolean {
         return false;
     }
 
-    console.log('Generating skills page', store.skills);
     return true;
 }
 
@@ -76,7 +74,6 @@ function shouldGenerateEducationPage(): boolean {
         return false;
     }
 
-    console.log('Generating education page');
     return true;
 }
 
@@ -89,7 +86,6 @@ function shouldGenerateJobPage(): boolean {
         return false;
     }
 
-    console.log('Generating job page');
     return true;
 }
 
@@ -102,6 +98,5 @@ function shouldGenerateAdditionalPage(): boolean {
         return false;
     }
 
-    console.log('Generating additional page');
     return true;
 }
