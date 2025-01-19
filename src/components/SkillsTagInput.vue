@@ -93,7 +93,7 @@ const onKeydown = (event: KeyboardEvent) => {
 };
 
 const onInput = () => {
-    if (dataListItems.value && !dataListItems.value.includes(inputValue.value)) {
+    if (!dataListItems.value || (dataListItems.value && !dataListItems.value.includes(inputValue.value))) {
         return;
     }
 
