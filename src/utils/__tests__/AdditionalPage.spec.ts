@@ -130,7 +130,7 @@ describe('AdditionalPage', () => {
         expect(page.drawText).toHaveBeenCalledWith('Interests', expect.any(Object));
     });
 
-    it.only('should draw the interests in a single columns if they are filled in', async () => {
+    it('should draw the interests in a single columns if they are filled in', async () => {
         const resumeStore = useResumeStore();
         resumeStore.interests = ['Golf'];
 
