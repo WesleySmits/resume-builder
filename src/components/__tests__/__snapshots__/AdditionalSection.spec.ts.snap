@@ -61,5 +61,23 @@ exports[`AdditionalSection.vue > matches the snapshot 1`] = `
       </div>
     </details>
   </fieldset>
+  <fieldset id="interests">
+    <details name="interest-curtain" open="">
+      <summary>
+        <header>
+          <legend>Interests</legend>
+        </header>
+      </summary>
+      <div class="form">
+        <div data-v-b9645e84="" class="form-field">
+          <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="" id-prop="" required="true" aria-labelledby="interests" aria-describedby="interests-helper" type="tags" value="Programming,Star Wars,Game of Thrones">
+            <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Programming <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Star Wars <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Game of Thrones <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Programming, Smart Home, Accessibility, Reading, Star Wars, etc." id="interests" list="interests-datalist">
+            <!--v-if-->
+          </div><label data-v-b9645e84="" for="interests">Interests</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter your interests here.</small>
+          <!--v-if-->
+        </div>
+      </div>
+    </details>
+  </fieldset>
 </div>"
 `;

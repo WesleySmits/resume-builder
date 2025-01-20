@@ -526,4 +526,18 @@ describe('useResumeStore', () => {
         expect(store.competencies[1]).toBe('Teamwork');
         expect(store.competencies[2]).toBe('Analytical Thinking');
     });
+
+    it('should set the interests array', () => {
+        const store = useResumeStore();
+        const interests: string[] = ['Walking my dog', 'Golf', 'Reading'];
+
+        store.setInterests([]);
+        expect(store.interests.length).toBe(0);
+
+        store.setInterests(interests);
+        expect(store.interests.length).toBe(3);
+        expect(store.interests[0]).toBe('Walking my dog');
+        expect(store.interests[1]).toBe('Golf');
+        expect(store.interests[2]).toBe('Reading');
+    });
 });

@@ -83,7 +83,7 @@ export const useResumeStore = defineStore('resume', {
         personalProjects: ref<PersonalProject[]>(parsedResumeData?.personalProjects ?? []),
         languages: ref<Language[]>(parsedResumeData?.languages ?? []),
         competencies: ref<string[]>(parsedResumeData?.competencies ?? []),
-        interests: ref<string[]>(parsedResumeData?.competencies ?? []),
+        interests: ref<string[]>(parsedResumeData?.interests ?? []),
     }),
     getters: {
         formattedName: (state) => {
