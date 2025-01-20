@@ -52,7 +52,6 @@ describe('AdditionalPage', () => {
         await additionalPage.initialize(pdfDoc);
 
         const page = pdfDoc.addPage();
-        expect(page.drawLine).toHaveBeenCalledTimes(1);
         expect(page.drawText).toHaveBeenCalledWith('Languages', expect.any(Object));
     });
 
@@ -77,7 +76,58 @@ describe('AdditionalPage', () => {
 
         const page = pdfDoc.addPage();
 
-        expect(page.drawLine).toHaveBeenCalledTimes(0);
-        expect(page.drawText).toHaveBeenCalledTimes(0);
+        expect(page.drawText).not.toHaveBeenCalledWith('Languages', expect.any(Object));
+    });
+
+    it('should draw the competencies if they are filled in', async () => {
+        const additionalPage = AdditionalPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await additionalPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawText).toHaveBeenCalledWith('Competencies', expect.any(Object));
+
+        expect(page.drawText).toHaveBeenCalledWith('• Problem Solving', expect.any(Object));
+        expect(page.drawText).toHaveBeenCalledWith('• Teamwork', expect.any(Object));
+        expect(page.drawText).not.toHaveBeenCalledWith('• ', expect.any(Object));
+        expect(page.drawText).toHaveBeenCalledWith('• Analytical Thinking', expect.any(Object));
+    });
+
+    it('should not draw anything if there are no competencies', async () => {
+        const resumeStore = useResumeStore();
+        resumeStore.competencies = [];
+        resumeStore.languages = [
+            {
+                name: 'English',
+                experience: 'Beginner',
+            },
+        ];
+
+        const additionalPage = AdditionalPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await additionalPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawText).not.toHaveBeenCalledWith('Competencies', expect.any(Object));
+    });
+
+    it('should not draw anything if there are no competencies or languages', async () => {
+        const resumeStore = useResumeStore();
+        resumeStore.competencies = [];
+        resumeStore.languages = [];
+
+        const additionalPage = AdditionalPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await additionalPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawText).not.toHaveBeenCalledWith('Languages', expect.any(Object));
+        expect(page.drawText).not.toHaveBeenCalledWith('Competencies', expect.any(Object));
     });
 });

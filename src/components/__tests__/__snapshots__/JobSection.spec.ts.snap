@@ -76,53 +76,50 @@ exports[`JobSection.vue > matches the snapshot 1`] = `
                     <legend>Technical Skills</legend>
                   </header>
                   <div data-v-b9645e84="" class="form-field">
-                    <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="jobSkillsLanguages-0" aria-describedby="jobSkillsLanguages-0-helper" type="skills">
-                      <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">JavaScript <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">TypeScript <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add languages (e.g., JavaScript, Python)" id="jobSkillsLanguages-0" list="jobSkillsLanguages-0-datalist"><datalist data-v-cbf88cb5="" id="jobSkillsLanguages-0-datalist">
-                        <option data-v-cbf88cb5="" value="HTML"></option>
-                        <option data-v-cbf88cb5="" value="CSS"></option>
-                      </datalist>
+                    <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="languages" id-prop="" required="false" aria-labelledby="jobSkillsLanguages-0" aria-describedby="jobSkillsLanguages-0-helper" type="tags" value="JavaScript,TypeScript">
+                      <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">JavaScript <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">TypeScript <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add languages (e.g., JavaScript, Python)" id="jobSkillsLanguages-0" list="jobSkillsLanguages-0-datalist">
+                      <!--v-if-->
                     </div><label data-v-b9645e84="" for="jobSkillsLanguages-0">Programming, scripting, and markup languages</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all languages you are familiar with.</small>
                     <!--v-if-->
                   </div>
                   <div data-v-b9645e84="" class="form-field">
-                    <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="jobSkillsFrameworks-0" aria-describedby="jobSkillsFrameworks-0-helper" type="skills">
-                      <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Vue.js <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">React <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add frameworks (e.g., Angular, Symfony, Laravel)" id="jobSkillsFrameworks-0" list="jobSkillsFrameworks-0-datalist">
+                    <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="frameworks" id-prop="" required="false" aria-labelledby="jobSkillsFrameworks-0" aria-describedby="jobSkillsFrameworks-0-helper" type="tags" value="Vue.js,React">
+                      <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Vue.js <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">React <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add frameworks (e.g., Angular, Symfony, Laravel)" id="jobSkillsFrameworks-0" list="jobSkillsFrameworks-0-datalist">
                       <!--v-if-->
                     </div><label data-v-b9645e84="" for="jobSkillsFrameworks-0">(Web) frameworks</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all frameworks you are familiar with.</small>
                     <!--v-if-->
                   </div>
                   <div data-v-b9645e84="" class="form-field">
-                    <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="jobSkillsPlatforms-0" aria-describedby="jobSkillsPlatforms-0-helper" type="skills">
-                      <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Node.js <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Docker <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add platforms (e.g., AWS, Azure, Docker)" id="jobSkillsPlatforms-0" list="jobSkillsPlatforms-0-datalist">
+                    <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="platforms" id-prop="" required="false" aria-labelledby="jobSkillsPlatforms-0" aria-describedby="jobSkillsPlatforms-0-helper" type="tags" value="Node.js,Docker">
+                      <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Node.js <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Docker <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add platforms (e.g., AWS, Azure, Docker)" id="jobSkillsPlatforms-0" list="jobSkillsPlatforms-0-datalist">
                       <!--v-if-->
                     </div><label data-v-b9645e84="" for="jobSkillsPlatforms-0">Platforms</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all platforms you are familiar with.</small>
                     <!--v-if-->
                   </div>
                   <div data-v-b9645e84="" class="form-field">
-                    <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="jobSkillsMethodologies-0" aria-describedby="jobSkillsMethodologies-0-helper" type="skills">
-                      <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Agile <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Scrum <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add methodologies (e.g., Agile, Scrum, Kanban)" id="jobSkillsMethodologies-0" list="jobSkillsMethodologies-0-datalist">
+                    <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="methodologies" id-prop="" required="false" aria-labelledby="jobSkillsMethodologies-0" aria-describedby="jobSkillsMethodologies-0-helper" type="tags" value="Agile,Scrum">
+                      <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Agile <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Scrum <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add methodologies (e.g., Agile, Scrum, Kanban)" id="jobSkillsMethodologies-0" list="jobSkillsMethodologies-0-datalist">
                       <!--v-if-->
                     </div><label data-v-b9645e84="" for="jobSkillsMethodologies-0">Methodologies and techniques</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all methodologies you are familiar with.</small>
                     <!--v-if-->
                   </div>
                   <div data-v-b9645e84="" class="form-field">
-                    <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="jobSkillsOperatingSystems-0" aria-describedby="jobSkillsOperatingSystems-0-helper" type="skills">
-                      <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Windows <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Linux <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add operating systems (e.g., Windows, macOS, Linux)" id="jobSkillsOperatingSystems-0" list="jobSkillsOperatingSystems-0-datalist"><datalist data-v-cbf88cb5="" id="jobSkillsOperatingSystems-0-datalist">
-                        <option data-v-cbf88cb5="" value="MacOS"></option>
-                      </datalist>
+                    <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="operatingSystems" id-prop="" required="false" aria-labelledby="jobSkillsOperatingSystems-0" aria-describedby="jobSkillsOperatingSystems-0-helper" type="tags" value="Windows,Linux">
+                      <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Windows <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Linux <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add operating systems (e.g., Windows, macOS, Linux)" id="jobSkillsOperatingSystems-0" list="jobSkillsOperatingSystems-0-datalist">
+                      <!--v-if-->
                     </div><label data-v-b9645e84="" for="jobSkillsOperatingSystems-0">Operating systems</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all operating systems you are familiar with.</small>
                     <!--v-if-->
                   </div>
                   <div data-v-b9645e84="" class="form-field">
-                    <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="jobSkillsDatabases-0" aria-describedby="jobSkillsDatabases-0-helper" type="skills">
-                      <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">MongoDB <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">PostgreSQL <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add databases (e.g., MySQL, PostgreSQL, MongoDB)" id="jobSkillsDatabases-0" list="jobSkillsDatabases-0-datalist">
+                    <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="databases" id-prop="" required="false" aria-labelledby="jobSkillsDatabases-0" aria-describedby="jobSkillsDatabases-0-helper" type="tags" value="MongoDB,PostgreSQL">
+                      <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">MongoDB <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">PostgreSQL <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add databases (e.g., MySQL, PostgreSQL, MongoDB)" id="jobSkillsDatabases-0" list="jobSkillsDatabases-0-datalist">
                       <!--v-if-->
                     </div><label data-v-b9645e84="" for="jobSkillsDatabases-0">Databases</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all databases you are familiar with.</small>
                     <!--v-if-->
                   </div>
                   <div data-v-b9645e84="" class="form-field">
-                    <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="jobSkillsTools-0" aria-describedby="jobSkillsTools-0-helper" type="skills">
-                      <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Git <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Docker <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add tools (e.g., Git, Docker, Jenkins)" id="jobSkillsTools-0" list="jobSkillsTools-0-datalist">
+                    <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="tools" id-prop="" required="false" aria-labelledby="jobSkillsTools-0" aria-describedby="jobSkillsTools-0-helper" type="tags" value="Git,Docker">
+                      <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Git <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Docker <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add tools (e.g., Git, Docker, Jenkins)" id="jobSkillsTools-0" list="jobSkillsTools-0-datalist">
                       <!--v-if-->
                     </div><label data-v-b9645e84="" for="jobSkillsTools-0">Tools and libraries</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all tools you are familiar with.</small>
                     <!--v-if-->
@@ -178,53 +175,50 @@ exports[`JobSection.vue > matches the snapshot 1`] = `
                   <legend>Technical Skills</legend>
                 </header>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsLanguages-0" aria-describedby="personalProjectSkillsLanguages-0-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">JavaScript <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">TypeScript <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add languages (e.g., JavaScript, Python)" id="personalProjectSkillsLanguages-0" list="personalProjectSkillsLanguages-0-datalist"><datalist data-v-cbf88cb5="" id="personalProjectSkillsLanguages-0-datalist">
-                      <option data-v-cbf88cb5="" value="HTML"></option>
-                      <option data-v-cbf88cb5="" value="CSS"></option>
-                    </datalist>
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="languages" id-prop="" required="false" aria-labelledby="personalProjectSkillsLanguages-0" aria-describedby="personalProjectSkillsLanguages-0-helper" type="tags" value="JavaScript,TypeScript">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">JavaScript <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">TypeScript <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add languages (e.g., JavaScript, Python)" id="personalProjectSkillsLanguages-0" list="personalProjectSkillsLanguages-0-datalist">
+                    <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsLanguages-0">Programming, scripting, and markup languages</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all languages you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsFrameworks-0" aria-describedby="personalProjectSkillsFrameworks-0-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Vue.js <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">React <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add frameworks (e.g., Angular, Symfony, Laravel)" id="personalProjectSkillsFrameworks-0" list="personalProjectSkillsFrameworks-0-datalist">
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="frameworks" id-prop="" required="false" aria-labelledby="personalProjectSkillsFrameworks-0" aria-describedby="personalProjectSkillsFrameworks-0-helper" type="tags" value="Vue.js,React">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Vue.js <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">React <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add frameworks (e.g., Angular, Symfony, Laravel)" id="personalProjectSkillsFrameworks-0" list="personalProjectSkillsFrameworks-0-datalist">
                     <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsFrameworks-0">(Web) frameworks</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all frameworks you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsPlatforms-0" aria-describedby="personalProjectSkillsPlatforms-0-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Node.js <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Docker <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add platforms (e.g., AWS, Azure, Docker)" id="personalProjectSkillsPlatforms-0" list="personalProjectSkillsPlatforms-0-datalist">
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="platforms" id-prop="" required="false" aria-labelledby="personalProjectSkillsPlatforms-0" aria-describedby="personalProjectSkillsPlatforms-0-helper" type="tags" value="Node.js,Docker">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Node.js <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Docker <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add platforms (e.g., AWS, Azure, Docker)" id="personalProjectSkillsPlatforms-0" list="personalProjectSkillsPlatforms-0-datalist">
                     <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsPlatforms-0">Platforms</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all platforms you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsMethodologies-0" aria-describedby="personalProjectSkillsMethodologies-0-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Agile <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Scrum <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add methodologies (e.g., Agile, Scrum, Kanban)" id="personalProjectSkillsMethodologies-0" list="personalProjectSkillsMethodologies-0-datalist">
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="methodologies" id-prop="" required="false" aria-labelledby="personalProjectSkillsMethodologies-0" aria-describedby="personalProjectSkillsMethodologies-0-helper" type="tags" value="Agile,Scrum">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Agile <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Scrum <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add methodologies (e.g., Agile, Scrum, Kanban)" id="personalProjectSkillsMethodologies-0" list="personalProjectSkillsMethodologies-0-datalist">
                     <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsMethodologies-0">Methodologies and techniques</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all methodologies you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsOperatingSystems-0" aria-describedby="personalProjectSkillsOperatingSystems-0-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Windows <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Linux <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add operating systems (e.g., Windows, macOS, Linux)" id="personalProjectSkillsOperatingSystems-0" list="personalProjectSkillsOperatingSystems-0-datalist"><datalist data-v-cbf88cb5="" id="personalProjectSkillsOperatingSystems-0-datalist">
-                      <option data-v-cbf88cb5="" value="MacOS"></option>
-                    </datalist>
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="operatingSystems" id-prop="" required="false" aria-labelledby="personalProjectSkillsOperatingSystems-0" aria-describedby="personalProjectSkillsOperatingSystems-0-helper" type="tags" value="Windows,Linux">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Windows <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Linux <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add operating systems (e.g., Windows, macOS, Linux)" id="personalProjectSkillsOperatingSystems-0" list="personalProjectSkillsOperatingSystems-0-datalist">
+                    <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsOperatingSystems-0">Operating systems</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all operating systems you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsDatabases-0" aria-describedby="personalProjectSkillsDatabases-0-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">MongoDB <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">PostgreSQL <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add databases (e.g., MySQL, PostgreSQL, MongoDB)" id="personalProjectSkillsDatabases-0" list="personalProjectSkillsDatabases-0-datalist">
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="databases" id-prop="" required="false" aria-labelledby="personalProjectSkillsDatabases-0" aria-describedby="personalProjectSkillsDatabases-0-helper" type="tags" value="MongoDB,PostgreSQL">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">MongoDB <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">PostgreSQL <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add databases (e.g., MySQL, PostgreSQL, MongoDB)" id="personalProjectSkillsDatabases-0" list="personalProjectSkillsDatabases-0-datalist">
                     <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsDatabases-0">Databases</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all databases you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsTools-0" aria-describedby="personalProjectSkillsTools-0-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Git <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Docker <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add tools (e.g., Git, Docker, Jenkins)" id="personalProjectSkillsTools-0" list="personalProjectSkillsTools-0-datalist">
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="tools" id-prop="" required="false" aria-labelledby="personalProjectSkillsTools-0" aria-describedby="personalProjectSkillsTools-0-helper" type="tags" value="Git,Docker">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Git <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Docker <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add tools (e.g., Git, Docker, Jenkins)" id="personalProjectSkillsTools-0" list="personalProjectSkillsTools-0-datalist">
                     <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsTools-0">Tools and libraries</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all tools you are familiar with.</small>
                   <!--v-if-->
@@ -263,53 +257,50 @@ exports[`JobSection.vue > matches the snapshot 1`] = `
                   <legend>Technical Skills</legend>
                 </header>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsLanguages-1" aria-describedby="personalProjectSkillsLanguages-1-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">JavaScript <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">TypeScript <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add languages (e.g., JavaScript, Python)" id="personalProjectSkillsLanguages-1" list="personalProjectSkillsLanguages-1-datalist"><datalist data-v-cbf88cb5="" id="personalProjectSkillsLanguages-1-datalist">
-                      <option data-v-cbf88cb5="" value="HTML"></option>
-                      <option data-v-cbf88cb5="" value="CSS"></option>
-                    </datalist>
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="languages" id-prop="" required="false" aria-labelledby="personalProjectSkillsLanguages-1" aria-describedby="personalProjectSkillsLanguages-1-helper" type="tags" value="JavaScript,TypeScript">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">JavaScript <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">TypeScript <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add languages (e.g., JavaScript, Python)" id="personalProjectSkillsLanguages-1" list="personalProjectSkillsLanguages-1-datalist">
+                    <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsLanguages-1">Programming, scripting, and markup languages</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all languages you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsFrameworks-1" aria-describedby="personalProjectSkillsFrameworks-1-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Vue.js <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">React <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add frameworks (e.g., Angular, Symfony, Laravel)" id="personalProjectSkillsFrameworks-1" list="personalProjectSkillsFrameworks-1-datalist">
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="frameworks" id-prop="" required="false" aria-labelledby="personalProjectSkillsFrameworks-1" aria-describedby="personalProjectSkillsFrameworks-1-helper" type="tags" value="Vue.js,React">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Vue.js <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">React <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add frameworks (e.g., Angular, Symfony, Laravel)" id="personalProjectSkillsFrameworks-1" list="personalProjectSkillsFrameworks-1-datalist">
                     <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsFrameworks-1">(Web) frameworks</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all frameworks you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsPlatforms-1" aria-describedby="personalProjectSkillsPlatforms-1-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Node.js <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Docker <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add platforms (e.g., AWS, Azure, Docker)" id="personalProjectSkillsPlatforms-1" list="personalProjectSkillsPlatforms-1-datalist">
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="platforms" id-prop="" required="false" aria-labelledby="personalProjectSkillsPlatforms-1" aria-describedby="personalProjectSkillsPlatforms-1-helper" type="tags" value="Node.js,Docker">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Node.js <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Docker <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add platforms (e.g., AWS, Azure, Docker)" id="personalProjectSkillsPlatforms-1" list="personalProjectSkillsPlatforms-1-datalist">
                     <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsPlatforms-1">Platforms</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all platforms you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsMethodologies-1" aria-describedby="personalProjectSkillsMethodologies-1-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Agile <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Scrum <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add methodologies (e.g., Agile, Scrum, Kanban)" id="personalProjectSkillsMethodologies-1" list="personalProjectSkillsMethodologies-1-datalist">
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="methodologies" id-prop="" required="false" aria-labelledby="personalProjectSkillsMethodologies-1" aria-describedby="personalProjectSkillsMethodologies-1-helper" type="tags" value="Agile,Scrum">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Agile <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Scrum <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add methodologies (e.g., Agile, Scrum, Kanban)" id="personalProjectSkillsMethodologies-1" list="personalProjectSkillsMethodologies-1-datalist">
                     <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsMethodologies-1">Methodologies and techniques</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all methodologies you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsOperatingSystems-1" aria-describedby="personalProjectSkillsOperatingSystems-1-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Windows <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Linux <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add operating systems (e.g., Windows, macOS, Linux)" id="personalProjectSkillsOperatingSystems-1" list="personalProjectSkillsOperatingSystems-1-datalist"><datalist data-v-cbf88cb5="" id="personalProjectSkillsOperatingSystems-1-datalist">
-                      <option data-v-cbf88cb5="" value="MacOS"></option>
-                    </datalist>
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="operatingSystems" id-prop="" required="false" aria-labelledby="personalProjectSkillsOperatingSystems-1" aria-describedby="personalProjectSkillsOperatingSystems-1-helper" type="tags" value="Windows,Linux">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Windows <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Linux <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add operating systems (e.g., Windows, macOS, Linux)" id="personalProjectSkillsOperatingSystems-1" list="personalProjectSkillsOperatingSystems-1-datalist">
+                    <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsOperatingSystems-1">Operating systems</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all operating systems you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsDatabases-1" aria-describedby="personalProjectSkillsDatabases-1-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">MongoDB <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">PostgreSQL <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add databases (e.g., MySQL, PostgreSQL, MongoDB)" id="personalProjectSkillsDatabases-1" list="personalProjectSkillsDatabases-1-datalist">
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="databases" id-prop="" required="false" aria-labelledby="personalProjectSkillsDatabases-1" aria-describedby="personalProjectSkillsDatabases-1-helper" type="tags" value="MongoDB,PostgreSQL">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">MongoDB <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">PostgreSQL <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add databases (e.g., MySQL, PostgreSQL, MongoDB)" id="personalProjectSkillsDatabases-1" list="personalProjectSkillsDatabases-1-datalist">
                     <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsDatabases-1">Databases</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all databases you are familiar with.</small>
                   <!--v-if-->
                 </div>
                 <div data-v-b9645e84="" class="form-field">
-                  <div data-v-cbf88cb5="" data-v-b9645e84="" class="tag-input form-field__input" required="false" aria-labelledby="personalProjectSkillsTools-1" aria-describedby="personalProjectSkillsTools-1-helper" type="skills">
-                    <div data-v-cbf88cb5="" class="tags"><span data-v-cbf88cb5="" class="tag">Git <button data-v-cbf88cb5="" class="remove">×</button></span><span data-v-cbf88cb5="" class="tag">Docker <button data-v-cbf88cb5="" class="remove">×</button></span></div><input data-v-cbf88cb5="" type="search" placeholder="Add tools (e.g., Git, Docker, Jenkins)" id="personalProjectSkillsTools-1" list="personalProjectSkillsTools-1-datalist">
+                  <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="tools" id-prop="" required="false" aria-labelledby="personalProjectSkillsTools-1" aria-describedby="personalProjectSkillsTools-1-helper" type="tags" value="Git,Docker">
+                    <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Git <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Docker <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Add tools (e.g., Git, Docker, Jenkins)" id="personalProjectSkillsTools-1" list="personalProjectSkillsTools-1-datalist">
                     <!--v-if-->
                   </div><label data-v-b9645e84="" for="personalProjectSkillsTools-1">Tools and libraries</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter all tools you are familiar with.</small>
                   <!--v-if-->

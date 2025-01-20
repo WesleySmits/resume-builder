@@ -41,7 +41,7 @@ function getSkillsData(): FormFields {
     return {
         programmingLanguages: {
             id: SkillFields.PROGRAMMING_LANGUAGES,
-            type: 'skills',
+            type: 'tags',
             label: getLocalizedString(`${SkillFields.PROGRAMMING_LANGUAGES}`),
             placeholder: getLocalizedString(`${SkillFields.PROGRAMMING_LANGUAGES}Placeholder`),
             helperText: getLocalizedString(`${SkillFields.PROGRAMMING_LANGUAGES}HelperText`),
@@ -51,7 +51,7 @@ function getSkillsData(): FormFields {
         },
         frameworks: {
             id: SkillFields.FRAMEWORKS,
-            type: 'skills',
+            type: 'tags',
             label: getLocalizedString(`${SkillFields.FRAMEWORKS}`),
             placeholder: getLocalizedString(`${SkillFields.FRAMEWORKS}Placeholder`),
             helperText: getLocalizedString(`${SkillFields.FRAMEWORKS}HelperText`),
@@ -61,7 +61,7 @@ function getSkillsData(): FormFields {
         },
         platforms: {
             id: SkillFields.PLATFORMS,
-            type: 'skills',
+            type: 'tags',
             label: getLocalizedString(`${SkillFields.PLATFORMS}`),
             placeholder: getLocalizedString(`${SkillFields.PLATFORMS}Placeholder`),
             helperText: getLocalizedString(`${SkillFields.PLATFORMS}HelperText`),
@@ -71,7 +71,7 @@ function getSkillsData(): FormFields {
         },
         methodologies: {
             id: SkillFields.METHODOLOGIES,
-            type: 'skills',
+            type: 'tags',
             label: getLocalizedString(`${SkillFields.METHODOLOGIES}`),
             placeholder: getLocalizedString(`${SkillFields.METHODOLOGIES}Placeholder`),
             helperText: getLocalizedString(`${SkillFields.METHODOLOGIES}HelperText`),
@@ -81,7 +81,7 @@ function getSkillsData(): FormFields {
         },
         operatingSystems: {
             id: SkillFields.OPERATING_SYSTEMS,
-            type: 'skills',
+            type: 'tags',
             label: getLocalizedString(`${SkillFields.OPERATING_SYSTEMS}`),
             placeholder: getLocalizedString(`${SkillFields.OPERATING_SYSTEMS}Placeholder`),
             helperText: getLocalizedString(`${SkillFields.OPERATING_SYSTEMS}HelperText`),
@@ -91,7 +91,7 @@ function getSkillsData(): FormFields {
         },
         databases: {
             id: SkillFields.DATABASES,
-            type: 'skills',
+            type: 'tags',
             label: getLocalizedString(`${SkillFields.DATABASES}`),
             placeholder: getLocalizedString(`${SkillFields.DATABASES}Placeholder`),
             helperText: getLocalizedString(`${SkillFields.DATABASES}HelperText`),
@@ -101,7 +101,7 @@ function getSkillsData(): FormFields {
         },
         tools: {
             id: SkillFields.TOOLS,
-            type: 'skills',
+            type: 'tags',
             label: getLocalizedString(`${SkillFields.TOOLS}`),
             placeholder: getLocalizedString(`${SkillFields.TOOLS}Placeholder`),
             helperText: getLocalizedString(`${SkillFields.TOOLS}HelperText`),

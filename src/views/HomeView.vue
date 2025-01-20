@@ -15,7 +15,7 @@
         </main>
 
         <aside>
-            <ResumePreview />
+            <ResumePreview v-if="isPreviewVisible" />
         </aside>
     </div>
 
@@ -23,12 +23,18 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, type Component, ref, type Ref } from 'vue';
+import { defineAsyncComponent, type Component, ref, type Ref, computed } from 'vue';
 import TabBar from '@/components/TabBar.vue';
 import TabContent from '@/components/TabContent.vue';
-import ResumePreview from '@/components/ResumePreview.vue';
 import ResumeForm from '@/components/ResumeForm.vue';
 import DarkModeToggle from '@/components/DarkModeToggle.vue';
+import { shouldGenerateIntroductionPage } from '@/utils/resume/resume';
+
+const ResumePreview = defineAsyncComponent(() => import('@/components/ResumePreview.vue'));
+
+const isPreviewVisible = computed(() => {
+    return shouldGenerateIntroductionPage();
+});
 
 const tabs = [
     { id: 'general', name: 'General Information' },

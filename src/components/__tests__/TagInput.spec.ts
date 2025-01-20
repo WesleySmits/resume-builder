@@ -1,36 +1,33 @@
 import './setupTests';
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
-import SkillsTagInput from '../SkillsTagInput.vue';
+import TagInput from '../TagInput.vue';
 import { createTestingPinia } from '@pinia/testing';
 import { setupDummyResume } from '@/utils/dummyResume';
+import { useResumeStore } from '@/stores/resume';
 
-interface SkillsTagInputInstance {
-    dataListItems: string[];
-}
+vi.mock('@/stores/resume');
 
-describe('SkillsTagInput.vue', () => {
+describe('TagInput.vue', () => {
     const resumeInitialState = setupDummyResume();
 
     it('renders correctly', () => {
-        const wrapper = mount(SkillsTagInput, {
+        const wrapper = mount(TagInput, {
             props: {
                 modelValue: [],
                 id: 'test-id',
-                idProp: 'test-id-prop',
                 value: '',
             },
         });
         expect(wrapper.find('.tag-input').exists()).toBe(true);
-        expect(wrapper.find('input').attributes('id')).toBe('test-id-prop');
+        expect(wrapper.find('input').attributes('id')).toBe('test-id');
     });
 
     it('adds a tag correctly', async () => {
-        const wrapper = mount(SkillsTagInput, {
+        const wrapper = mount(TagInput, {
             props: {
                 modelValue: [],
                 id: 'test-id',
-                idProp: 'test-id-prop',
                 value: '',
             },
         });
@@ -45,11 +42,10 @@ describe('SkillsTagInput.vue', () => {
     });
 
     it('removes a tag correctly', async () => {
-        const wrapper = mount(SkillsTagInput, {
+        const wrapper = mount(TagInput, {
             props: {
                 modelValue: ['existing tag'],
                 id: 'test-id',
-                idProp: 'test-id-prop',
                 value: '',
             },
         });
@@ -59,11 +55,10 @@ describe('SkillsTagInput.vue', () => {
     });
 
     it('emits input event correctly', async () => {
-        const wrapper = mount(SkillsTagInput, {
+        const wrapper = mount(TagInput, {
             props: {
                 modelValue: [],
                 id: 'test-id',
-                idProp: 'test-id-prop',
                 value: '',
             },
             global: {
@@ -79,18 +74,24 @@ describe('SkillsTagInput.vue', () => {
         });
         const input = wrapper.find('input');
         await input.setValue('new tag');
-        await input.trigger('input');
+        await input.trigger('keydown', {
+            key: 'T',
+        });
+        await input.trigger('keydown', {
+            key: 'Enter',
+        });
         expect(wrapper.emitted().input[0]).toEqual([['new tag']]);
     });
 
     it('emits input event correctly with a fieldType', async () => {
-        const wrapper = mount(SkillsTagInput, {
+        const store = useResumeStore();
+
+        const wrapper = mount(TagInput, {
             props: {
                 modelValue: [],
                 id: 'test-id',
-                idProp: 'test-id-prop',
                 value: '',
-                fieldType: 'languages',
+                dataList: store.skills.languages,
             },
             global: {
                 plugins: [
@@ -112,30 +113,5 @@ describe('SkillsTagInput.vue', () => {
         await input.setValue(existingLanguage);
         await input.trigger('input');
         expect(wrapper.emitted().input[0]).toEqual([[existingLanguage]]);
-    });
-
-    it('does not return dataListItems if the fieldtype has no associated skills', async () => {
-        const wrapper = mount(SkillsTagInput, {
-            props: {
-                modelValue: [],
-                id: 'test-id',
-                idProp: 'test-id-prop',
-                value: '',
-                fieldType: 'test',
-            },
-            global: {
-                plugins: [
-                    createTestingPinia({
-                        createSpy: vi.fn,
-                        initialState: {
-                            resume: resumeInitialState,
-                        },
-                    }),
-                ],
-            },
-        });
-
-        const instance = wrapper.vm as unknown as SkillsTagInputInstance;
-        expect(instance.dataListItems).toEqual([]);
     });
 });

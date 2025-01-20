@@ -512,4 +512,18 @@ describe('useResumeStore', () => {
         expect(store.languages[0].name).toBe('English');
         expect(store.languages[1].name).toBe('Spanish');
     });
+
+    it('should set the competencies array', () => {
+        const store = useResumeStore();
+        const competencies: string[] = ['Problem Solving', 'Teamwork', 'Analytical Thinking'];
+
+        store.setCompetencies([]);
+        expect(store.competencies.length).toBe(0);
+
+        store.setCompetencies(competencies);
+        expect(store.competencies.length).toBe(3);
+        expect(store.competencies[0]).toBe('Problem Solving');
+        expect(store.competencies[1]).toBe('Teamwork');
+        expect(store.competencies[2]).toBe('Analytical Thinking');
+    });
 });

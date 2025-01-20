@@ -218,7 +218,7 @@ function getSkillsData(skills: Skills, jobIndex: number) {
     return {
         languages: {
             id: `jobSkillsLanguages-${jobIndex}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'languages',
             label: getLocalizedString('programmingLanguages'),
             placeholder: getLocalizedString('programmingLanguagesPlaceholder'),
@@ -229,7 +229,7 @@ function getSkillsData(skills: Skills, jobIndex: number) {
         },
         frameworks: {
             id: `jobSkillsFrameworks-${jobIndex}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'frameworks',
             label: getLocalizedString('frameworks'),
             placeholder: getLocalizedString('frameworksPlaceholder'),
@@ -240,7 +240,7 @@ function getSkillsData(skills: Skills, jobIndex: number) {
         },
         platforms: {
             id: `jobSkillsPlatforms-${jobIndex}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'platforms',
             label: getLocalizedString('platforms'),
             placeholder: getLocalizedString('platformsPlaceholder'),
@@ -251,7 +251,7 @@ function getSkillsData(skills: Skills, jobIndex: number) {
         },
         methodologies: {
             id: `jobSkillsMethodologies-${jobIndex}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'methodologies',
             label: getLocalizedString('methodologies'),
             placeholder: getLocalizedString('methodologiesPlaceholder'),
@@ -262,7 +262,7 @@ function getSkillsData(skills: Skills, jobIndex: number) {
         },
         operatingSystems: {
             id: `jobSkillsOperatingSystems-${jobIndex}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'operatingSystems',
             label: getLocalizedString('operatingSystems'),
             placeholder: getLocalizedString('operatingSystemsPlaceholder'),
@@ -273,7 +273,7 @@ function getSkillsData(skills: Skills, jobIndex: number) {
         },
         databases: {
             id: `jobSkillsDatabases-${jobIndex}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'databases',
             label: getLocalizedString('databases'),
             placeholder: getLocalizedString('databasesPlaceholder'),
@@ -284,7 +284,7 @@ function getSkillsData(skills: Skills, jobIndex: number) {
         },
         tools: {
             id: `jobSkillsTools-${jobIndex}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'tools',
             label: getLocalizedString('tools'),
             placeholder: getLocalizedString('toolsPlaceholder'),

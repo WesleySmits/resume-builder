@@ -159,10 +159,12 @@ export default class IntroductionPage extends Page {
     }
 
     #drawAchievements(): void {
-        if (this.resumeStore.general.achievements) {
+        const achievements = this.resumeStore.general.achievements.filter((achievement) => achievement !== '');
+
+        if (achievements.length) {
             this.drawField({
                 title: getLocalizedString('achievements'),
-                bulletList: this.resumeStore.general.achievements,
+                bulletList: achievements,
                 needsSpacing: true,
             });
         }

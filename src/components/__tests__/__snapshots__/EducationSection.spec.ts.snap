@@ -51,7 +51,7 @@ exports[`EducationSection.vue > matches the snapshot 1`] = `
     </details>
   </fieldset>
   <fieldset data-v-7fdf210c="" class="dynamic-list" id="certifications">
-    <details data-v-7fdf210c="" name="skills-curtain" open="">
+    <details data-v-7fdf210c="" name="certifications-curtain" open="">
       <summary data-v-7fdf210c="">
         <header data-v-7fdf210c="">
           <legend data-v-7fdf210c="">Certifications</legend>

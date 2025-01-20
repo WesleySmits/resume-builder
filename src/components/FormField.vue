@@ -1,14 +1,14 @@
 <template>
     <div :class="{ 'form-field': true, 'form-field--error': formState.error }">
         <component
-            :is="inputType === 'skills' ? SkillsTagInput : inputType === 'yesno' ? YesNoToggle : inputType"
+            :is="inputType === 'tags' ? TagInput : inputType === 'yesno' ? YesNoToggle : inputType"
             :fieldType="props.fieldType ?? ''"
-            :id="inputType === 'skills' ? '' : id"
-            :id-prop="inputType === 'skills' || inputType === 'yesno' ? id : ''"
+            :id="id"
+            :id-prop="inputType === 'yesno' ? id : ''"
             class="form-field__input"
             :placeholder="placeholder"
             :required="required"
-            :value="inputType === 'skills' ? (formState.value as string[]).join(',') : formState.value"
+            :value="inputType === 'tags' ? (formState.value as string[]).join(',') : formState.value"
             :aria-labelledby="props.id"
             :aria-describedby="ariaDescribedBy"
             :modelValue="formState.value"
@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import { debounce } from '@/utils/debounce';
 import { reactive, computed, ref } from 'vue';
-import SkillsTagInput from './SkillsTagInput.vue';
+import TagInput from './TagInput.vue';
 import YesNoToggle from './YesNoToggle.vue';
 
 const props = defineProps<{
@@ -89,7 +89,7 @@ const formState = reactive({
 const inputType = computed(() => {
     if (props.type === 'textarea') return 'textarea';
     if (props.type === 'select') return 'select';
-    if (props.type === 'skills') return 'skills';
+    if (props.type === 'tags') return 'tags';
     if (props.type === 'yesno') return 'yesno';
     return 'input';
 });
@@ -124,9 +124,10 @@ function handleInput(event: Event) {
     if (props.type === 'file' && target instanceof HTMLInputElement && target.files) {
         formState.value = target.files[0];
         emit('valid', target.files[0]);
-    } else if (props.type === 'skills') {
+    } else if (props.type === 'tags') {
         const value = event as unknown as string[];
         formState.value = value;
+
         emit('update:modelValue', value);
         debouncedValidate();
     } else if (props.type === 'yesno') {
