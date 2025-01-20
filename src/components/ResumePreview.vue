@@ -44,10 +44,6 @@ async function renderPDF() {
 
         pdf = result;
 
-        if (!pdf) {
-            throw new Error('No PDF document to render');
-        }
-
         pageCount.value = pdf.numPages;
 
         renderPage(pageNum.value);

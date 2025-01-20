@@ -515,25 +515,15 @@ describe('useResumeStore', () => {
 
     it('should set the competencies array', () => {
         const store = useResumeStore();
-        const competencies: Competency[] = [
-            {
-                name: 'Problem Solving',
-            },
-            {
-                name: 'Teamwork',
-            },
-            {
-                name: 'Analytical Thinking',
-            },
-        ];
+        const competencies: string[] = ['Problem Solving', 'Teamwork', 'Analytical Thinking'];
 
         store.setCompetencies([]);
         expect(store.competencies.length).toBe(0);
 
         store.setCompetencies(competencies);
         expect(store.competencies.length).toBe(3);
-        expect(store.competencies[0].name).toBe('Problem Solving');
-        expect(store.competencies[1].name).toBe('Teamwork');
-        expect(store.competencies[2].name).toBe('Analytical Thinking');
+        expect(store.competencies[0]).toBe('Problem Solving');
+        expect(store.competencies[1]).toBe('Teamwork');
+        expect(store.competencies[2]).toBe('Analytical Thinking');
     });
 });

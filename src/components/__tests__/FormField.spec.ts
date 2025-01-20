@@ -8,8 +8,16 @@ describe('FormField.vue', () => {
         input: DOMWrapper<HTMLInputElement>,
         value: string | string[] | number,
         valid: boolean,
+        isTagInput = false,
     ) {
         await input.setValue(value);
+
+        if (isTagInput) {
+            input.trigger('keydown', {
+                key: 'Enter',
+            });
+        }
+
         vi.advanceTimersByTime(750);
         await wrapper.vm.$nextTick();
 
@@ -180,14 +188,14 @@ describe('FormField.vue', () => {
         expect(select.exists()).toBe(true);
     });
 
-    it('correctly renders a skills input', async () => {
+    it('correctly renders a tags input', async () => {
         vi.useFakeTimers();
 
         const wrapper = mount(FormField, {
             props: {
                 id: 'formField',
                 label: 'Form Field',
-                type: 'skills',
+                type: 'tags',
                 required: false,
                 helperText: 'Some helper text',
                 errorText: 'Some error text',
@@ -200,14 +208,14 @@ describe('FormField.vue', () => {
         expect(input.exists()).toBe(true);
     });
 
-    it('correctly validates a skills input', async () => {
+    it('correctly validates a tags input', async () => {
         vi.useFakeTimers();
 
         const wrapper = mount(FormField, {
             props: {
                 id: 'formField',
                 label: 'Form Field',
-                type: 'skills',
+                type: 'tags',
                 required: false,
                 helperText: 'Some helper text',
                 errorText: 'Some error text',
@@ -217,7 +225,7 @@ describe('FormField.vue', () => {
 
         const input = wrapper.find('input');
 
-        const test = await checkComponentError(wrapper, input, ['HTML', 'CSS'], true);
+        const test = await checkComponentError(wrapper, input, ['HTML', 'CSS'], true, true);
         expect(test).toBe(true);
     });
 
@@ -264,6 +272,7 @@ describe('FormField.vue', () => {
 
         input.element.checked = true;
         input.trigger('input');
+
         vi.advanceTimersByTime(750);
         await wrapper.vm.$nextTick();
 

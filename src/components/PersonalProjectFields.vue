@@ -135,7 +135,7 @@ function getSkillsData(skills: Skills, index: number) {
     return {
         languages: {
             id: `personalProjectSkillsLanguages-${index}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'languages',
             label: getLocalizedString('programmingLanguages'),
             placeholder: getLocalizedString('programmingLanguagesPlaceholder'),
@@ -146,7 +146,7 @@ function getSkillsData(skills: Skills, index: number) {
         },
         frameworks: {
             id: `personalProjectSkillsFrameworks-${index}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'frameworks',
             label: getLocalizedString('frameworks'),
             placeholder: getLocalizedString('frameworksPlaceholder'),
@@ -157,7 +157,7 @@ function getSkillsData(skills: Skills, index: number) {
         },
         platforms: {
             id: `personalProjectSkillsPlatforms-${index}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'platforms',
             label: getLocalizedString('platforms'),
             placeholder: getLocalizedString('platformsPlaceholder'),
@@ -168,7 +168,7 @@ function getSkillsData(skills: Skills, index: number) {
         },
         methodologies: {
             id: `personalProjectSkillsMethodologies-${index}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'methodologies',
             label: getLocalizedString('methodologies'),
             placeholder: getLocalizedString('methodologiesPlaceholder'),
@@ -179,7 +179,7 @@ function getSkillsData(skills: Skills, index: number) {
         },
         operatingSystems: {
             id: `personalProjectSkillsOperatingSystems-${index}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'operatingSystems',
             label: getLocalizedString('operatingSystems'),
             placeholder: getLocalizedString('operatingSystemsPlaceholder'),
@@ -190,7 +190,7 @@ function getSkillsData(skills: Skills, index: number) {
         },
         databases: {
             id: `personalProjectSkillsDatabases-${index}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'databases',
             label: getLocalizedString('databases'),
             placeholder: getLocalizedString('databasesPlaceholder'),
@@ -201,7 +201,7 @@ function getSkillsData(skills: Skills, index: number) {
         },
         tools: {
             id: `personalProjectSkillsTools-${index}`,
-            type: 'skills',
+            type: 'tags',
             fieldType: 'tools',
             label: getLocalizedString('tools'),
             placeholder: getLocalizedString('toolsPlaceholder'),

@@ -184,5 +184,11 @@
     "experienceFluentNative": "Native or near native (C1/C2)",
     "experienceAdvanced": "Advanced (B2)",
     "experienceIntermediate": "Intermediate (B1)",
-    "experienceBeginner": "Beginner (A1/A2)"
+    "experienceBeginner": "Beginner (A1/A2)",
+    "competencies": "Competencies",
+    "competency": "Competency",
+    "newCompetency": "New Competency",
+    "removeCompetency": "Remove Competency",
+    "competencyPlaceholder": "Analytical Thinking",
+    "competencyHelperText": "Enter your competencies here."
 }

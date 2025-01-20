@@ -43,5 +43,23 @@ exports[`AdditionalSection.vue > matches the snapshot 1`] = `
       </ul>
     </details>
   </fieldset>
+  <fieldset id="competencies">
+    <details name="competency-curtain" open="">
+      <summary>
+        <header>
+          <legend>Competencies</legend>
+        </header>
+      </summary>
+      <div class="form">
+        <div data-v-b9645e84="" class="form-field">
+          <div data-v-d3f9ba31="" data-v-b9645e84="" class="tag-input form-field__input" fieldtype="" id-prop="" required="true" aria-labelledby="competency" aria-describedby="competency-helper" type="tags" value="Problem Solving,Teamwork,,Analytical Thinking">
+            <div data-v-d3f9ba31="" class="tags"><span data-v-d3f9ba31="" class="tag">Problem Solving <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Teamwork <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag"> <button data-v-d3f9ba31="" class="remove">×</button></span><span data-v-d3f9ba31="" class="tag">Analytical Thinking <button data-v-d3f9ba31="" class="remove">×</button></span></div><input data-v-d3f9ba31="" type="search" placeholder="Analytical Thinking" id="competency" list="competency-datalist">
+            <!--v-if-->
+          </div><label data-v-b9645e84="" for="competency">Competency</label><small data-v-b9645e84="" id="\`\${id}-helper\`" class="help-text">Enter your competencies here.</small>
+          <!--v-if-->
+        </div>
+      </div>
+    </details>
+  </fieldset>
 </div>"
 `;

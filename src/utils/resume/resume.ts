@@ -45,7 +45,7 @@ export function shouldGenerateIntroductionPage(): boolean {
     return true;
 }
 
-function shouldGenerateSkillsPage(): boolean {
+export function shouldGenerateSkillsPage(): boolean {
     const store = useResumeStore();
 
     const skillCategories = [
@@ -65,7 +65,7 @@ function shouldGenerateSkillsPage(): boolean {
     return true;
 }
 
-function shouldGenerateEducationPage(): boolean {
+export function shouldGenerateEducationPage(): boolean {
     const store = useResumeStore();
 
     const educationSections = [store.education, store.certifications];
@@ -77,7 +77,7 @@ function shouldGenerateEducationPage(): boolean {
     return true;
 }
 
-function shouldGenerateJobPage(): boolean {
+export function shouldGenerateJobPage(): boolean {
     const store = useResumeStore();
 
     const jobSections = [store.jobs, store.personalProjects];
@@ -89,7 +89,7 @@ function shouldGenerateJobPage(): boolean {
     return true;
 }
 
-function shouldGenerateAdditionalPage(): boolean {
+export function shouldGenerateAdditionalPage(): boolean {
     const store = useResumeStore();
 
     const additionalSections = [store.languages, store.competencies];

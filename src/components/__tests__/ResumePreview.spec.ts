@@ -4,13 +4,14 @@ import ResumePreview from '@/components/ResumePreview.vue';
 import { createTestingPinia } from '@pinia/testing';
 import { useResumeStore } from '@/stores/resume';
 import { generateResume } from '@/utils/resume/resume';
-import * as pdfjsLib from 'pdfjs-dist/build/pdf.min.mjs';
+import * as pdfjsLib from 'pdfjs-dist';
+
 import './setupTests';
 import { type Ref } from 'vue';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
 import { getDummyResume } from '@/utils/dummyResume';
 
-vi.mock('pdfjs-dist/build/pdf.min.mjs', () => ({
+vi.mock('pdfjs-dist', () => ({
     GlobalWorkerOptions: { workerSrc: '' },
     getDocument: vi.fn().mockReturnValue({
         promise: Promise.resolve({
