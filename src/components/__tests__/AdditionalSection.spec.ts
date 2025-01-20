@@ -4,6 +4,8 @@ import AdditionalSection from '../ResumeFormSections/AdditionalSection.vue';
 import { createTestingPinia } from '@pinia/testing';
 import { getDummyResume } from '@/utils/dummyResume';
 import LanguageFields from '../LanguageFields.vue';
+import CompetenciesFields from '../CompetenciesFields.vue';
+import InterestsFields from '../InterestsFields.vue';
 
 describe('AdditionalSection.vue', () => {
     const resumeInitialState = getDummyResume();
@@ -31,6 +33,8 @@ describe('AdditionalSection.vue', () => {
     it('renders the correct components', () => {
         const wrapper = getMountedComponent();
         expect(wrapper.findComponent(LanguageFields).exists()).toBe(true);
+        expect(wrapper.findComponent(CompetenciesFields).exists()).toBe(true);
+        expect(wrapper.findComponent(InterestsFields).exists()).toBe(true);
     });
 
     it('matches the snapshot', () => {

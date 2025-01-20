@@ -3,17 +3,17 @@ import { mount, VueWrapper } from '@vue/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 import { createTestingPinia } from '@pinia/testing';
 import FormField from '@/components/FormField.vue';
-import CompetenciesFields from '@/components/CompetenciesFields.vue';
+import InterestsFields from '@/components/InterestsFields.vue';
 import { nextTick } from 'vue';
 import { useResumeStore } from '@/stores/resume';
 
 vi.mock('@/stores/resume');
 
-describe('CompetenciesFields.vue', () => {
+describe('InterestsFields.vue', () => {
     const resumeInitialState = getDummyResume();
 
     function getMountedComponent(): VueWrapper {
-        return mount(CompetenciesFields, {
+        return mount(InterestsFields, {
             global: {
                 plugins: [
                     createTestingPinia({
@@ -27,14 +27,14 @@ describe('CompetenciesFields.vue', () => {
         });
     }
 
-    it('renders competencies fields correctly including pre-filled data', () => {
+    it('renders interests fields correctly including pre-filled data', () => {
         const wrapper = getMountedComponent();
 
-        const legend = wrapper.find<HTMLLegendElement>('fieldset#competencies legend');
-        expect(legend.text()).toBe('Competencies');
+        const legend = wrapper.find<HTMLLegendElement>('fieldset#interests legend');
+        expect(legend.text()).toBe('Interests');
 
-        const allFields = wrapper.findAll<HTMLElement>('fieldset#competencies .form-field');
-        const fieldsToTest: string[] = ['competency'];
+        const allFields = wrapper.findAll<HTMLElement>('fieldset#interests .form-field');
+        const fieldsToTest: string[] = ['interests'];
 
         const fields = wrapper
             .findAllComponents(FormField)
@@ -44,16 +44,15 @@ describe('CompetenciesFields.vue', () => {
         expect(fields.length).toBe(1);
     });
 
-    it('succesfully updates the competencies in the store when data is filled', async () => {
+    it('succesfully updates the interests in the store when data is filled', async () => {
         vi.useFakeTimers();
         const store = useResumeStore();
-        const currentCompetencies = store.competencies;
-
+        const currentInterests = store.interests;
         const wrapper = getMountedComponent();
-        const field = wrapper.find<HTMLInputElement>('fieldset#competencies input');
+        const field = wrapper.find<HTMLInputElement>('fieldset#interests input');
 
-        const newCompetency = 'Critical thinking';
-        await field.setValue(newCompetency);
+        const newTag = 'Breakfast';
+        await field.setValue(newTag);
 
         await field.trigger('keydown', {
             key: 'Enter',
@@ -62,7 +61,7 @@ describe('CompetenciesFields.vue', () => {
         vi.advanceTimersByTime(750);
         nextTick();
 
-        const newCompetencies = [...currentCompetencies, newCompetency];
-        expect(store.setCompetencies).toHaveBeenCalledWith(newCompetencies);
+        const newInterests = [...currentInterests, newTag];
+        expect(store.setInterests).toHaveBeenCalledWith(newInterests);
     });
 });

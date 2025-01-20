@@ -187,8 +187,10 @@
     "experienceBeginner": "Beginner (A1/A2)",
     "competencies": "Competencies",
     "competency": "Competency",
-    "newCompetency": "New Competency",
     "removeCompetency": "Remove Competency",
     "competencyPlaceholder": "Analytical Thinking",
-    "competencyHelperText": "Enter your competencies here."
+    "competencyHelperText": "Enter your competencies here.",
+    "interests": "Interests",
+    "interestsPlaceholder": "Programming, Smart Home, Accessibility, Reading, Star Wars, etc.",
+    "interestsHelperText": "Enter your interests here."
 }

@@ -113,12 +113,62 @@ describe('AdditionalPage', () => {
         const page = pdfDoc.addPage();
 
         expect(page.drawText).not.toHaveBeenCalledWith('Competencies', expect.any(Object));
+
+        expect(page.drawText).toHaveBeenCalledWith('• Programming', expect.any(Object));
+        expect(page.drawText).toHaveBeenCalledWith('• Star Wars', expect.any(Object));
+        expect(page.drawText).toHaveBeenCalledWith('• Game of Thrones', expect.any(Object));
     });
 
-    it('should not draw anything if there are no competencies or languages', async () => {
+    it('should draw the interests in several columns if they are filled in', async () => {
+        const additionalPage = AdditionalPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await additionalPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawText).toHaveBeenCalledWith('Interests', expect.any(Object));
+    });
+
+    it('should draw the interests in a single columns if they are filled in', async () => {
+        const resumeStore = useResumeStore();
+        resumeStore.interests = ['Golf'];
+
+        const additionalPage = AdditionalPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await additionalPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawText).toHaveBeenCalledWith('Interests', expect.any(Object));
+    });
+
+    it('should not draw anything if there are no interests', async () => {
+        const resumeStore = useResumeStore();
+        resumeStore.interests = [];
+        resumeStore.languages = [
+            {
+                name: 'English',
+                experience: 'Beginner',
+            },
+        ];
+
+        const additionalPage = AdditionalPage.getInstance();
+        const pdfDoc = await getPdfDocumentWithMocks();
+
+        await additionalPage.initialize(pdfDoc);
+
+        const page = pdfDoc.addPage();
+
+        expect(page.drawText).not.toHaveBeenCalledWith('Interests', expect.any(Object));
+    });
+
+    it('should not draw anything if there is not data for the page at all', async () => {
         const resumeStore = useResumeStore();
         resumeStore.competencies = [];
         resumeStore.languages = [];
+        resumeStore.interests = [];
 
         const additionalPage = AdditionalPage.getInstance();
         const pdfDoc = await getPdfDocumentWithMocks();
@@ -129,5 +179,6 @@ describe('AdditionalPage', () => {
 
         expect(page.drawText).not.toHaveBeenCalledWith('Languages', expect.any(Object));
         expect(page.drawText).not.toHaveBeenCalledWith('Competencies', expect.any(Object));
+        expect(page.drawText).not.toHaveBeenCalledWith('Interests', expect.any(Object));
     });
 });
