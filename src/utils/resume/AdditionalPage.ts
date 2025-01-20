@@ -26,7 +26,11 @@ export default class AdditionalPage extends Page {
     }
 
     public drawFullWidth(): void {
-        if (this.resumeStore.languages.length === 0 && this.resumeStore.competencies.length === 0) {
+        if (
+            this.resumeStore.languages.length === 0 &&
+            this.resumeStore.competencies.length === 0 &&
+            this.resumeStore.interests.length === 0
+        ) {
             return;
         }
 
@@ -97,13 +101,6 @@ export default class AdditionalPage extends Page {
             const itemsToTake = Math.min(MIN_ITEMS_PER_COLUMN, items.length - currentIndex);
             columns[i] = items.slice(currentIndex, currentIndex + itemsToTake);
             currentIndex += itemsToTake;
-        }
-
-        let colIndex = 0;
-        while (currentIndex < items.length) {
-            columns[colIndex].push(items[currentIndex]);
-            currentIndex++;
-            colIndex = (colIndex + 1) % numColumns;
         }
 
         let maxHeight = 0;
