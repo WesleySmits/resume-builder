@@ -121,6 +121,7 @@ export function getDummyResume(): ResumeData {
             },
         ],
         competencies: ['Problem Solving', 'Teamwork', '', 'Analytical Thinking'],
+        interests: ['Programming', 'Star Wars', 'Game of Thrones'],
     };
 }
 

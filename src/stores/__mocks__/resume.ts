@@ -27,6 +27,7 @@ const mockStore = {
     setPersonalProjects: vi.fn(),
     setLanguages: vi.fn(),
     setCompetencies: vi.fn(),
+    setInterests: vi.fn(),
 };
 
 export const useResumeStore = () => mockStore;

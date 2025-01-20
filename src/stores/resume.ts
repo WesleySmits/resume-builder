@@ -42,6 +42,7 @@ const defaultResumeState: ResumeData = {
     personalProjects: [],
     languages: [],
     competencies: [],
+    interests: [],
 };
 
 export const useResumeStore = defineStore('resume', {
@@ -82,6 +83,7 @@ export const useResumeStore = defineStore('resume', {
         personalProjects: ref<PersonalProject[]>(parsedResumeData?.personalProjects ?? []),
         languages: ref<Language[]>(parsedResumeData?.languages ?? []),
         competencies: ref<string[]>(parsedResumeData?.competencies ?? []),
+        interests: ref<string[]>(parsedResumeData?.competencies ?? []),
     }),
     getters: {
         formattedName: (state) => {
@@ -218,6 +220,9 @@ export const useResumeStore = defineStore('resume', {
         },
         setCompetencies(newCompetencies: string[]): void {
             this.competencies = newCompetencies;
+        },
+        setInterests(newInterests: string[]): void {
+            this.interests = newInterests;
         },
     },
 });

@@ -174,4 +174,5 @@ interface ResumeData {
     personalProjects: PersonalProject[];
     languages: Language[];
     competencies: string[];
+    interests: string[];
 }
