@@ -183,6 +183,6 @@ describe('should render pages when they have the correct data', () => {
 
         store.languages = originalLanguages;
         store.competencies = originalCompetencies;
-        expect(shouldGenerateJobPage()).toBeTruthy();
+        expect(shouldGenerateAdditionalPage()).toBeTruthy();
     });
 });
