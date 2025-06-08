@@ -1,9 +1,18 @@
 <template>
-    <div class="tab-bar">
-        <button v-for="tab in tabs" :key="tab.id" :class="{ active: activeTab === tab.id }" @click="selectTab(tab.id)">
+    <nav class="tab-bar" role="tablist">
+        <button
+            v-for="tab in tabs"
+            :key="tab.id"
+            class="tab-bar__button"
+            :class="{ 'tab-bar__button--active': activeTab === tab.id }"
+            role="tab"
+            :aria-selected="activeTab === tab.id"
+            :aria-controls="`tab-panel-${tab.id}`"
+            @click="selectTab(tab.id)"
+        >
             {{ tab.name }}
         </button>
-    </div>
+    </nav>
 </template>
 
 <script setup lang="ts">
@@ -36,7 +45,7 @@ const selectTab = (tabId: string) => {
     overflow-x: auto;
 }
 
-button {
+.tab-bar__button {
     background: none;
     border: none;
     padding: 0.5rem 1rem;
@@ -48,7 +57,7 @@ button {
         border-bottom var(--transition-duration);
 }
 
-button.active {
+.tab-bar__button--active {
     color: var(--color-highlight);
     border-bottom: 2px solid var(--color-highlight);
 }

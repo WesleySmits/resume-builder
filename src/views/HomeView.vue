@@ -1,11 +1,11 @@
 <template>
-    <header>
+    <header class="layout__header">
         <TabBar :tabs="tabs" v-model:activeTab="activeTab" :initial-tab="activeTab" />
         <DarkModeToggle />
     </header>
 
-    <div class="resume-container">
-        <main>
+    <div class="layout">
+        <main class="layout__main">
             <ResumeForm>
                 <TabContent :activeTab="activeTab">
                     <template #default="{ activeTab }">
@@ -14,7 +14,7 @@
             ></ResumeForm>
         </main>
 
-        <aside>
+        <aside class="layout__aside">
             <ResumePreview v-if="isPreviewVisible" />
         </aside>
     </div>
@@ -63,7 +63,7 @@ function getTabComponent(tabId: TabKeys): Component | null {
 </script>
 
 <style lang="postcss" scoped>
-.resume-container {
+.layout {
     display: flex;
     flex-flow: column nowrap;
     margin: auto;
@@ -78,17 +78,16 @@ function getTabComponent(tabId: TabKeys): Component | null {
         justify-content: space-between;
         gap: 0;
 
-        main {
+        .layout__main {
             flex: 0 0 50%;
         }
 
-        aside {
+        .layout__aside {
             flex: 0 0 40%;
         }
     }
 }
-
-header {
+.layout__header {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;

@@ -1,5 +1,5 @@
 <template>
-    <div class="tab-content">
+    <div class="tab-content" role="tabpanel" :id="`tab-panel-${activeTab}`">
         <slot v-if="activeTab" :activeTab="activeTab"></slot>
     </div>
 </template>
