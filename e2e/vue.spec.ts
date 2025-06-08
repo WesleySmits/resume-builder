@@ -3,11 +3,12 @@ import { getDummyResume } from '../src/utils/dummyResume'
 
 // See here how to get started:
 // https://playwright.dev/docs/intro
+const RESUME_DATA_KEY = 'resumeData';
+
 test('shows resume preview and general form fields', async ({ page }) => {
     await page.addInitScript((resume) => {
-        localStorage.setItem('resumeData', resume)
+        localStorage.setItem(RESUME_DATA_KEY, resume)
     }, JSON.stringify(getDummyResume()))
-
     await page.goto('/')
 
     // Resume preview should render when resume data is available
