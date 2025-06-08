@@ -2,7 +2,7 @@
     <div class="resume-preview">
         <h2>{{ headerText }}</h2>
         <div id="pdf-container" ref="pdfContainer"></div>
-        <div class="navigation-controls">
+        <div class="resume-preview__navigation">
             <button @click="prevPage" :disabled="pageNum <= 1">Previous</button>
             <span>Page {{ pageNum }} of {{ pageCount }}</span>
             <button @click="nextPage" :disabled="pageNum >= pageCount">Next</button>
@@ -119,7 +119,7 @@ async function handleRenderPDF(): Promise<void> {
         height: auto;
     }
 }
-.navigation-controls {
+.resume-preview__navigation {
     display: flex;
     align-items: center;
     gap: 1rem;

@@ -29,7 +29,7 @@ describe('TabBar.vue', () => {
         const wrapper = mount(TabBar, {
             props: { tabs, initialTab: 'tab2' },
         });
-        const activeButton = wrapper.find('button.active');
+        const activeButton = wrapper.find('button.tab-bar__button--active');
         expect(activeButton.exists()).toBe(true);
         expect(activeButton.text()).toBe('Tab 2');
     });
@@ -42,7 +42,7 @@ describe('TabBar.vue', () => {
         await buttons[1].trigger('click');
         expect(wrapper.emitted('update:activeTab')).toBeTruthy();
         expect(wrapper.emitted('update:activeTab')![0]).toEqual(['tab2']);
-        const activeButton = wrapper.find('button.active');
+        const activeButton = wrapper.find('button.tab-bar__button--active');
         expect(activeButton.exists()).toBe(true);
         expect(activeButton.text()).toBe('Tab 2');
     });
