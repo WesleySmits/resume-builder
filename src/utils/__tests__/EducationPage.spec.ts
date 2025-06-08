@@ -64,7 +64,7 @@ describe('EducationPage', () => {
             },
             {
                 institution: 'University of the Internet',
-                degree: 'Bachelor of Lazyness',
+                degree: 'Bachelor of Laziness',
                 startDate: '2001-01-01',
                 endDate: '2023-01-01',
                 description: 'This was a very tough 5-minute education.',
@@ -81,7 +81,7 @@ describe('EducationPage', () => {
         expect(page.drawLine).toHaveBeenCalledTimes(2);
         expect(page.drawText).toHaveBeenCalledWith('University of the Internet', expect.any(Object));
         expect(page.drawText).toHaveBeenCalledWith('Bachelor of Awesomeness', expect.any(Object));
-        expect(page.drawText).toHaveBeenCalledWith('Bachelor of Lazyness', expect.any(Object));
+        expect(page.drawText).toHaveBeenCalledWith('Bachelor of Laziness', expect.any(Object));
 
         expect(page.drawText).toHaveBeenCalledWith('Jan 2000 - Jan 2024', expect.any(Object));
         expect(page.drawText).toHaveBeenCalledWith('Jan 2001 - Jan 2023', expect.any(Object));
@@ -101,7 +101,7 @@ describe('EducationPage', () => {
             },
             {
                 provider: 'University of the Internet',
-                title: 'Certificate of Lazyness',
+                title: 'Certificate of Laziness',
                 completed: false,
                 year: 2023,
             },
