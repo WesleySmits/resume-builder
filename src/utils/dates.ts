@@ -19,7 +19,8 @@ export function formatDateToLocale(passedDate: Date | string, locale?: string): 
 /**
  * Converts a string in "YYYY-MM-DD" format to a Date object.
  * @param dateString - The date string in "YYYY-MM-DD" format.
- * @returns A Date object or null if the input is invalid.
+ * @returns A Date object.
+ * @throws Error if the date string is invalid.
  */
 export function parseDateFromString(dateString: string): Date {
     const [year, month, day] = dateString.split('-').map(Number);
